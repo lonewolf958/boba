@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-title="Boba, Milkshakes, Slushies & Fizzy Drinks">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Boba Bear — Boba, Milkshakes, Slushies & Fizzy Drinks</title>
+<meta name="description" content="Boba, milkshakes, slushies and fizzy drinks. View our menu or order online via WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section class="hero"><div class="wrap hero-grid">
+  <div class="hero-text">
+    <span class="logo logo-lg" aria-hidden="true">🐻</span><!-- replace with <img src="assets/logo.jpeg" alt="Logo"> when you have the logo -->
+    <h1 data-bind="name"></h1>
+    <p class="tagline" data-bind="tagline"></p>
+    <ul class="info-list">
+      <li>📍 <span data-bind="address"></span></li>
+      <li>🕒 <span data-bind="hours"></span></li>
+      <li>📞 <span data-bind="phone"></span></li>
+      <li>🛵 <span data-bind="deliveryNote"></span></li>
+    </ul>
+    <h2 class="welcome">Welcome!</h2>
+    <p>Sip something fun. Browse our boba, milkshakes, slushies and fizzy drinks, or build your own drink and order online — whichever suits you best today.</p>
+    <div class="cta"><a class="btn btn-primary" href="#choose">See your options ↓</a></div>
+  </div>
+  <div class="hero-art" aria-hidden="true"><div class="cup c1">🧋</div><div class="cup c2">🥤</div><div class="cup c3">🍓</div>
+    <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span></div>
+</div></section>
+
+<main>
+<section id="choose" class="section wrap">
+  <h2>How would you like to continue?</h2>
+  <div class="choices">
+    <a class="choice" href="index1.html"><span class="ic">📖</span><h3>Table Menu</h3><p>View our menu and explore our drinks.</p><span class="btn btn-primary btn-sm">View Table Menu</span></a>
+    <a class="choice" href="index2.html"><span class="ic">🛒</span><h3>Order Online</h3><p>Pick your drinks, add boba and toppings, and order via WhatsApp.</p><span class="btn btn-accent btn-sm">Order Online</span></a>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2>A Taste You'll Love</h2>
+  <!-- Replace each .ph tile with <img src="assets/yourphoto.jpg" alt="..."> when you have real photos -->
+  <div class="gallery">
+    <figure><div class="ph" style="--tint:#efe6fb">🧋</div><figcaption>Boba</figcaption></figure>
+    <figure><div class="ph" style="--tint:#f3e6d0">🥛</div><figcaption>Milkshakes</figcaption></figure>
+    <figure><div class="ph" style="--tint:#d8ecf8">🧊</div><figcaption>Slushies</figcaption></figure>
+    <figure><div class="ph" style="--tint:#d9f2ea">🫧</div><figcaption>Fizzy Drinks</figcaption></figure>
+  </div>
+</section>
+
+<section class="section wrap about">
+  <h2>About <span data-bind="name"></span></h2>
+  <p>We serve boba, milkshakes, slushies, fizzy drinks, fruit teas, chocolate drinks and milk teas. Explore the menu, discover your favourite drink and make it your own with popping or chewy boba and toppings. <em>(Edit this text in index.html to add your own story.)</em></p>
+</section>
+</main>
+
+<footer class="site-footer"><div class="wrap foot-grid">
+  <div><h3 data-bind="name"></h3><p data-bind="tagline"></p><p data-bind="deliveryNote"></p></div>
+  <div><h3>Visit &amp; Order</h3><p>📍 <span data-bind="address"></span></p><p>📞 <span data-bind="phone"></span></p><p>🕒 <span data-bind="hours"></span></p></div>
+  <div><h3>Follow Us</h3><p id="socials"></p><p><a href="index1.html">Table Menu</a> · <a href="index2.html">Order Online</a></p></div>
+</div><p class="copy">© <span id="year"></span> <span data-bind="name"></span>. All rights reserved.</p></footer>
+<script src="script.js"></script>
+</body></html>
