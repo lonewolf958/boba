@@ -1,104 +1,799 @@
-:root{--green:#1f6b3a;--green-d:#134a28;--cream:#fbf6ea;--card:#fff;--ink:#1d2a22;--muted:#66736b;--accent:#e8567a;--accent-d:#c93f63;--taro:#b79ae0;--line:#e8e0cc;--r:18px;--shadow:0 6px 20px rgba(20,60,35,.10)}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden}
-h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0 0 .4em}
-h2{font-size:clamp(1.6rem,4vw,2.2rem);color:var(--green-d)}
-img{max-width:100%}
-.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
-.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:99}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.section{padding:48px 0 12px}.sub{color:var(--muted);margin:0 0 20px}
-/* header */
-.site-header{position:sticky;top:0;z-index:20;background:rgba(251,246,234,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:12px;height:64px;position:relative}
-.brand{display:flex;align-items:center;gap:8px;font:700 1.25rem Georgia,serif;color:var(--green-d);text-decoration:none;margin-right:auto}
-.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--green);font-size:1.2rem}
-.nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--cream);flex-direction:column;padding:8px 16px 16px;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
-.nav.open{display:flex}.nav a{padding:12px 4px;color:var(--ink);text-decoration:none;font-weight:600}
-.actions{display:flex;align-items:center;gap:8px}
-.icon-btn{position:relative;border:0;background:#fff;width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer;box-shadow:var(--shadow)}
-.badge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--accent);color:#fff;font:700 .75rem/20px system-ui;text-align:center}
-/* buttons */
-.btn{display:inline-block;border:0;border-radius:999px;padding:12px 24px;font:700 1rem system-ui;cursor:pointer;text-decoration:none;text-align:center;transition:transform .15s,background .15s}
-.btn:hover:not(:disabled){transform:translateY(-1px)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green-d)}
-.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover:not(:disabled){background:var(--accent-d)}
-.btn-sm{padding:9px 16px;font-size:.9rem}.btn-block{width:100%}
-/* menu */
-.cat-nav-holder{position:sticky;top:64px;z-index:10;background:var(--cream);padding:8px 0;margin-bottom:8px}
-.cat-nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
-.cat-nav a{flex:none;padding:8px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:.9rem}
-.cat-nav a.active{background:var(--green);color:#fff;border-color:var(--green)}
-.cat{padding-top:20px}.cat h3{font-size:1.6rem;color:var(--green-d)}
-.note{background:#fff7d6;border:1px dashed #d9b84a;border-radius:12px;padding:8px 12px;font-size:.85rem;margin:0 0 12px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
-.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.9rem}
-.info-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
-.info-card h4{margin:0 0 4px;font:700 1.05rem system-ui}
-/* price / tags */
-.desc{color:var(--muted);font-size:.88rem;margin:0;flex:1}
-.price-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
-.price{font-weight:800;color:var(--green-d)}.price.tbc{color:var(--muted);font-weight:600;font-size:.85rem}
-.tag{font-size:.72rem;color:var(--taro);font-weight:700}
-/* about / footer */
-.about{max-width:760px;padding-bottom:40px}
-.site-footer{background:var(--green-d);color:#e9f3ea;padding:36px 0 16px;margin-top:40px}
-.foot-grid{display:grid;gap:24px}.site-footer h3{color:#fff;font-size:1.15rem}.site-footer a{color:#ffd1de}.site-footer p{margin:4px 0}
-.copy{text-align:center;font-size:.85rem;margin:24px 0 0;opacity:.8}
-/* ===== Home / menu pages (added) ===== */
-body{font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3,.brand{font-family:Fraunces,Georgia,serif}
-.brand{min-width:0}.brand span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.actions{flex:none}
-.page-title{font-size:clamp(2rem,6vw,2.8rem);color:var(--green-d);margin-bottom:4px}
-.logo-lg{width:84px;height:84px;font-size:2.6rem;margin-bottom:14px;border:4px solid #fff;box-shadow:var(--shadow)}
-.info-list{list-style:none;padding:0;margin:14px 0 6px;display:grid;gap:4px;font-weight:600}
-.welcome{margin-top:20px;font-size:1.5rem}
-.choices{display:grid;gap:16px}
-.choice{display:block;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:22px;text-decoration:none;color:var(--ink);border:2px solid transparent;transition:transform .15s,border-color .15s}
-.choice:hover{transform:translateY(-3px);border-color:var(--accent)}
-.choice .ic{font-size:2.2rem}.choice h3{margin:6px 0 4px}.choice p{color:var(--muted);margin:0 0 14px}
-.gallery{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
-.ph{aspect-ratio:1;display:grid;place-items:center;font-size:3.6rem;border-radius:var(--r);box-shadow:var(--shadow);background:var(--tint)}
-figure{margin:0}figcaption{text-align:center;font-weight:700;font-style:italic;margin-top:8px}
-.menu-list{list-style:none;padding:0;margin:0;background:#fff;border-radius:var(--r);box-shadow:var(--shadow)}
-.menu-row{display:flex;justify-content:space-between;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
-.menu-row:last-child{border:0}.menu-row b{display:block}.menu-row small{display:block;color:var(--muted);font-size:.85rem}
-.menu-row .price{white-space:nowrap}
-.site-footer .copy{margin-top:0}
-@media(min-width:760px){.choices{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:repeat(4,1fr)}}
+/* =========================================================================
+   BOBA BEAR — MENU STYLESHEET
 
-/* ===== Colour theme: deep teal + coral ===== */
-:root{--green:#0f766e;--green-d:#0b4f4a;--cream:#f2f8f7;--ink:#10282a;--muted:#587370;--accent:#f26b3a;--accent-d:#d9541f;--taro:#6d5fd0;--line:#d6e5e2;--shadow:0 6px 20px rgba(11,79,74,.12)}
-body{background:var(--cream)}
-.site-header{background:var(--green-d);border-bottom:0}
-.site-header .brand{color:#fff}
-.site-header .logo{background:#fff}
-.site-header .btn-primary{background:#fff;color:var(--green-d)}
-.hero{background:linear-gradient(155deg,#0b4f4a 0%,#0f766e 55%,#1b9c8c 100%);color:#e6f6f3}
-.hero h1,.hero h2{color:#fff}.hero .tagline{color:#ffd2bf}
-.hero .logo-lg{background:#fff;border-color:rgba(255,255,255,.5)}
-.hero .btn-primary{background:#fff;color:var(--green-d)}.hero .btn-primary:hover{background:#e6f6f3}
-.hero .cup{background:rgba(255,255,255,.95)}.hero .c2{background:#d7f0ec}.hero .c3{background:#ffe0d3}
-.bubble{background:#ffb899}
-.section>h2{position:relative;padding-bottom:8px}
-.section>h2::after{content:"";display:block;width:48px;height:4px;border-radius:2px;background:var(--accent);margin-top:8px}
-.choice{border-top:5px solid var(--green)}.choice:nth-child(2){border-top-color:var(--accent)}
-.about{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:28px 24px;margin-top:40px;border-left:5px solid var(--accent)}
-.cat-nav a{background:#fff;border-color:var(--line);color:var(--green-d)}
-.cat-nav a.active{background:var(--green);border-color:var(--green);color:#fff}
-.cat h3{border-left:5px solid var(--accent);padding-left:12px}
-.menu-list{border-top:4px solid var(--green)}
-.menu-row{align-items:center}
-.menu-row .row-end{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
-.menu-row .tag{color:var(--taro);font-weight:700;font-size:.75rem;margin-top:2px}
-.price{color:var(--green)}
-.info-card{border-left:5px solid var(--green)}
-.chip{background:#e6f4f1;border-color:#c5e2dd;color:var(--green-d)}
-.opt:has(input:checked){border-color:var(--accent);background:#fff1ea}
-.opt .p{color:var(--green)}
-.modal-head,.modal-foot{background:#fff}.modal-head{border-top:5px solid var(--green)}
-.total strong,.cart-totals .grand{color:var(--green-d)}
-.site-footer{background:#0a3a3a;color:#d7ebe8}.site-footer a{color:#ffc4ac}
+   Theme: Deep Teal + Coral
+   Fonts: Manrope + Fraunces
+   Layout: Mobile-first and responsive
+   ========================================================================= */
+
+
+/* =========================================================================
+   1. DESIGN SETTINGS
+   Change these variables to update the website's colours and style.
+   ========================================================================= */
+
+:root {
+  /* Main colours */
+  --green: #0f766e;
+  --green-d: #0b4f4a;
+  --cream: #f2f8f7;
+  --card: #ffffff;
+  --ink: #10282a;
+  --muted: #587370;
+
+  /* Accent colours */
+  --accent: #f26b3a;
+  --accent-d: #d9541f;
+  --taro: #6d5fd0;
+
+  /* Borders and effects */
+  --line: #d6e5e2;
+  --r: 18px;
+  --shadow: 0 6px 20px rgba(11, 79, 74, 0.12);
+
+  /* Header height */
+  --nav-height: 64px;
+}
+
+
+/* =========================================================================
+   2. RESET AND BASE STYLES
+   ========================================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  line-height: 1.15;
+  margin: 0 0 0.4em;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--green-d);
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================================
+   3. GENERAL LAYOUT
+   ========================================================================= */
+
+.wrap {
+  width: min(1120px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.section {
+  padding: 48px 0 12px;
+}
+
+.sub {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.page-title {
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  color: var(--green-d);
+  margin-bottom: 4px;
+}
+
+/* Skip link for keyboard accessibility */
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: 8px;
+  top: 8px;
+  background: #fff;
+  padding: 8px;
+  z-index: 99;
+}
+
+
+/* =========================================================================
+   4. HEADER AND NAVIGATION
+   ========================================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--green-d);
+  border-bottom: 0;
+  backdrop-filter: blur(8px);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--nav-height);
+  position: relative;
+}
+
+/* Logo and restaurant name */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-right: auto;
+
+  font: 700 1.25rem Fraunces, Georgia, serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 1.2rem;
+}
+
+.logo-lg {
+  width: 84px;
+  height: 84px;
+  font-size: 2.6rem;
+  margin-bottom: 14px;
+  border: 4px solid #fff;
+  box-shadow: var(--shadow);
+}
+
+/* Mobile navigation menu */
+
+.nav {
+  display: none;
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+
+  flex-direction: column;
+  padding: 8px 16px 16px;
+
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.nav.open {
+  display: flex;
+}
+
+.nav a {
+  padding: 12px 4px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Header action buttons */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.icon-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+
+  background: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+/* Notification or cart count */
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+
+  background: var(--accent);
+  color: #fff;
+  font: 700 0.75rem/20px system-ui, sans-serif;
+  text-align: center;
+}
+
+
+/* =========================================================================
+   5. BUTTONS
+   ========================================================================= */
+
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 24px;
+
+  font: 700 1rem system-ui, sans-serif;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Main button */
+
+.btn-primary {
+  background: #fff;
+  color: var(--green-d);
+}
+
+.btn-primary:hover {
+  background: #e6f6f3;
+}
+
+/* Accent button */
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: var(--accent-d);
+}
+
+/* Button sizes */
+
+.btn-sm {
+  padding: 9px 16px;
+  font-size: 0.9rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+
+/* =========================================================================
+   6. MENU CATEGORY NAVIGATION
+   The horizontal scrolling category links.
+   ========================================================================= */
+
+.cat-nav-holder {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 10;
+
+  padding: 8px 0;
+  margin-bottom: 8px;
+  background: var(--cream);
+}
+
+.cat-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+/* Category links */
+
+.cat-nav a {
+  flex: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--green-d);
+
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Currently selected category */
+
+.cat-nav a.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+
+/* =========================================================================
+   7. MENU CATEGORIES AND NOTES
+   ========================================================================= */
+
+.cat {
+  padding-top: 20px;
+}
+
+.cat h3 {
+  padding-left: 12px;
+  border-left: 5px solid var(--accent);
+
+  color: var(--green-d);
+  font-size: 1.6rem;
+}
+
+/* Special notes, such as menu notices */
+
+.note {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+
+  background: #fff7d6;
+  border: 1px dashed #d9b84a;
+  border-radius: 12px;
+
+  font-size: 0.85rem;
+}
+
+
+/* =========================================================================
+   8. CHIPS AND TAGS
+   ========================================================================= */
+
+/* Groups of chips */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+/* Individual chips */
+
+.chip {
+  padding: 6px 14px;
+  border: 1px solid #c5e2dd;
+  border-radius: 999px;
+
+  background: #e6f4f1;
+  color: var(--green-d);
+  font-size: 0.9rem;
+}
+
+/* Small item labels */
+
+.tag {
+  color: var(--taro);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================================
+   9. INFORMATION CARDS
+   ========================================================================= */
+
+.info-card {
+  padding: 16px;
+  margin-bottom: 14px;
+
+  background: #fff;
+  border-left: 5px solid var(--green);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+.info-card h4 {
+  margin: 0 0 4px;
+  font: 700 1.05rem system-ui, sans-serif;
+}
+
+
+/* =========================================================================
+   10. MENU ITEMS AND PRICES
+   ========================================================================= */
+
+/* Menu list container */
+
+.menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  background: #fff;
+  border-top: 4px solid var(--green);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+/* Individual menu row */
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-row:last-child {
+  border-bottom: 0;
+}
+
+/* Item name */
+
+.menu-row b {
+  display: block;
+}
+
+/* Item description */
+
+.desc {
+  flex: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.menu-row small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Price and description alignment */
+
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Price */
+
+.price {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.price.tbc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Price and tag area at the end of a menu row */
+
+.menu-row .price {
+  white-space: nowrap;
+}
+
+.menu-row .row-end {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.menu-row .tag {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================================
+   11. HOME PAGE — CHOICES AND LINKS
+   ========================================================================= */
+
+.info-list {
+  display: grid;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 6px;
+  font-weight: 600;
+}
+
+.welcome {
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+
+.choices {
+  display: grid;
+  gap: 16px;
+}
+
+/* Home page choice cards */
+
+.choice {
+  display: block;
+  padding: 22px;
+
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+
+  border: 2px solid transparent;
+  border-top: 5px solid var(--green);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.choice:nth-child(2) {
+  border-top-color: var(--accent);
+}
+
+.choice:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.choice .ic {
+  font-size: 2.2rem;
+}
+
+.choice h3 {
+  margin: 6px 0 4px;
+}
+
+.choice p {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+
+/* =========================================================================
+   12. GALLERY
+   ========================================================================= */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+figure {
+  margin: 0;
+}
+
+.ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+
+  background: var(--tint, #e6f4f1);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+
+  font-size: 3.6rem;
+}
+
+figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+/* =========================================================================
+   13. ORDER CUSTOMISATION AND MODALS
+   These styles support item options and order customisation.
+   ========================================================================= */
+
+/* Selected option */
+
+.opt:has(input:checked) {
+  border-color: var(--accent);
+  background: #fff1ea;
+}
+
+.opt .p {
+  color: var(--green);
+}
+
+/* Modal header and footer */
+
+.modal-head,
+.modal-foot {
+  background: #fff;
+}
+
+.modal-head {
+  border-top: 5px solid var(--green);
+}
+
+/* Order totals */
+
+.total strong,
+.cart-totals .grand {
+  color: var(--green-d);
+}
+
+
+/* =========================================================================
+   14. ABOUT SECTION
+   ========================================================================= */
+
+.about {
+  max-width: 760px;
+  padding: 28px 24px 40px;
+  margin-top: 40px;
+
+  background: #fff;
+  border-left: 5px solid var(--accent);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================================================================
+   15. FOOTER
+   ========================================================================= */
+
+.site-footer {
+  padding: 36px 0 16px;
+  margin-top: 40px;
+
+  background: #0a3a3a;
+  color: #d7ebe8;
+}
+
+.foot-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.site-footer h3 {
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.site-footer a {
+  color: #ffc4ac;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+.copy {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.site-footer .copy {
+  margin-top: 0;
+}
+
+
+/* =========================================================================
+   16. TABLET AND DESKTOP LAYOUT
+   These rules apply to screens 760px and wider.
+   ========================================================================= */
+
+@media (min-width: 760px) {
+
+  /* Desktop navigation */
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: none;
+  }
+
+  .nav a {
+    color: #fff;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* Home page cards */
+
+  .choices {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Gallery */
+
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Footer columns */
+
+  .foot-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* =========================================================================
+   17. ACCESSIBILITY — REDUCED MOTION
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
