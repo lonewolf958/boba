@@ -4,7 +4,7 @@ const CONFIG = {
   restaurant: {
     name: "Boba Bear",                       // PLACEHOLDER name (menu shows a bear logo only) – replace
     tagline: "Pop it. Sip it. Love it.",     // PLACEHOLDER tagline
-    whatsapp: "255000000000",                // Digits only, with country code, no "+" (e.g. 255712345678)
+    whatsapp: "2550000000",                // Digits only, with country code, no "+" (e.g. 255712345678)
     address: "[Add restaurant address]",
     phone: "[Add telephone number]",
     hours: "[Add opening hours]",
