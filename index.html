@@ -1,278 +1,251 @@
 <!DOCTYPE html>
-<html lang="en" data-title="Boba, Milkshakes, Slushies & Fizzy Drinks">
-
+<html lang="en">
 <head>
-  <!-- Basic Page Settings -->
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boba Bay | Ride the Wave of Flavor</title>
+  <meta name="description" content="Welcome to Boba Bay. View our table menu or order your favourite meals online.">
 
-  <title>Boba Bear — Boba, Milkshakes, Slushies & Fizzy Drinks</title>
-
-  <meta
-    name="description"
-    content="Boba, milkshakes, slushies and fizzy drinks. View our menu or order online via WhatsApp."
-  >
-
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Playfair Display for headings, Poppins for body text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- ========================================
-       HERO SECTION
-  ========================================= -->
-  <section class="hero">
-    <div class="wrap hero-grid">
+  <!-- =========================================================
+     HEADER
+     ========================================================= -->
 
-      <!-- Hero Text and Restaurant Information -->
-      <div class="hero-text">
+<header class="site-header">
 
-        <span class="logo logo-lg" aria-hidden="true">🐻</span>
+  <div class="header-inner">
 
-        <!-- Replace the bear emoji with your logo when available:
-        <img src="assets/logo.jpeg" alt="Boba Bear Logo">
-        -->
+    <!-- Restaurant Logo -->
+    <div class="brand-logo">
+      <img
+        src="logo.jpeg"
+        alt="Boba Bay logo"
+      />
+    </div>
 
-        <h1 data-bind="name"></h1>
+    <!-- Restaurant Brand -->
+    <div class="brand-copy">
 
-        <p class="tagline" data-bind="tagline"></p>
+      <p class="brand-eyebrow"></p>
 
-        <ul class="info-list">
-          <li>
-            📍 <span data-bind="address"></span>
-          </li>
+      <h1 class="brand-name">
+        Boba Bay
+      </h1>
 
-          <li>
-            🕒 <span data-bind="hours"></span>
-          </li>
+      <p class="brand-tagline">
+        Ride the Wave of Flavor
+      </p>
 
-          <li>
-            📞 <span data-bind="phone"></span>
-          </li>
+    </div>
 
-          <li>
-            🛵 <span data-bind="deliveryNote"></span>
-          </li>
-        </ul>
+    <!-- Header Information -->
+    <div class="header-strip">
 
-        <!-- Welcome Message -->
-        <h2 class="welcome">Welcome!</h2>
+      <div class="header-strip-item">
+        <span class="header-icon">📍</span>
+        <span>Boba Bay, Baines Avenue, Dar es Salaam </span>
+      </div>
 
-        <p>
-          Sip something fun. Browse our boba, milkshakes, slushies and
-          fizzy drinks, or build your own drink and order online —
-          whichever suits you best today.
-        </p>
+		<div class="header-strip-item">
+        <span class="header-icon">🕛</span>
+        <span>
+		      Tue – Thu: 2:00 PM – 9:00 PM
+			  <br>
+              Fri – Sun: 2:00 PM – 12:00 AM
+			  <br>
+              Mon: Closed
+		</span>
+      </div>
+		
+      <div class="header-strip-item">
+        <span class="header-icon">📞</span>
+        <a href="tel:0623737790">0623 737 790</a>
+      </div>
 
-        <!-- Hero Call to Action -->
-        <div class="cta">
-          <a class="btn btn-primary" href="#choose">
-            See your options ↓
+    </div>
+
+  </div>
+
+</header>
+
+<main>
+    <!-- ============ HERO / WELCOME SECTION ============ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-kicker">Boba Bay</p>
+          <h1 id="hero-heading">Welcome!</h1>
+          <p class="hero-tagline">Ride the Wave of Flavors.</p>
+          <p class="hero-copy">Sip delicious boba, milkshakes, slushies and fizzy drinks or build your own drink and order online - whichever suits you best today.</p>
+          <a href="#choose" class="hero-scroll-cta">
+            <span>See your options</span>
+            <span class="hero-scroll-arrow" aria-hidden="true">↓</span>
           </a>
         </div>
 
+        <div class="hero-media">
+          <!-- Hero image: replace images/hero.jpg with the real photo when available -->
+          <div class="hero-image-frame">
+            <img
+              src="hero.png"
+              alt="A various types of drinks from Boba Bay"
+              class="hero-image"
+              onerror="this.closest('.hero-image-frame').classList.add('image-fallback')"
+            >
+            <div class="fallback-label" aria-hidden="true">
+              <span>Add hero.jpg</span>
+              <small>images/hero.jpg — 1000×1200px recommended</small>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <!-- Decorative Hero Artwork -->
-      <div class="hero-art" aria-hidden="true">
+    <!-- ============ TWO MAIN OPTIONS ============ -->
+    <section class="choose" id="choose" aria-labelledby="choose-heading">
+      <h2 id="choose-heading" class="section-heading">How would you like to continue?</h2>
 
-        <div class="cup c1">🧋</div>
-        <div class="cup c2">🥤</div>
-        <div class="cup c3">🍓</div>
+      <div class="choice-grid">
 
-        <span class="bubble b1"></span>
-        <span class="bubble b2"></span>
-        <span class="bubble b3"></span>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ========================================
-       MAIN CONTENT
-  ========================================= -->
-  <main>
-
-    <!-- Menu and Ordering Options -->
-    <section id="choose" class="section wrap">
-
-      <h2>How would you like to continue?</h2>
-
-      <div class="choices">
-
-        <!-- Table Menu -->
-        <a class="choice" href="index1.html">
-
-          <span class="ic">📖</span>
-
+        <!-- Card 1: Table Menu -->
+        <a href="index1.html" class="choice-card choice-card--menu">
+          <span class="choice-icon" aria-hidden="true">📖</span>
           <h3>Table Menu</h3>
-
-          <p>
-            View our menu and explore our drinks.
-          </p>
-
-          <span class="btn btn-primary btn-sm">
-            View Table Menu
-          </span>
-
+          <p>View our menu and explore our drinks.</p>
+          <span class="choice-button">View Table Menu</span>
         </a>
 
-        <!-- Online Ordering -->
-        <a class="choice" href="index2.html">
-
-          <span class="ic">🛒</span>
-
+        <!-- Card 2: Order Online -->
+        <a href="index2.html" class="choice-card choice-card--order">
+          <span class="choice-icon" aria-hidden="true">🛒</span>
           <h3>Order Online</h3>
-
-          <p>
-            Pick your drinks, add boba and toppings, and order via WhatsApp.
-          </p>
-
-          <span class="btn btn-accent btn-sm">
-            Order Online
-          </span>
-
+          <p>Pick your drinks, add your favourite bobas and toppings and order via whatsapp.</p>
+          <span class="choice-button">Order Online</span>
         </a>
 
       </div>
     </section>
 
+    <!-- ============ FEATURED FOOD SECTION ============ -->
+    <section class="featured" aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="section-heading">Where Every Sip Pops</h2>
 
-    <!-- Drinks Gallery -->
-    <section class="section wrap">
-
-      <h2>A Taste You'll Love</h2>
-
-      <!-- Replace the placeholder tiles with real drink photos when available. -->
-
-      <div class="gallery">
-
-        <figure>
-          <div class="ph" style="--tint: #efe6fb;">🧋</div>
-          <figcaption>Boba</figcaption>
-        </figure>
-
-        <figure>
-          <div class="ph" style="--tint: #f3e6d0;">🥛</div>
+      <div class="featured-track">
+        <figure class="food-card">
+          <div class="food-image-frame">
+            <img src="Milkshake.jpeg" alt="Milkshake" loading="lazy" onerror="this.closest('.food-image-frame').classList.add('image-fallback')">
+            <div class="fallback-label" aria-hidden="true"><span>Milkshake.jpg</span></div>
+          </div>
           <figcaption>Milkshakes</figcaption>
         </figure>
 
-        <figure>
-          <div class="ph" style="--tint: #d8ecf8;">🧊</div>
+        <figure class="food-card">
+          <div class="food-image-frame">
+            <img src="Slushies.jpeg" alt="Slushies" loading="lazy" onerror="this.closest('.food-image-frame').classList.add('image-fallback')">
+            <div class="fallback-label" aria-hidden="true"><span>Slushies.jpg</span></div>
+          </div>
           <figcaption>Slushies</figcaption>
         </figure>
 
-        <figure>
-          <div class="ph" style="--tint: #d9f2ea;">🫧</div>
-          <figcaption>Fizzy Drinks</figcaption>
+        <figure class="food-card">
+          <div class="food-image-frame">
+            <img src="Boba.jpeg" alt="Boba" loading="lazy" onerror="this.closest('.food-image-frame').classList.add('image-fallback')">
+            <div class="fallback-label" aria-hidden="true"><span>Boba.jpg</span></div>
+          </div>
+          <figcaption>Boba</figcaption>
         </figure>
 
+        <figure class="food-card">
+          <div class="food-image-frame">
+            <img src="Fizzy Drinks.jpeg" alt="Fizzy Drinks" loading="lazy" onerror="this.closest('.food-image-frame').classList.add('image-fallback')">
+            <div class="fallback-label" aria-hidden="true"><span>Fizzzy Drinks.jpg</span></div>
+          </div>
+          <figcaption>Fizzy Drinks</figcaption>
+        </figure>
+		
       </div>
     </section>
 
-
-    <!-- About Section -->
-    <section class="section wrap about">
-
-      <h2>
-        About <span data-bind="name"></span>
-      </h2>
-
-      <p>
-        We serve boba, milkshakes, slushies, fizzy drinks, fruit teas,
-        chocolate drinks and milk teas. Explore the menu, discover your
-        favourite drink and make it your own with popping or chewy boba
-        and toppings.
-
-        <em>
-          (Edit this text in index.html to add your own story.)
-        </em>
-      </p>
-
+	  <!-- ============ ABOUT SECTION ============ -->
+    <section class="about" aria-labelledby="about-heading">
+		<h2 id="about-heading" class="section-heading section-heading--left">About Boba Bay.</h2>
+      <div class="about-inner">
+        <div class="about-image-frame">
+          <img src="Boba Bay.jpeg" alt="Boba Bay" loading="lazy" onerror="this.closest('.about-image-frame').classList.add('image-fallback')">
+          <div class="fallback-label" aria-hidden="true"><span>Boba Bay.jpg</span></div>
+        </div>
+        <div class="about-text">
+          <h2 id="about-heading" class="section-heading section-heading--left"></h2>
+          <p>
+			Welcome to Boba Bay - where every sip brings a little happiness.
+			<br>
+			We serve delicious boba drinks, creamy milkshakes, and refreshing flavors made to brighten your day.
+			<br>
+			From chewy bubbles to smooth, indulgent shkakes, there's something for every craving.
+			<br>
+			Come sip, chill, and enjoy the Boba Bay experience.
+		  </p>
+        </div
+      </div>
     </section>
+	
 
-  </main>
-
-
-  <!-- ========================================
-       FOOTER
-  ========================================= -->
+  <!-- ============ FOOTER ============ -->
+  
   <footer class="site-footer">
 
-    <div class="wrap foot-grid">
 
-      <!-- Restaurant Details -->
-      <div>
-        <h3 data-bind="name"></h3>
+<div class="footer-inner">
 
-        <p data-bind="tagline"></p>
+  <!-- Footer Brand -->
+  <div class="footer-brand">
 
-        <p data-bind="deliveryNote"></p>
-      </div>
-
-      <!-- Contact Information -->
-      <div>
-
-        <h3>Visit &amp; Order</h3>
-
-        <p>
-          📍 <span data-bind="address"></span>
-        </p>
-
-        <p>
-          📞 <span data-bind="phone"></span>
-        </p>
-
-        <p>
-          🕒 <span data-bind="hours"></span>
-        </p>
-
-      </div>
-
-      <!-- Social Media and Navigation -->
-      <div>
-
-        <h3>Follow Us</h3>
-
-        <p id="socials"></p>
-
-        <p>
-          <a href="index1.html">Table Menu</a>
-          ·
-          <a href="index2.html">Order Online</a>
-        </p>
-
-      </div>
-
-    </div>
-
-    <!-- Copyright -->
-    <p class="copy">
-      © <span id="year"></span>
-      <span data-bind="name"></span>.
-      All rights reserved.
+    <p class="footer-name">
+      Boba bay
     </p>
 
-  </footer>
+    <p class="footer-tagline">
+      Ride the Wave of Flavor.
+    </p>
+
+  </div>
+
+  <!-- Restaurant Details -->
+  <div class="footer-details">
+
+    <p class="footer-heading">
+      Visit &amp; Order
+    </p>
+
+    <p>
+     Boba Bay, Baines Avenue, Dar es Salaam.
+    </p>
+
+    <p>
+       <a href="tel:0623737790">0623 737 790</a>
+    </p>
+
+  </div>
+
+</div>
+
+<!-- Copyright -->
+<p class="footer-copyright">
+  © <span id="year"></span>
+Boba Bay. All rights reserved.
+</p>
 
 
-  <!-- JavaScript -->
   <script src="script.js"></script>
-
 </body>
 </html>
+
+    
