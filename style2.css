@@ -1,9 +1,13 @@
 /* =========================================================================
-   BOBA BEAR — ORDER ONLINE STYLESHEET
+   BOBA BAY — ORDER ONLINE STYLESHEET
 
    Theme: Deep Teal + Coral
    Fonts: Manrope + Fraunces
    Layout: Mobile-first and responsive
+
+   IMPORTANT:
+   This stylesheet only controls appearance and layout.
+   Ordering functionality is handled by script2.js.
    ========================================================================= */
 
 
@@ -13,31 +17,50 @@
    ========================================================================= */
 
 :root {
-  /* Main colours */
+
+  /* ---------- Main colours ---------- */
+
   --green: #0f766e;
   --green-d: #0b4f4a;
+
   --cream: #f2f8f7;
   --card: #ffffff;
+
   --ink: #10282a;
   --muted: #587370;
 
-  /* Accent colours */
+
+  /* ---------- Accent colours ---------- */
+
   --accent: #f26b3a;
   --accent-d: #d9541f;
+
   --taro: #6d5fd0;
 
-  /* Borders and effects */
-  --line: #d6e5e2;
-  --r: 18px;
-  --shadow: 0 6px 20px rgba(11, 79, 74, 0.12);
 
-  /* Header layout */
-  --nav-height: 64px;
+  /* ---------- Borders and effects ---------- */
+
+  --line: #d6e5e2;
+
+  --r: 18px;
+
+  --shadow:
+    0 6px 20px rgba(11, 79, 74, 0.12);
+
+
+  /* ---------- Header ---------- */
+
+  --nav-height: 76px;
+
+
+  /* ---------- Layout ---------- */
+
+  --content-width: 1120px;
 }
 
 
 /* =========================================================================
-   2. RESET AND BASE STYLES
+   2. RESET AND BASE
    ========================================================================= */
 
 * {
@@ -46,27 +69,47 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+  scroll-padding-top: 150px;
 }
 
 body {
   margin: 0;
-  font: 16px/1.5 Manrope, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  font:
+    16px/1.5
+    Manrope,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
   color: var(--ink);
   background: var(--cream);
+
   overflow-x: hidden;
 }
 
 h1,
 h2,
-h3 {
-  font-family: Fraunces, Georgia, "Times New Roman", serif;
+h3,
+h4 {
+  font-family:
+    Fraunces,
+    Georgia,
+    "Times New Roman",
+    serif;
+
   line-height: 1.15;
+}
+
+h1,
+h2,
+h3 {
   margin: 0 0 0.4em;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
   color: var(--green-d);
 }
 
@@ -74,18 +117,28 @@ img {
   max-width: 100%;
 }
 
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* Hide elements when instructed by HTML or JavaScript */
-
 [hidden] {
   display: none !important;
 }
-
-/* Prevent background scrolling when a panel is open */
 
 .no-scroll {
   overflow: hidden;
@@ -97,188 +150,244 @@ img {
    ========================================================================= */
 
 .wrap {
-  width: min(1120px, calc(100% - 32px));
+  width: min(
+    var(--content-width),
+    calc(100% - 32px)
+  );
+
   margin-inline: auto;
 }
 
 .section {
-  padding: 48px 0 12px;
-}
-
-.sub {
-  color: var(--muted);
-  margin: 0 0 20px;
-}
-
-.page-title {
-  font-size: clamp(2rem, 6vw, 2.8rem);
-  color: var(--green-d);
-  margin-bottom: 4px;
-}
-
-/* Keyboard accessibility skip link */
-
-.skip {
-  position: absolute;
-  left: -999px;
-}
-
-.skip:focus {
-  left: 8px;
-  top: 8px;
-  z-index: 99;
-  padding: 8px;
-  background: #fff;
+  padding: 32px 0 12px;
 }
 
 
 /* =========================================================================
-   4. HEADER AND NAVIGATION
+   4. PAGE INTRODUCTION
+   ========================================================================= */
+
+.page-intro {
+  padding: 4px 0 4px;
+}
+
+.page-title {
+  margin: 0 0 5px;
+
+  color: var(--green-d);
+
+  font-size:
+    clamp(
+      2rem,
+      6vw,
+      2.8rem
+    );
+}
+
+.sub {
+  max-width: 720px;
+
+  margin: 0 0 20px;
+
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+
+/* =========================================================================
+   5. HEADER
+   Matches the Boba Bay Table Menu
    ========================================================================= */
 
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
+
   background: var(--green-d);
-  border-bottom: 0;
+
+  border-bottom: 3px solid var(--accent);
+
+  box-shadow:
+    0 4px 14px rgba(11, 79, 74, 0.18);
+
   backdrop-filter: blur(8px);
 }
 
-.bar {
+.header-inner {
+  min-height: var(--nav-height);
+
   display: flex;
   align-items: center;
+
   gap: 12px;
-  height: var(--nav-height);
-  position: relative;
 }
 
-/* Brand name and logo */
+
+/* ---------- Brand ---------- */
 
 .brand {
+  min-width: 0;
+
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
+
+  gap: 10px;
+
   margin-right: auto;
 
-  font: 700 1.25rem Fraunces, Georgia, serif;
   color: #fff;
   text-decoration: none;
 }
 
-.brand span:last-child {
+
+/* Logo */
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+
+  flex: none;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  border: 2px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.12);
+
+  font-size: 1.45rem;
+}
+
+
+/* Brand text */
+
+.brand-copy {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.brand-name {
+  display: block;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  color: #fff;
+
+  font:
+    700
+    clamp(1.15rem, 4vw, 1.45rem)
+    Fraunces,
+    Georgia,
+    serif;
+
+  line-height: 1.05;
 }
 
-.logo {
-  display: grid;
-  place-items: center;
-  flex: none;
+.brand-tagline {
+  display: block;
 
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #fff;
-  font-size: 1.2rem;
-}
+  margin-top: 2px;
 
-.logo-lg {
-  width: 84px;
-  height: 84px;
-  margin-bottom: 14px;
-  border: 4px solid #fff;
-  box-shadow: var(--shadow);
-  font-size: 2.6rem;
-}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-/* Mobile navigation */
+  color: #b9ddd8;
 
-.nav {
-  display: none;
-  position: absolute;
-  top: var(--nav-height);
-  left: 0;
-  right: 0;
-
-  flex-direction: column;
-  padding: 8px 16px 16px;
-
-  background: var(--cream);
-  border-bottom: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-.nav.open {
-  display: flex;
-}
-
-.nav a {
-  padding: 12px 4px;
-  color: var(--ink);
-  text-decoration: none;
+  font-size: 0.74rem;
   font-weight: 600;
 }
 
-/* Header action buttons */
 
-.actions {
+/* Header actions */
+
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+
   flex: none;
 }
 
-.icon-btn {
-  position: relative;
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
+
+/* Home button */
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  padding: 8px 15px;
+
+  border-radius: 999px;
 
   background: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: var(--shadow);
+
+  color: var(--green-d);
+
+  font-size: 0.88rem;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.15s,
+    background 0.15s;
 }
 
-/* Notification or cart badge */
+.home-button:hover {
+  background: #e6f6f3;
 
-.badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
-
-  background: var(--accent);
-  color: #fff;
-  font: 700 0.75rem/20px system-ui, sans-serif;
-  text-align: center;
+  transform: translateY(-1px);
 }
 
 
 /* =========================================================================
-   5. BUTTONS
+   6. BUTTONS
    ========================================================================= */
 
 .btn {
-  display: inline-block;
-  padding: 12px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 22px;
+
   border: 0;
   border-radius: 999px;
 
-  font: 700 1rem system-ui, sans-serif;
+  font:
+    700
+    0.95rem
+    Manrope,
+    system-ui,
+    sans-serif;
+
   text-align: center;
   text-decoration: none;
 
   cursor: pointer;
-  transition: transform 0.15s, background 0.15s;
+
+  transition:
+    transform 0.15s,
+    background 0.15s,
+    opacity 0.15s;
 }
 
 .btn:hover:not(:disabled) {
@@ -290,21 +399,25 @@ img {
   cursor: not-allowed;
 }
 
-/* Main button */
+
+/* Primary */
 
 .btn-primary {
-  background: #fff;
-  color: var(--green-d);
+  background: var(--green);
+
+  color: #fff;
 }
 
-.btn-primary:hover {
-  background: #e6f6f3;
+.btn-primary:hover:not(:disabled) {
+  background: var(--green-d);
 }
 
-/* Accent button */
+
+/* Accent */
 
 .btn-accent {
   background: var(--accent);
+
   color: #fff;
 }
 
@@ -312,12 +425,17 @@ img {
   background: var(--accent-d);
 }
 
-/* Button sizes */
+
+/* Small */
 
 .btn-sm {
   padding: 9px 16px;
-  font-size: 0.9rem;
+
+  font-size: 0.88rem;
 }
+
+
+/* Full width */
 
 .btn-block {
   width: 100%;
@@ -325,1027 +443,3 @@ img {
 
 
 /* =========================================================================
-   6. MENU CATEGORY NAVIGATION
-   ========================================================================= */
-
-.cat-nav-holder {
-  position: sticky;
-  top: var(--nav-height);
-  z-index: 10;
-
-  padding: 8px 0;
-  margin-bottom: 8px;
-  background: var(--cream);
-}
-
-.cat-nav {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: thin;
-}
-
-/* Category links */
-
-.cat-nav a {
-  flex: none;
-  padding: 8px 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-
-  background: #fff;
-  color: var(--green-d);
-  text-decoration: none;
-
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-/* Selected category */
-
-.cat-nav a.active {
-  background: var(--green);
-  border-color: var(--green);
-  color: #fff;
-}
-
-
-/* =========================================================================
-   7. MENU CATEGORIES AND NOTICES
-   ========================================================================= */
-
-.cat {
-  padding-top: 20px;
-}
-
-.cat h3 {
-  padding-left: 12px;
-  border-left: 5px solid var(--accent);
-
-  color: var(--green-d);
-  font-size: 1.6rem;
-}
-
-/* Special menu notices */
-
-.note {
-  margin: 0 0 12px;
-  padding: 8px 12px;
-
-  background: #fff7d6;
-  border: 1px dashed #d9b84a;
-  border-radius: 12px;
-
-  font-size: 0.85rem;
-}
-
-
-/* =========================================================================
-   8. CHIPS AND TAGS
-   ========================================================================= */
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0 16px;
-}
-
-.chip {
-  padding: 6px 14px;
-  border: 1px solid #c5e2dd;
-  border-radius: 999px;
-
-  background: #e6f4f1;
-  color: var(--green-d);
-  font-size: 0.9rem;
-}
-
-.tag {
-  color: var(--taro);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-
-/* =========================================================================
-   9. INFORMATION CARDS
-   ========================================================================= */
-
-.info-card {
-  padding: 16px;
-  margin-bottom: 14px;
-
-  background: #fff;
-  border-left: 5px solid var(--green);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-
-.info-card h4 {
-  margin: 0 0 4px;
-  font: 700 1.05rem system-ui, sans-serif;
-}
-
-
-/* =========================================================================
-   10. MENU ITEM DETAILS AND PRICES
-   ========================================================================= */
-
-.desc {
-  flex: 1;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.price-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-.price {
-  color: var(--green);
-  font-weight: 800;
-}
-
-.price.tbc {
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-
-/* =========================================================================
-   11. CUSTOMISATION DIALOG
-   Controls the popup for selecting drink sizes, toppings and other options.
-   ========================================================================= */
-
-/* Dialog background */
-
-dialog {
-  padding: 0;
-  border: 0;
-  color: var(--ink);
-}
-
-dialog::backdrop {
-  background: rgba(15, 35, 25, 0.55);
-}
-
-/* Dialog container */
-
-.modal {
-  width: min(520px, calc(100% - 24px));
-  max-height: calc(100dvh - 24px);
-  margin: auto;
-  padding: 0;
-
-  overflow: hidden;
-  border-radius: 22px;
-  background: var(--cream);
-}
-
-.modal[open] {
-  display: flex;
-}
-
-/* Inner layout */
-
-.modal-inner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-height: calc(100dvh - 24px);
-  margin: 0;
-}
-
-/* Dialog header */
-
-.modal-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-
-  background: #fff;
-  border-top: 5px solid var(--green);
-  border-bottom: 1px solid var(--line);
-}
-
-.modal-head h2 {
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-/* Scrollable dialog content */
-
-.modal-body {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 16px 18px;
-}
-
-/* Dialog footer */
-
-.modal-foot {
-  padding: 12px 18px 16px;
-  background: #fff;
-  border-top: 1px solid var(--line);
-  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.05);
-}
-
-
-/* =========================================================================
-   12. DRINK INFORMATION IN DIALOG
-   ========================================================================= */
-
-.drink-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.drink-head .thumb {
-  flex: none;
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
-  font-size: 2.2rem;
-}
-
-.drink-head h3 {
-  margin: 0;
-  font: 700 1.15rem system-ui, sans-serif;
-}
-
-
-/* =========================================================================
-   13. CUSTOMISATION GROUPS AND OPTIONS
-   ========================================================================= */
-
-/* Each group of options */
-
-.group {
-  min-width: 0;
-  margin: 0 0 18px;
-  padding: 0;
-  border: 0;
-}
-
-.group legend {
-  margin-bottom: 2px;
-  padding: 0;
-  color: var(--green-d);
-  font-weight: 800;
-}
-
-.group .help {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-/* Option grid */
-
-.opts {
-  display: grid;
-  gap: 8px;
-}
-
-.opts.cols {
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-}
-
-/* Individual option */
-
-.opt {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-
-  padding: 10px 12px;
-  border: 2px solid var(--line);
-  border-radius: 14px;
-
-  background: #fff;
-  font-size: 0.95rem;
-  cursor: pointer;
-
-  transition: border-color 0.15s, background 0.15s;
-}
-
-/* Make the entire option clickable */
-
-.opt input {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Selected option */
-
-.opt:has(input:checked) {
-  border-color: var(--accent);
-  background: #fff1ea;
-  font-weight: 700;
-}
-
-.opt:has(input:checked)::after {
-  content: "✓";
-  color: var(--accent-d);
-  font-weight: 800;
-}
-
-/* Keyboard focus */
-
-.opt:has(input:focus-visible) {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Disabled option */
-
-.opt.disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Extra price */
-
-.opt .p {
-  margin-left: auto;
-  color: var(--green);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.opt:has(input:checked) .p {
-  margin-left: 0;
-}
-
-/* Clear selection link */
-
-.clear {
-  padding: 4px 0;
-  border: 0;
-  background: none;
-  color: var(--accent-d);
-
-  font-weight: 700;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-
-/* =========================================================================
-   14. PRICE BREAKDOWN AND TOTALS
-   ========================================================================= */
-
-.breakdown {
-  display: grid;
-  gap: 2px;
-  margin-bottom: 8px;
-
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.breakdown div {
-  display: flex;
-  justify-content: space-between;
-}
-
-.foot-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.total span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-.total strong {
-  color: var(--green-d);
-  font-size: 1.4rem;
-}
-
-.hint {
-  min-height: 1em;
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.error {
-  min-height: 1em;
-  margin: 0 0 8px;
-  color: #b3261e;
-  font-size: 0.9rem;
-}
-
-
-/* =========================================================================
-   15. CART ITEMS
-   ========================================================================= */
-
-/* Individual item in the cart */
-
-.line {
-  padding: 12px;
-  margin-bottom: 10px;
-
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-}
-
-.line-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-weight: 700;
-}
-
-.line ul {
-  margin: 4px 0 8px;
-  padding-left: 18px;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-/* Quantity controls and item actions */
-
-.line-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.qty {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-}
-
-.qty button {
-  width: 34px;
-  height: 34px;
-  border: 0;
-  background: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.qty span {
-  min-width: 24px;
-  text-align: center;
-  font-weight: 700;
-}
-
-.link {
-  padding: 4px 6px;
-  border: 0;
-  background: none;
-  color: var(--accent-d);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-
-/* =========================================================================
-   16. FLOATING CART BUTTON
-   ========================================================================= */
-
-.cart-fab {
-  position: fixed;
-  right: 16px;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  z-index: 30;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 14px 20px;
-  border: 0;
-  border-radius: 999px;
-
-  background: var(--accent);
-  color: #fff;
-  font: 800 1rem Manrope, system-ui, sans-serif;
-
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
-  cursor: pointer;
-}
-
-.cart-fab:hover {
-  background: var(--accent-d);
-}
-
-/* Number of items in the cart */
-
-.cart-fab-count {
-  display: grid;
-  place-items: center;
-
-  min-width: 24px;
-  height: 24px;
-  padding: 0 6px;
-  border-radius: 12px;
-
-  background: #fff;
-  color: var(--accent-d);
-  font-size: 0.85rem;
-}
-
-
-/* =========================================================================
-   17. CART DRAWER AND OVERLAY
-   ========================================================================= */
-
-/* Dark overlay behind the cart */
-
-.cart-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-
-  background: rgba(10, 40, 40, 0.55);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-
-.cart-overlay.open {
-  opacity: 1;
-}
-
-/* Sliding cart panel */
-
-.cart-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 50;
-
-  display: flex;
-  flex-direction: column;
-
-  width: min(440px, 100%);
-  height: 100dvh;
-
-  background: var(--cream);
-  transform: translateX(100%);
-  transition: transform 0.25s;
-}
-
-.cart-drawer.open {
-  transform: none;
-}
-
-/* Cart header */
-
-.cart-drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-
-  background: var(--green-d);
-  color: #fff;
-}
-
-.cart-drawer-header h2 {
-  margin: 0;
-  color: #fff;
-  font-size: 1.3rem;
-}
-
-.cart-close-btn {
-  width: 38px;
-  height: 38px;
-  border: 0;
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-/* Scrollable cart content */
-
-.cart-body {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 14px 16px 32px;
-}
-
-/* Empty cart message */
-
-.cart-empty {
-  padding: 32px 0;
-  color: var(--muted);
-  text-align: center;
-}
-
-
-/* =========================================================================
-   18. CUSTOMER DETAILS AND ORDER TYPE
-   ========================================================================= */
-
-.order-details-box {
-  padding: 16px;
-  margin: 14px 0;
-
-  background: #fff;
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-
-.order-type-label {
-  margin: 0 0 10px;
-  color: var(--green-d);
-  font-weight: 800;
-}
-
-/* Delivery and pickup choices */
-
-.order-type-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.order-type-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-
-  padding: 14px 8px;
-  border: 2px solid var(--line);
-  border-radius: 14px;
-
-  background: #fff;
-  color: var(--ink);
-  font: 700 1rem Manrope, system-ui, sans-serif;
-
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-}
-
-.order-type-btn[aria-checked="true"] {
-  border-color: var(--accent);
-  background: #fff1ea;
-}
-
-.order-type-btn span:first-child {
-  font-size: 1.6rem;
-}
-
-.order-type-hint {
-  margin: 10px 0 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-/* Customer fields */
-
-#cart-customer-fields {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-
-/* Text fields, inputs and address fields */
-
-.cart-input {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin: 0 0 10px;
-
-  border: 2px solid var(--line);
-  border-radius: 12px;
-
-  background: #fff;
-  color: var(--ink);
-  font: inherit;
-}
-
-textarea.cart-input {
-  min-height: 72px;
-  resize: vertical;
-}
-
-
-/* =========================================================================
-   19. CART TOTALS AND WHATSAPP ORDER BUTTON
-   ========================================================================= */
-
-/* Subtotal, delivery fee and grand total */
-
-.cart-total-rows div {
-  display: flex;
-  justify-content: space-between;
-  padding: 3px 0;
-}
-
-.cart-total-rows .grand {
-  margin-top: 6px;
-  padding-top: 10px;
-
-  border-top: 2px solid var(--line);
-  color: var(--green-d);
-
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-/* WhatsApp order button */
-
-.whatsapp-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 15px;
-  border: 0;
-  border-radius: 999px;
-
-  background: #1fa855;
-  color: #fff;
-  font: 800 1rem Manrope, system-ui, sans-serif;
-
-  cursor: pointer;
-}
-
-.whatsapp-btn:hover:not(:disabled) {
-  background: #178a45;
-}
-
-.whatsapp-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.whatsapp-hint {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  text-align: center;
-}
-
-/* Clear cart button */
-
-.clear-cart-btn {
-  display: block;
-  margin: 14px auto 0;
-  border: 0;
-
-  background: none;
-  color: var(--accent-d);
-
-  font-weight: 700;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-
-/* =========================================================================
-   20. HOME PAGE — CHOICES AND LINKS
-   ========================================================================= */
-
-.info-list {
-  display: grid;
-  gap: 4px;
-  padding: 0;
-  margin: 14px 0 6px;
-
-  list-style: none;
-  font-weight: 600;
-}
-
-.welcome {
-  margin-top: 20px;
-  font-size: 1.5rem;
-}
-
-.choices {
-  display: grid;
-  gap: 16px;
-}
-
-/* Home page cards */
-
-.choice {
-  display: block;
-  padding: 22px;
-
-  background: #fff;
-  color: var(--ink);
-  text-decoration: none;
-
-  border: 2px solid transparent;
-  border-top: 5px solid var(--green);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-
-  transition: transform 0.15s, border-color 0.15s;
-}
-
-.choice:nth-child(2) {
-  border-top-color: var(--accent);
-}
-
-.choice:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-}
-
-.choice .ic {
-  font-size: 2.2rem;
-}
-
-.choice h3 {
-  margin: 6px 0 4px;
-}
-
-.choice p {
-  margin: 0 0 14px;
-  color: var(--muted);
-}
-
-
-/* =========================================================================
-   21. GALLERY
-   ========================================================================= */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-figure {
-  margin: 0;
-}
-
-.ph {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-
-  background: var(--tint, #e6f4f1);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-
-  font-size: 3.6rem;
-}
-
-figcaption {
-  margin-top: 8px;
-  text-align: center;
-  font-weight: 700;
-  font-style: italic;
-}
-
-
-/* =========================================================================
-   22. ABOUT SECTION
-   ========================================================================= */
-
-.about {
-  max-width: 760px;
-  padding: 28px 24px 40px;
-  margin-top: 40px;
-
-  background: #fff;
-  border-left: 5px solid var(--accent);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-
-
-/* =========================================================================
-   23. FOOTER
-   ========================================================================= */
-
-.site-footer {
-  padding: 36px 0 16px;
-  margin-top: 40px;
-
-  background: #0a3a3a;
-  color: #d7ebe8;
-}
-
-.foot-grid {
-  display: grid;
-  gap: 24px;
-}
-
-.site-footer h3 {
-  color: #fff;
-  font-size: 1.15rem;
-}
-
-.site-footer a {
-  color: #ffc4ac;
-}
-
-.site-footer p {
-  margin: 4px 0;
-}
-
-.copy {
-  margin: 24px 0 0;
-  text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.8;
-}
-
-.site-footer .copy {
-  margin-top: 0;
-}
-
-
-/* =========================================================================
-   24. TABLET AND DESKTOP
-   These rules apply to screens 760px and wider.
-   ========================================================================= */
-
-@media (min-width: 760px) {
-
-  /* Desktop navigation */
-
-  .nav {
-    position: static;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-    background: none;
-  }
-
-  .nav a {
-    color: #fff;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  /* Home page layout */
-
-  .choices {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  /* Gallery layout */
-
-  .gallery {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* Footer columns */
-
-  .foot-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-
-/* =========================================================================
-   25. ACCESSIBILITY — REDUCED MOTION
-   ========================================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
