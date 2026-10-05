@@ -1,825 +1,1302 @@
-/* ==========================================================================
-   BOBA BAY — ORDER ONLINE
-   File: script2.js
+/* ============================================================
+   BOBA BEAR — ORDER ONLINE
+   FILE: style2.css
 
-   THIS SCRIPT CONTROLS:
-   - Menu rendering
-   - Category navigation
-   - Product customization
-   - Boba selection
-   - Toppings
-   - Extra boba / tapioca
-   - Shopping cart
-   - Delivery / Pickup
-   - Customer details
-   - WhatsApp ordering
+   DESIGN ONLY
 
-   IMPORTANT:
-   Restaurant branding is controlled by the HTML.
-
-   This script does NOT change:
-   - Restaurant name
-   - Tagline
-   - Logo
-   - Address
-   - Phone displayed on page
-   - Opening hours
-   - Social links
-   ========================================================================== */
+   If you want to change the website's appearance,
+   start with the DESIGN SETTINGS section below.
+   ============================================================ */
 
 
-/* ==========================================================================
-   1. CONFIGURATION
-   ========================================================================== */
+/* ============================================================
+   1. DESIGN SETTINGS — EDIT HERE
+   ============================================================ */
 
-const CONFIG = {
+:root {
 
-  /* WhatsApp number.
-     Enter digits only, international format. */
-  whatsapp: "255000000000",
+  /* ---------- Main Colours ---------- */
 
-  /* Currency */
-  currency: "TSh",
+  --color-primary: #0f766e;
+  --color-primary-dark: #0b4f4a;
 
-  /* Delivery fee */
-  deliveryFee: 0,
+  --color-background: #f2f8f7;
+  --color-card: #ffffff;
 
-  /* Maximum quantity of one cart line */
-  maxQty: 99,
+  --color-text: #10282a;
+  --color-muted: #587370;
 
+  --color-accent: #f26b3a;
+  --color-accent-dark: #d9541f;
 
-  /* ------------------------------------------------------------------------
-     BOBA
-     ------------------------------------------------------------------------ */
+  --color-border: #d6e5e2;
 
-  boba: {
+  --color-success: #1fa855;
 
-    popping: {
+  /* ---------- Special Colours ---------- */
 
-      label: "Popping Boba",
+  --color-taro: #6d5fd0;
+  --color-light-accent: #fff1ea;
+  --color-light-primary: #e6f4f1;
 
-      flavours: [
-        "Strawberry",
-        "Blueberry",
-        "Mango",
-        "Orange",
-        "Green Apple",
-        "Grape",
-        "Lime",
-        "Pink Lemon",
-        "Lemon",
-        "Kiwi",
-        "Watermelon",
-        "Raspberry",
-        "Passion",
-        "Lychee",
-        "Pomegranate",
-        "Peach",
-        "Taro",
-        "Tropical"
-      ]
+  /* ---------- Footer ---------- */
 
-    },
+  --color-footer: #0a3a3a;
+  --color-footer-text: #d7ebe8;
 
-    chewy: {
+  /* ---------- Typography ---------- */
 
-      label: "Chewy Boba",
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Manrope", system-ui, sans-serif;
 
-      flavours: [
-        "Tapioca"
-      ]
+  /* ---------- Layout ---------- */
 
-    }
+  --max-width: 1120px;
 
-  },
+  --header-height: 64px;
+
+  --radius-small: 12px;
+  --radius-medium: 16px;
+  --radius-large: 20px;
+
+  /* ---------- Shadows ---------- */
+
+  --shadow-small:
+    0 3px 12px rgba(11, 79, 74, 0.08);
+
+  --shadow:
+    0 6px 20px rgba(11, 79, 74, 0.12);
+
+  --shadow-large:
+    0 12px 30px rgba(11, 79, 74, 0.18);
+}
 
 
-  /* ------------------------------------------------------------------------
-     TOPPINGS
-     ------------------------------------------------------------------------ */
+/* ============================================================
+   2. BASIC RESET
+   ============================================================ */
 
-  toppings: {
+* {
+  box-sizing: border-box;
+}
 
-    price: 1000,
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 130px;
+}
 
-    max: 2,
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
 
-    list: [
-      "Strawberry Chunks",
-      "Marshmallows",
-      "Chocolate Sprinkles",
-      "Whipped Cream",
-      "Toasted Nuts",
-      "Oreo Crumbs"
-    ]
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
 
-  },
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
 
 
-  /* ------------------------------------------------------------------------
-     EXTRA BOBA
-     ------------------------------------------------------------------------ */
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
 
-  extraBoba: {
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  line-height: 1.15;
+}
 
-    label: "Extra Boba / Tapioca",
+h2 {
+  color: var(--color-primary-dark);
+}
 
-    price: 4000
+p {
+  margin-top: 0;
+}
 
+.page-title {
+  margin-bottom: 8px;
+
+  color: var(--color-primary-dark);
+
+  font-size: clamp(
+    2rem,
+    6vw,
+    2.8rem
+  );
+}
+
+.page-intro {
+  max-width: 760px;
+
+  color: var(--color-muted);
+
+  margin-bottom: 24px;
+}
+
+
+/* ============================================================
+   4. GENERAL LAYOUT
+   ============================================================ */
+
+.wrap {
+  width: min(
+    var(--max-width),
+    calc(100% - 32px)
+  );
+
+  margin-inline: auto;
+}
+
+
+/* ============================================================
+   5. HEADER
+   ============================================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: var(--color-primary-dark);
+
+  box-shadow: var(--shadow-small);
+}
+
+.header-inner {
+  min-height: var(--header-height);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* Brand */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-right: auto;
+
+  color: #ffffff;
+
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  background: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 1.25rem;
+}
+
+
+/* ============================================================
+   6. BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 999px;
+
+  padding: 12px 22px;
+
+  font-weight: 800;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-small {
+  padding: 9px 16px;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: var(--color-primary-dark);
+}
+
+.btn-primary:hover {
+  background: #e6f6f3;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: var(--color-accent-dark);
+}
+
+
+/* ============================================================
+   7. ORDER PAGE
+   ============================================================ */
+
+.order-page {
+  padding: 30px 0 50px;
+}
+
+
+/* ============================================================
+   8. CATEGORY NAVIGATION
+   ============================================================ */
+
+.category-bar {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 50;
+
+  padding: 8px 0;
+
+  background: var(--color-background);
+}
+
+.category-nav {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding-bottom: 4px;
+
+  scrollbar-width: thin;
+}
+
+.category-nav a {
+  flex: 0 0 auto;
+
+  padding: 8px 16px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+
+  color: var(--color-primary-dark);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.category-nav a.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+
+/* ============================================================
+   9. MENU CATEGORIES
+   ============================================================ */
+
+.menu-category {
+  scroll-margin-top: 130px;
+
+  padding-top: 22px;
+}
+
+.menu-category-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 12px;
+
+  color: var(--color-primary-dark);
+
+  font-size: 1.6rem;
+}
+
+.menu-category-title::before {
+  content: "";
+
+  width: 5px;
+  height: 30px;
+
+  background: var(--color-accent);
+
+  border-radius: 4px;
+}
+
+
+/* Category notes */
+
+.menu-note {
+  margin-bottom: 12px;
+
+  padding: 10px 12px;
+
+  background: #fff7d6;
+
+  border: 1px dashed #d9b84a;
+
+  border-radius: var(--radius-small);
+
+  color: #5f531e;
+
+  font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   10. MENU LIST
+   ============================================================ */
+
+.menu-list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background: var(--color-card);
+
+  border-top: 4px solid var(--color-primary);
+
+  border-radius: var(--radius-large);
+
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+
+/* Product */
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 14px 16px;
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.menu-item:last-child {
+  border-bottom: 0;
+}
+
+.menu-info {
+  min-width: 0;
+}
+
+.menu-name {
+  display: block;
+
+  font-weight: 800;
+}
+
+.menu-description {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--color-muted);
+
+  font-size: 0.85rem;
+}
+
+.custom-tag {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--color-taro);
+
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+
+/* Product right side */
+
+.menu-actions {
+  flex: 0 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 6px;
+}
+
+.price {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.price-tbc {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   11. INFORMATION CARDS
+   ============================================================ */
+
+.info-card {
+  margin-bottom: 14px;
+
+  padding: 16px;
+
+  background: #ffffff;
+
+  border-left: 5px solid var(--color-primary);
+
+  border-radius: var(--radius-medium);
+
+  box-shadow: var(--shadow);
+}
+
+.info-card h4 {
+  margin-bottom: 8px;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 12px;
+
+  background: var(--color-light-primary);
+
+  border: 1px solid #c5e2dd;
+
+  border-radius: 999px;
+
+  color: var(--color-primary-dark);
+
+  font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   12. CART BUTTON
+   ============================================================ */
+
+.cart-button {
+  position: fixed;
+
+  right: 16px;
+  bottom: calc(
+    16px + env(safe-area-inset-bottom, 0px)
+  );
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 14px 20px;
+
+  background: var(--color-accent);
+
+  border: 0;
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  font-weight: 800;
+
+  box-shadow: var(--shadow-large);
+}
+
+.cart-button:hover {
+  background: var(--color-accent-dark);
+}
+
+.cart-count {
+  min-width: 24px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0 6px;
+
+  background: #ffffff;
+
+  border-radius: 999px;
+
+  color: var(--color-accent-dark);
+
+  font-size: 0.8rem;
+}
+
+
+/* ============================================================
+   13. CART DRAWER
+   ============================================================ */
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 300;
+
+  background: rgba(10, 40, 40, 0.55);
+
+  opacity: 0;
+
+  transition: opacity 0.25s;
+}
+
+.cart-overlay.open {
+  opacity: 1;
+}
+
+
+.cart-drawer {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  z-index: 400;
+
+  width: min(440px, 100%);
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-background);
+
+  transform: translateX(100%);
+
+  transition: transform 0.25s ease;
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+
+/* Cart header */
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 18px;
+
+  background: var(--color-primary-dark);
+
+  color: #ffffff;
+}
+
+.cart-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 1.3rem;
+}
+
+
+/* Close button */
+
+.close-button {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.close-button.dark {
+  background: var(--color-light-primary);
+  color: var(--color-primary-dark);
+}
+
+
+/* Cart content */
+
+.cart-content {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 14px 16px 32px;
+}
+
+
+/* ============================================================
+   14. CART ITEMS
+   ============================================================ */
+
+.cart-item {
+  margin-bottom: 10px;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border-radius: var(--radius-medium);
+
+  box-shadow: var(--shadow-small);
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  font-weight: 800;
+}
+
+.cart-item-details {
+  margin: 5px 0 8px;
+  padding-left: 18px;
+
+  color: var(--color-muted);
+
+  font-size: 0.85rem;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-wrap: wrap;
+}
+
+
+/* Quantity */
+
+.quantity {
+  display: inline-flex;
+  align-items: center;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 999px;
+}
+
+.quantity button {
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+
+  background: transparent;
+
+  font-size: 1.1rem;
+}
+
+.quantity-value {
+  min-width: 24px;
+
+  text-align: center;
+
+  font-weight: 800;
+}
+
+.cart-link {
+  padding: 4px 6px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--color-accent-dark);
+
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   15. EMPTY CART
+   ============================================================ */
+
+.empty-cart {
+  padding: 40px 0;
+
+  text-align: center;
+
+  color: var(--color-muted);
+}
+
+
+/* ============================================================
+   16. ORDER DETAILS
+   ============================================================ */
+
+.order-box {
+  margin: 14px 0;
+
+  padding: 16px;
+
+  background: #ffffff;
+
+  border-radius: var(--radius-large);
+
+  box-shadow: var(--shadow);
+}
+
+.order-box h3 {
+  color: var(--color-primary-dark);
+
+  font-family: var(--font-body);
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+
+/* Delivery / Pickup */
+
+.order-type-buttons {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.order-type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 14px 8px;
+
+  background: #ffffff;
+
+  border: 2px solid var(--color-border);
+
+  border-radius: var(--radius-medium);
+
+  color: var(--color-text);
+}
+
+.order-type-button span {
+  font-size: 1.5rem;
+}
+
+.order-type-button[aria-checked="true"] {
+  background: var(--color-light-accent);
+
+  border-color: var(--color-accent);
+}
+
+.order-message {
+  margin: 10px 0 0;
+
+  color: var(--color-muted);
+
+  font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   17. FORM INPUTS
+   ============================================================ */
+
+.customer-fields {
+  margin-top: 14px;
+  padding-top: 14px;
+
+  border-top: 1px solid var(--color-border);
+}
+
+.form-input {
+  display: block;
+
+  width: 100%;
+
+  margin-bottom: 10px;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border: 2px solid var(--color-border);
+
+  border-radius: var(--radius-small);
+
+  color: var(--color-text);
+}
+
+.form-input:focus {
+  outline: 3px solid rgba(242, 107, 58, 0.25);
+
+  border-color: var(--color-accent);
+}
+
+textarea.form-input {
+  min-height: 72px;
+
+  resize: vertical;
+}
+
+
+/* ============================================================
+   18. CART TOTALS
+   ============================================================ */
+
+.cart-totals {
+  margin-top: 12px;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 4px 0;
+}
+
+.cart-total-grand {
+  margin-top: 6px;
+  padding-top: 10px;
+
+  border-top: 2px solid var(--color-border);
+
+  color: var(--color-primary-dark);
+
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+
+/* ============================================================
+   19. WHATSAPP
+   ============================================================ */
+
+.whatsapp-button {
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 15px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: var(--color-success);
+
+  color: #ffffff;
+
+  font-weight: 800;
+}
+
+.whatsapp-button:hover:not(:disabled) {
+  background: #178a45;
+}
+
+.whatsapp-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.whatsapp-message {
+  margin: 8px 0;
+
+  text-align: center;
+
+  color: var(--color-muted);
+
+  font-size: 0.82rem;
+}
+
+.clear-cart {
+  display: block;
+
+  margin: 14px auto 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--color-accent-dark);
+
+  font-weight: 700;
+
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   20. CUSTOMIZATION MODAL
+   ============================================================ */
+
+.customization-modal {
+  width: min(520px, calc(100% - 24px));
+
+  max-height: calc(100dvh - 24px);
+
+  margin: auto;
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 22px;
+
+  background: var(--color-background);
+
+  overflow: hidden;
+}
+
+.customization-modal::backdrop {
+  background: rgba(15, 35, 25, 0.55);
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+
+  max-height: calc(100dvh - 24px);
+}
+
+
+/* Modal header */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 18px;
+
+  background: #ffffff;
+
+  border-top: 5px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h2 {
+  margin: 0;
+
+  font-size: 1.3rem;
+}
+
+
+/* Modal body */
+
+.modal-body {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 16px 18px;
+}
+
+
+/* Product header */
+
+.custom-product {
+  margin-bottom: 16px;
+}
+
+.custom-product-name {
+  margin-bottom: 3px;
+
+  font-family: var(--font-body);
+
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+
+/* Option group */
+
+.option-group {
+  margin-bottom: 20px;
+
+  border: 0;
+  padding: 0;
+}
+
+.option-group legend {
+  margin-bottom: 3px;
+
+  color: var(--color-primary-dark);
+
+  font-weight: 800;
+}
+
+.option-help {
+  margin-bottom: 8px;
+
+  color: var(--color-muted);
+
+  font-size: 0.85rem;
+}
+
+
+/* Options */
+
+.options-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(130px, 1fr));
+
+  gap: 8px;
+}
+
+.option {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  background: #ffffff;
+
+  border: 2px solid var(--color-border);
+
+  border-radius: 14px;
+
+  cursor: pointer;
+}
+
+.option input {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+.option:has(input:checked) {
+  background: var(--color-light-accent);
+
+  border-color: var(--color-accent);
+
+  font-weight: 700;
+}
+
+.option:has(input:checked)::after {
+  content: "✓";
+
+  color: var(--color-accent-dark);
+
+  font-weight: 800;
+}
+
+.option-price {
+  color: var(--color-primary);
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+}
+
+
+/* Clear selection */
+
+.clear-selection {
+  padding: 4px 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--color-accent-dark);
+
+  font-weight: 700;
+
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   21. MODAL FOOTER
+   ============================================================ */
+
+.modal-footer {
+  padding: 12px 18px 16px;
+
+  background: #ffffff;
+
+  border-top: 1px solid var(--color-border);
+
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.price-breakdown {
+  display: grid;
+
+  gap: 2px;
+
+  margin-bottom: 8px;
+
+  color: var(--color-muted);
+
+  font-size: 0.85rem;
+}
+
+.price-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.modal-total-row small {
+  display: block;
+
+  color: var(--color-muted);
+}
+
+.modal-total-row strong {
+  color: var(--color-primary-dark);
+
+  font-size: 1.4rem;
+}
+
+.modal-message {
+  min-height: 1em;
+
+  margin: 8px 0 0;
+
+  color: var(--color-muted);
+
+  font-size: 0.82rem;
+}
+
+
+/* ============================================================
+   22. FOOTER
+   ============================================================ */
+
+.site-footer {
+  padding: 30px 0 18px;
+
+  background: var(--color-footer);
+
+  color: var(--color-footer-text);
+}
+
+.copyright {
+  margin: 0;
+
+  text-align: center;
+
+  font-size: 0.85rem;
+}
+
+
+/* ============================================================
+   23. UTILITY
+   ============================================================ */
+
+[hidden] {
+  display: none !important;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   24. DESKTOP
+   ============================================================ */
+
+@media (min-width: 760px) {
+
+  .order-page {
+    padding-top: 40px;
   }
 
-};
-
-
-/* ==========================================================================
-   2. PRODUCT HELPER
-   ========================================================================== */
-
-const p = (
-  name,
-  price,
-  desc = "",
-  extra = {}
-) => ({
-  name,
-  price,
-  desc,
-  ...extra
-});
-
-
-/* ==========================================================================
-   3. MENU
-   ========================================================================== */
-
-const MENU = [
-
-  /* ------------------------------------------------------------------------
-     WEEKEND SPECIALS · MILK
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "weekend-milk",
-    name: "Weekend Specials · Milk",
-    subtitle: "Special drinks and creamy favourites.",
-    custom: true,
-
-    items: [
-
-      p(
-        "Classic Frappuccino",
-        12000,
-        "Iced coffee with a shot of espresso topped with whipped cream. Choice of caramel or chocolate drizzle"
-      ),
-
-      p(
-        "Caramel Frappuccino",
-        12000,
-        "Caramel iced coffee with a shot of espresso topped with whipped cream and caramel drizzles"
-      ),
-
-      p(
-        "Hazelnut Frappuccino",
-        13000,
-        "Hazelnut iced coffee with a shot of espresso topped with whipped cream and chocolate drizzles"
-      ),
-
-      p(
-        "Pistachio Falooda",
-        13000,
-        "Pistachio milkshake with fresh vegan jelly, vermicelli and sabja seeds"
-      ),
-
-      p(
-        "Rose Falooda",
-        12000,
-        "Rose milkshake with fresh vegan jelly, vermicelli and sabja seeds"
-      ),
-
-      p(
-        "Strawberry Falooda",
-        12000,
-        "Strawberry milkshake with fresh vegan jelly, vermicelli and sabja seeds"
-      ),
-
-      p(
-        "Coffee Falooda",
-        12000,
-        "Coffee milkshake with fresh vegan jelly, vermicelli and sabja seeds"
-      ),
-
-      p(
-        "Iced Matcha",
-        12000,
-        "Iced matcha with whipped cream."
-      ),
-
-      p(
-        "Iced Matcha Latte",
-        12000,
-        "Iced matcha with a shot of espresso topped with whipped cream."
-      ),
-
-      p(
-        "Iced Latte",
-        10000
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     KUNAFA
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "kunafa",
-    name: "Kunafa",
-    subtitle: "Rich and indulgent desserts.",
-    custom: false,
-
-    items: [
-
-      p(
-        "Kunafa Milkshake",
-        15000,
-        "Crispy kunafa, chocolate milkshake and pistachio milkshake"
-      ),
-
-      p(
-        "Kunafa Ice-Cream",
-        15000,
-        "Crispy kunafa, chocolate milkshake and pistachio milkshake"
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     ICE CREAM
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "ice-cream",
-    name: "Ice Cream",
-    subtitle: "Cool and creamy treats.",
-    custom: false,
-
-    items: [
-
-      p(
-        "Boba Ice Creams – Cup",
-        null,
-        "Topped with Fruit or Tapioca Boba"
-      ),
-
-      p(
-        "Boba Ice Creams – Cone",
-        null,
-        "Topped with Fruit or Tapioca Boba"
-      ),
-
-      p(
-        "Inaara Ice Cream",
-        null,
-        "Half milkshake half ice-cream! Your choice of milkshake and ice-cream topped with tapioca or popping boba."
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     MILK
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "milk",
-    name: "Milk",
-    subtitle: "Smooth, creamy and full of flavour.",
-    custom: true,
-
-    items: [
-
-      p(
-        "Caramel",
-        11000,
-        "Keep it smooth and creamy with our Caramel Milk Tea."
-      ),
-
-      p(
-        "Coffee",
-        11000,
-        "The perfect pick-me-up to start the day"
-      ),
-
-      p(
-        "Matcha",
-        12000,
-        "When life's feeling evergreen, match it with our Matcha Milk Tea"
-      ),
-
-      p(
-        "Lotus",
-        12000,
-        "A refreshing and indulgent Summer iced drink for all Lotus lovers!"
-      ),
-
-      p(
-        "Sakura",
-        12000,
-        "It's definitely a drink for sakura lovers."
-      ),
-
-      p(
-        "Blueberry",
-        13000,
-        "Unique blend of blueberry milkshake!"
-      ),
-
-      p(
-        "Blue Velvet",
-        12000,
-        "A twist on the classic red velvet. A must try!"
-      ),
-
-      p(
-        "Kiwi Delight",
-        12000,
-        "Low calories, high in fiber and very tasty!"
-      ),
-
-      p(
-        "Red Velvet",
-        12000,
-        "Perfect for anyone who loves a good red velvet cake"
-      ),
-
-      p(
-        "Unicorn Fluff",
-        13000,
-        "Perfect blend of Strawberry, Blueberry and bubblegum Milk"
-      ),
-
-      p(
-        "Tiramisu",
-        13000
-      ),
-
-      p(
-        "Kahlua",
-        11000,
-        "Sweet creamy coffee"
-      ),
-
-      p(
-        "Vanilla",
-        11000
-      ),
-
-      p(
-        "Bubble Gum",
-        11000,
-        "A nostalgic, caffeine-free indulgence that everyone can enjoy"
-      ),
-
-      p(
-        "Acai Smoothie",
-        12000,
-        "Acai. Our absolute favorite"
-      ),
-
-      p(
-        "Creamy Mango",
-        12000,
-        "Mango milkshake with whipped cream"
-      ),
-
-      p(
-        "Pistachio",
-        13000
-      ),
-
-      p(
-        "Taro",
-        12000,
-        "Give yourself a Taro-fic treat with our loveable Taro milk tea"
-      ),
-
-      p(
-        "Blueberry Swirl",
-        14000,
-        "Blueberry milkshake with whipped cream and blueberry jam"
-      ),
-
-      p(
-        "Bamboo Charcoal",
-        13000,
-        "Vanilla + bamboo charcoal"
-      ),
-
-      p(
-        "Rose",
-        12000,
-        "Rose milkshake"
-      ),
-
-      p(
-        "Hedwig",
-        11000,
-        "Vanilla Frappe"
-      ),
-
-      p(
-        "Inaara Strawberry",
-        12000,
-        "Strawberry milk with strawberry chunks"
-      ),
-
-      p(
-        "Strawberry",
-        11000,
-        "Sweet, creamy, full bodied strawberry drink"
-      ),
-
-      p(
-        "Strawberries & Cream",
-        12000,
-        "Strawberry milkshake, whipped cream and strawberry"
-      ),
-
-      p(
-        "Strawberry Jasmine Milk",
-        null
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     SLUSHY
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "slushy",
-    name: "Slushy",
-    subtitle: "Cold, colourful and refreshing.",
-    custom: true,
-
-    items: [
-
-      p("Icey Lemon", 8000),
-
-      p("Apple Burst", 8000),
-
-      p("Winter Blaze", 10000),
-
-      p("Red Grape", 10000),
-
-      p(
-        "Bloody Vampire",
-        10000,
-        "Cranberry Slush"
-      ),
-
-      p(
-        "Witches Brew",
-        10000,
-        "Kiwi Slush"
-      ),
-
-      p(
-        "Poison Apple",
-        8000,
-        "Apple Burst + Icey Lemon with a hint of Blood (Grape)"
-      ),
-
-      p(
-        "Jack Frost",
-        10000,
-        "Winter Blaze + Icey Lemon + Grape Slush"
-      ),
-
-      p(
-        "Strawberry Blush",
-        10000,
-        "Strawberry + Orange"
-      ),
-
-      p(
-        "Mango Berry",
-        10000,
-        "Mango + Blackberry"
-      ),
-
-      p(
-        "Mixed Berry",
-        10000,
-        "Mixed berry blend"
-      ),
-
-      p(
-        "Pink Lemonade",
-        10000,
-        "Strawberry and lemon slush"
-      ),
-
-      p(
-        "Blue Lemonade",
-        10000,
-        "Blueberry and lemon slush"
-      ),
-
-      p(
-        "Boo Berry",
-        10000,
-        "Strawberry, blueberry and grape slush"
-      ),
-
-      p(
-        "North Pole",
-        10000,
-        "Blueberry and lemon slush"
-      ),
-
-      p(
-        "Gryffindor",
-        10000,
-        "Vampire and raspberry"
-      ),
-
-      p(
-        "Hufflepuff",
-        10000,
-        "Mango and orange"
-      ),
-
-      p(
-        "Slytherin",
-        10000,
-        "Kiwi and apple"
-      ),
-
-      p(
-        "Ravenclaw",
-        10000,
-        "Winter and blue raspberry"
-      ),
-
-      p(
-        "Love Struck",
-        10000,
-        "Strawberry lemonade and Pink lemonade topped with a lemon slice"
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     FIZZY
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "fizzy",
-    name: "Fizzy",
-    subtitle: "Refreshing sparkling drinks.",
-    custom: true,
-
-    items: [
-
-      p(
-        "Frozen Strawberry Fizz",
-        8000
-      ),
-
-      p(
-        "Passionfruit & Mango Fizz",
-        8000
-      ),
-
-      p(
-        "Mojito Fizz",
-        8000
-      ),
-
-      p(
-        "Red Raspberry Fizz",
-        8000
-      ),
-
-      p(
-        "Electric Fizz",
-        8000,
-        "A blue fizzy drink that is super delicious"
-      ),
-
-      p(
-        "Grape Soda",
-        null
-      ),
-
-      p(
-        "Energizer",
-        null
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     FRUIT TEA
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "fruit-tea",
-    name: "Fruit Tea",
-    subtitle: "Fresh fruity combinations.",
-    custom: false,
-
-    items: [
-
-      p(
-        "Mango Dream",
-        8000,
-        "Mango + Orange"
-      ),
-
-      p(
-        "Summer Blaze",
-        10000,
-        "Strawberry + Blueberry"
-      ),
-
-      p(
-        "Super Melon",
-        8000,
-        "Watermelon + Strawberry"
-      ),
-
-      p(
-        "Passionfruit Sunrise",
-        10000,
-        "Passion + Mango + Strawberry"
-      ),
-
-      p(
-        "Hawaii",
-        10000,
-        "Pineapple + Mango + Passion juice"
-      ),
-
-      p(
-        "Caribbean Love",
-        10000,
-        "Passion + Peach + Mango"
-      ),
-
-      p(
-        "Twisted Lemonade",
-        8000,
-        "Refreshing Strawberry lemonade"
-      ),
-
-      p(
-        "Spicy Mango",
-        8000,
-        "Mango with a hint of Chili"
-      ),
-
-      p(
-        "Tiki Passion",
-        10000,
-        "Strawberry + Watermelon + Passion + Mango"
-      ),
-
-      p(
-        "Pina Colada",
-        8000,
-        "Pineapple + Passion"
-      ),
-
-      p(
-        "Mango Passion Frappe",
-        12000,
-        "Mango, Passion and Berries infused drink"
-      ),
-
-      p(
-        "Peachy Sweetie",
-        10000,
-        "Peach and strawberry"
-      ),
-
-      p(
-        "Pomegranate Paradise",
-        10000,
-        "Mango + Strawberry + Pomegranate + Peach"
-      ),
-
-      p(
-        "Dragon",
-        10000,
-        "Mango + Passion + Pomegranate + Raspberry"
-      ),
-
-      p(
-        "Strawberry Lychee",
-        10000,
-        "Strawberry + Lychee"
-      ),
-
-      p(
-        "Treasure Mango",
-        10000,
-        "Mango, strawberry and peach"
-      )
-
-    ]
-
-  },
-
-
-  /* ------------------------------------------------------------------------
-     CHOCOLATE
-     ------------------------------------------------------------------------ */
-
-  {
-    id: "chocolate",
-    name: "Chocolate",
-    subtitle: "Rich chocolate drinks.",
-    custom: false,
-
-    items: [
-
-      p(
-        "Chocolate",
-        11000
-      ),
-
-      p(
-        "Choco Mint",
-        12000,
-        "Chocolate Milk paired with mint and chocolate chunks"
-      ),
-
-      p(
-        "Nutella Shake",
-        12000
-      ),
-
-      p(
-        "Choco Overload",
-        13000,
-        "Chocolate Milkshake with Chocolate chunks and extra Chocolate drizzles"
-      ),
-
-      p(
-        "Hazelnut",
-        12000
-      ),
-
-      p(
-        "Oreo",
-        12000,
-        "Oreo milkshake with Oreo crumbs on top"
-      ),
-
-      p(
-        "Hazelnut Frappe",
-        12000,
-        "Hazelnut + coffee"
-      ),
-
-      p(
-        "Rich and Creamy Coco",
-        13000,
-        "Rich dark cocoa with whipped cream"
-      ),
-
-      p(
-        "Chocolate Truffle",
-        12000,
-        "Chocolate ganache, toasted nuts and coconut"
-      ),
-
-      p(
-        "Nutcracker",
-        12000,
-        "Hazelnut and Nutella milk topped with toasted nuts"
-      ),
-
-      p(
-        "Rudolph",
-        12000,
-        "KitKat milk topped with whipped cream and
+  .menu-item {
+    padding: 16px 20px;
+  }
+
+  .menu-item:hover {
+    background: #fbfdfc;
+  }
+}
