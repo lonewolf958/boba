@@ -1,63 +1,32 @@
 /* =========================================================================
    BOBA BAY — TABLE MENU
-   File: script.js
+   File: script1.js
 
    PURPOSE
    -------------------------------------------------------------------------
-   This file controls:
-   - Restaurant information
-   - Menu categories and products
-   - Prices and descriptions
+   This file is ONLY responsible for:
+
+   - Menu data
+   - Boba / topping information
+   - Menu helpers
    - Category navigation
-   - Boba and topping information
-   - Active category tracking
-   - Digital menu rendering
+   - Menu rendering
 
-   COMPATIBLE WITH:
-   - Current Boba Bay Table Menu HTML
-   - Current Boba Bay style.css / style1.css
+   NOT INCLUDED:
 
-   NOTE:
-   This is the TABLE MENU version.
-   Ordering/cart/customisation functionality is not included here.
-   ========================================================================== */
-
-
-/* =========================================================================
-   SECTION 1 — RESTAURANT CONFIGURATION
+   - Restaurant configuration
+   - WhatsApp
+   - Cart
+   - Delivery
+   - Checkout
+   - Ordering
+   - Restaurant branding
+   - Active-category JavaScript tracking
    ========================================================================= */
 
-const CONFIG = {
-
-  restaurant: {
-
-    name: "Boba Bay",
-
-    tagline: "Ride the Wave of FLavor.",
-
-    whatsapp: "255000000000",
-
-    address: "[Add restaurant address]",
-
-    phone: "[Add telephone number]",
-
-    hours: "[Add opening hours]",
-
-    socials: [],
-
-    deliveryNote: "Home Delivery Available",
-
-    deliveryFee: 0
-
-  },
-
-  currency: "TSh"
-
-};
-
 
 /* =========================================================================
-   SECTION 2 — BOBA AND TOPPING INFORMATION
+   1. BOBA AND TOPPING INFORMATION
    ========================================================================= */
 
 const BOBA = {
@@ -118,19 +87,18 @@ const EXTRA_BOBA_PRICE = 1000;
 
 
 /* =========================================================================
-   SECTION 3 — PRODUCT HELPER
+   2. PRODUCT HELPER
    ========================================================================= */
 
-const p = (name, price, desc = "", extra = {}) => ({
+const p = (name, price, desc = "") => ({
   name,
   price,
-  desc,
-  ...extra
+  desc
 });
 
 
 /* =========================================================================
-   SECTION 4 — MENU DATA
+   3. MENU DATA
    ========================================================================= */
 
 const MENU = [
@@ -142,8 +110,6 @@ const MENU = [
   {
     id: "weekend-milk",
     name: "Weekend Specials · Milk",
-    icon: "☕",
-    tint: "#f3e6d0",
 
     items: [
 
@@ -217,8 +183,6 @@ const MENU = [
   {
     id: "kunafa",
     name: "Kunafa",
-    icon: "🥮",
-    tint: "#f6e3b9",
 
     items: [
 
@@ -245,8 +209,6 @@ const MENU = [
   {
     id: "ice-cream",
     name: "Ice Cream",
-    icon: "🍦",
-    tint: "#fbe0ea",
 
     note:
       "Prices for Boba Ice Creams (Cup / Cone) are unclear. Inaara Ice Cream has no price shown. Please confirm.",
@@ -282,8 +244,6 @@ const MENU = [
   {
     id: "milk",
     name: "Milk",
-    icon: "🥛",
-    tint: "#efe6fb",
 
     note:
       "Prices/descriptions for Strawberries & Cream and Strawberry Jasmine Milk need confirming.",
@@ -454,22 +414,40 @@ const MENU = [
   {
     id: "slushy",
     name: "Slushy",
-    icon: "🧊",
-    tint: "#d8ecf8",
 
     items: [
 
-      p("Icey Lemon", 8000),
+      p(
+        "Icey Lemon",
+        8000
+      ),
 
-      p("Apple Burst", 8000),
+      p(
+        "Apple Burst",
+        8000
+      ),
 
-      p("Winter Blaze", 10000),
+      p(
+        "Winter Blaze",
+        10000
+      ),
 
-      p("Red Grape", 10000),
+      p(
+        "Red Grape",
+        10000
+      ),
 
-      p("Bloody Vampire", 10000, "Cranberry Slush"),
+      p(
+        "Bloody Vampire",
+        10000,
+        "Cranberry Slush"
+      ),
 
-      p("Witches Brew", 10000, "Kiwi Slush"),
+      p(
+        "Witches Brew",
+        10000,
+        "Kiwi Slush"
+      ),
 
       p(
         "Poison Apple",
@@ -566,21 +544,31 @@ const MENU = [
   {
     id: "fizzy",
     name: "Fizzy",
-    icon: "🫧",
-    tint: "#d9f2ea",
 
     note:
       "Prices for Grape Soda and Energizer need confirming.",
 
     items: [
 
-      p("Frozen Strawberry Fizz", 8000),
+      p(
+        "Frozen Strawberry Fizz",
+        8000
+      ),
 
-      p("Passionfruit & Mango Fizz", 8000),
+      p(
+        "Passionfruit & Mango Fizz",
+        8000
+      ),
 
-      p("Mojito Fizz", 8000),
+      p(
+        "Mojito Fizz",
+        8000
+      ),
 
-      p("Red Raspberry Fizz", 8000),
+      p(
+        "Red Raspberry Fizz",
+        8000
+      ),
 
       p(
         "Electric Fizz",
@@ -611,16 +599,26 @@ const MENU = [
   {
     id: "fruit-tea",
     name: "Fruit Tea",
-    icon: "🍹",
-    tint: "#fde4c8",
 
     items: [
 
-      p("Mango Dream", 8000, "Mango + Orange"),
+      p(
+        "Mango Dream",
+        8000,
+        "Mango + Orange"
+      ),
 
-      p("Summer Blaze", 10000, "Strawberry + Blueberry"),
+      p(
+        "Summer Blaze",
+        10000,
+        "Strawberry + Blueberry"
+      ),
 
-      p("Super Melon", 8000, "Watermelon + Strawberry"),
+      p(
+        "Super Melon",
+        8000,
+        "Watermelon + Strawberry"
+      ),
 
       p(
         "Passionfruit Sunrise",
@@ -711,15 +709,16 @@ const MENU = [
   {
     id: "chocolate",
     name: "Chocolate",
-    icon: "🍫",
-    tint: "#ead7c8",
 
     note:
       "Ferrero price needs confirming.",
 
     items: [
 
-      p("Chocolate", 11000),
+      p(
+        "Chocolate",
+        11000
+      ),
 
       p(
         "Choco Mint",
@@ -727,7 +726,10 @@ const MENU = [
         "Chocolate Milk paired with mint and chocolate chunks"
       ),
 
-      p("Nutella Shake", 12000),
+      p(
+        "Nutella Shake",
+        12000
+      ),
 
       p(
         "Choco Overload",
@@ -735,7 +737,10 @@ const MENU = [
         "Chocolate Milkshake with Chocolate chunks and extra Chocolate drizzles"
       ),
 
-      p("Hazelnut", 12000),
+      p(
+        "Hazelnut",
+        12000
+      ),
 
       p(
         "Oreo",
@@ -819,8 +824,6 @@ const MENU = [
   {
     id: "milk-tea",
     name: "Milk Tea",
-    icon: "🍵",
-    tint: "#e3ecd2",
 
     note:
       "Milk Tea prices are not confirmed in the supplied menu. Please confirm prices before publishing.",
@@ -852,15 +855,11 @@ const MENU = [
 
 
 /* =========================================================================
-   SECTION 5 — GENERAL HELPERS
+   4. GENERAL HELPERS
    ========================================================================= */
 
 const $ = (selector, root = document) =>
   root.querySelector(selector);
-
-
-const $$ = (selector, root = document) =>
-  [...root.querySelectorAll(selector)];
 
 
 const esc = value =>
@@ -873,59 +872,19 @@ const esc = value =>
   })[character]);
 
 
-const fmt = amount =>
-  `${CONFIG.currency} ${Number(amount).toLocaleString("en-US")}`;
+const fmt = amount => {
 
-
-/* =========================================================================
-   SECTION 6 — RESTAURANT BRANDING
-   ========================================================================= */
-
-function bindBrand() {
-
-  const restaurant = CONFIG.restaurant;
-
-  $$("[data-bind]").forEach(element => {
-
-    const key = element.dataset.bind;
-
-    element.textContent =
-      restaurant[key] ?? "";
-
-  });
-
-
-  const yearElement = $("#year");
-
-  if (yearElement) {
-
-    yearElement.textContent =
-      new Date().getFullYear();
-
+  if (typeof amount !== "number" || !Number.isFinite(amount)) {
+    return "Price TBC";
   }
 
+  return `TSh ${amount.toLocaleString("en-TZ")}`;
 
-  /*
-   * The HTML already contains:
-   *
-   * <title>Boba Bay — Table Menu</title>
-   *
-   * This also makes the title update automatically if the restaurant
-   * name is changed in CONFIG.
-   */
-
-  const pageTitle =
-    document.documentElement.dataset.title;
-
-  document.title = pageTitle
-    ? `${restaurant.name} — ${pageTitle}`
-    : restaurant.name;
-
-}
+};
 
 
 /* =========================================================================
-   SECTION 7 — CATEGORY NAVIGATION
+   5. CATEGORY NAVIGATION
    ========================================================================= */
 
 function renderCategories() {
@@ -944,15 +903,13 @@ function renderCategories() {
       ${esc(category.name)}
     </a>
 
-  `).join("") +
-
-  `
+  `).join("") + `
 
     <a
       href="#cat-boba-addons"
       data-cat="boba-addons"
     >
-      Boba & Toppings
+      Boba &amp; Toppings
     </a>
 
   `;
@@ -961,7 +918,7 @@ function renderCategories() {
 
 
 /* =========================================================================
-   SECTION 8 — BOBA AND TOPPING INFORMATION
+   6. BOBA / TOPPING CHIPS
    ========================================================================= */
 
 function chips(options) {
@@ -984,6 +941,10 @@ function chips(options) {
 
 }
 
+
+/* =========================================================================
+   7. BOBA / TOPPING INFORMATION
+   ========================================================================= */
 
 function addonsSection() {
 
@@ -1031,7 +992,9 @@ function addonsSection() {
 
       <div class="info-card">
 
-        <h4>Toppings — ${fmt(TOPPINGS.price)} each</h4>
+        <h4>
+          Toppings — ${fmt(TOPPINGS.price)} each
+        </h4>
 
         ${chips(TOPPINGS.list)}
 
@@ -1050,34 +1013,20 @@ function addonsSection() {
 
 
 /* =========================================================================
-   SECTION 9 — MENU ITEM RENDERING
+   8. PRODUCT RENDERING
    ========================================================================= */
 
 function renderProduct(product) {
 
-  const priceHTML =
-    typeof product.price === "number"
-
-      ? `
-        <span class="price">
-          ${fmt(product.price)}
-        </span>
-      `
-
-      : `
-        <span class="price tbc">
-          Price TBC
-        </span>
-      `;
-
+  const price = fmt(product.price);
 
   return `
 
-    <li class="menu-row">
+    <div class="menu-row">
 
-      <div>
+      <div class="row-main">
 
-        <b>
+        <b class="item-name">
           ${esc(product.name)}
         </b>
 
@@ -1096,11 +1045,13 @@ function renderProduct(product) {
 
       <div class="row-end">
 
-        ${priceHTML}
+        <span class="price">
+          ${price}
+        </span>
 
       </div>
 
-    </li>
+    </div>
 
   `;
 
@@ -1108,7 +1059,7 @@ function renderProduct(product) {
 
 
 /* =========================================================================
-   SECTION 10 — COMPLETE MENU RENDERING
+   9. COMPLETE MENU RENDERING
    ========================================================================= */
 
 function renderMenu() {
@@ -1118,7 +1069,7 @@ function renderMenu() {
   if (!root) return;
 
 
-  const menuHTML = MENU.map(category => `
+  root.innerHTML = MENU.map(category => `
 
     <section
       class="cat"
@@ -1134,136 +1085,37 @@ function renderMenu() {
         category.note
           ? `
             <p class="note">
-              ⚠️ ${esc(category.note)}
+              ${esc(category.note)}
             </p>
           `
           : ""
       }
 
 
-      <ul class="menu-list">
+      <div class="menu-list">
 
         ${category.items
           .map(renderProduct)
           .join("")}
 
-      </ul>
+      </div>
 
     </section>
 
-  `).join("");
-
-
-  root.innerHTML =
-    menuHTML +
-    addonsSection();
+  `).join("") + addonsSection();
 
 }
 
 
 /* =========================================================================
-   SECTION 11 — ACTIVE CATEGORY TRACKING
-   ========================================================================= */
-
-function watchCategories() {
-
-  const links = $$("#catNav a");
-
-  const sections = $$(".cat");
-
-  if (!links.length || !sections.length) return;
-
-
-  /*
-   * Highlight the category currently visible on screen.
-   */
-
-  const observer =
-    new IntersectionObserver(
-
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (!entry.isIntersecting) return;
-
-
-          const categoryID =
-            entry.target.id.replace("cat-", "");
-
-
-          links.forEach(link => {
-
-            link.classList.toggle(
-              "active",
-              link.dataset.cat === categoryID
-            );
-
-          });
-
-
-          /*
-           * Keep the active category visible
-           * inside the horizontal navigation.
-           */
-
-          const activeLink =
-            $("#catNav a.active");
-
-          if (activeLink) {
-
-            activeLink.scrollIntoView({
-
-              behavior: "smooth",
-
-              block: "nearest",
-
-              inline: "center"
-
-            });
-
-          }
-
-        });
-
-      },
-
-      {
-        rootMargin: "-130px 0px -65% 0px",
-
-        threshold: 0
-
-      }
-
-    );
-
-
-  sections.forEach(section => {
-
-    observer.observe(section);
-
-  });
-
-}
-
-
-/* =========================================================================
-   SECTION 12 — INITIALISE TABLE MENU
+   10. INITIALIZE
    ========================================================================= */
 
 function initMenu() {
 
-  // Restaurant name, tagline and footer bindings.
-  bindBrand();
-
-  // Create horizontal category navigation.
   renderCategories();
 
-  // Render all menu products.
   renderMenu();
-
-  // Highlight the category currently being viewed.
-  watchCategories();
 
 }
 
