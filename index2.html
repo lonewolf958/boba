@@ -12,7 +12,7 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <title>Boba Bear — Order Online</title>
+  <title>Boba Bay — Order Online</title>
 
   <meta
     name="description"
@@ -22,7 +22,7 @@
 
   <!-- ========================================
        2. GOOGLE FONTS
-  ========================================= -->
+  ======================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -34,43 +34,63 @@
 
   <!-- ========================================
        3. ONLINE ORDERING STYLESHEET
-  ========================================= -->
+  ======================================== -->
   <link rel="stylesheet" href="style2.css">
 
 </head>
 
+
 <body>
 
   <!-- ========================================
-       4. HEADER / NAVIGATION
-  ========================================= -->
+       4. HEADER
+       Matches the Boba Bay Table Menu
+  ======================================== -->
   <header class="site-header">
 
-    <div class="wrap bar">
+    <div class="header-inner wrap">
 
-      <!-- Restaurant Logo and Name -->
+      <!-- Brand -->
       <a
         class="brand"
         href="index.html"
-        aria-label="Home"
+        aria-label="Boba Bay home"
       >
 
-        <span class="logo" aria-hidden="true">🐻</span>
+        <span
+          class="brand-logo"
+          aria-hidden="true"
+        >
+          🐻
+        </span>
 
-        <span data-bind="name"></span>
+        <span class="brand-copy">
+
+          <span
+            class="brand-name"
+            data-bind="name"
+          >
+            Boba Bay
+          </span>
+
+          <span class="brand-tagline">
+            Ride the Wave of FLavor.
+          </span>
+
+        </span>
 
       </a>
 
 
-      <!-- Header Actions -->
-      <div class="actions">
+      <!-- Header Action -->
+      <div class="header-actions">
 
         <a
-          class="btn btn-primary btn-sm"
+          class="home-button"
           href="index.html"
           aria-label="Back to home page"
         >
-          Home
+          🏠 Home
         </a>
 
       </div>
@@ -81,23 +101,33 @@
 
 
   <!-- ========================================
-       5. MAIN CONTENT / MENU
-  ========================================= -->
+       5. MAIN CONTENT
+  ======================================== -->
   <main class="wrap">
 
-    <section class="section" style="padding-top: 24px;">
+    <section
+      class="section"
+      style="padding-top: 24px;"
+    >
 
-      <!-- Page Heading and Instructions -->
-      <h1 class="page-title">Order Online</h1>
+      <!-- Page Introduction -->
+      <div class="page-intro">
 
-      <p class="sub">
-        Tap Add to Cart on a drink. Milk, Slushy and Fizzy drinks can
-        be customised with boba and toppings. Open your cart to choose
-        Delivery or Pickup and send your order via WhatsApp.
-      </p>
+        <h1 class="page-title">
+          Order Online
+        </h1>
+
+        <p class="sub">
+          Choose your favourite drinks, customise them,
+          add them to your cart and place your order via WhatsApp.
+        </p>
+
+      </div>
 
 
-      <!-- Menu Category Navigation -->
+      <!-- ========================================
+           5.1 CATEGORY NAVIGATION
+      ======================================== -->
       <div class="cat-nav-holder">
 
         <nav
@@ -109,7 +139,10 @@
       </div>
 
 
-      <!-- Menu Items Rendered by JavaScript -->
+      <!-- ========================================
+           5.2 MENU
+           Rendered by script2.js
+      ======================================== -->
       <div id="menuRoot"></div>
 
     </section>
@@ -119,39 +152,57 @@
 
   <!-- ========================================
        6. FOOTER
-  ========================================= -->
+  ======================================== -->
   <footer class="site-footer">
 
-    <p class="copy">
-      © <span id="year"></span>
-      <span data-bind="name"></span>.
-      All prices in Tanzanian Shillings.
-    </p>
+    <div class="wrap">
+
+      <p class="copy">
+        © <span id="year"></span>
+        <span data-bind="name"></span>.
+        All prices in Tanzanian Shillings.
+      </p>
+
+    </div>
 
   </footer>
 
 
   <!-- ========================================
        7. FLOATING CART BUTTON
-  ========================================= -->
+  ======================================== -->
   <button
     id="cart-toggle-btn"
     class="cart-fab"
     type="button"
     aria-label="Open cart, 0 items"
   >
-    🛒 Cart
+
+    <span
+      class="cart-fab-icon"
+      aria-hidden="true"
+    >
+      🛒
+    </span>
+
+    <span class="cart-fab-label">
+      Cart
+    </span>
 
     <span
       id="cart-count"
       class="cart-fab-count"
       aria-hidden="true"
-    >0</span>
+    >
+      0
+    </span>
 
   </button>
 
 
-  <!-- Cart Background Overlay -->
+  <!-- ========================================
+       8. CART OVERLAY
+  ======================================== -->
   <div
     id="cart-overlay"
     class="cart-overlay"
@@ -160,8 +211,8 @@
 
 
   <!-- ========================================
-       8. SHOPPING CART DRAWER
-  ========================================= -->
+       9. SHOPPING CART DRAWER
+  ======================================== -->
   <aside
     id="cart-drawer"
     class="cart-drawer"
@@ -174,7 +225,17 @@
     <!-- Cart Header -->
     <div class="cart-drawer-header">
 
-      <h2 id="cart-drawer-title">🛒 Your Order</h2>
+      <div>
+
+        <p class="cart-eyebrow">
+          Boba Bay
+        </p>
+
+        <h2 id="cart-drawer-title">
+          🛒 Your Order
+        </h2>
+
+      </div>
 
       <button
         id="cart-close-btn"
@@ -191,18 +252,20 @@
     <!-- Cart Content -->
     <div class="cart-body">
 
-      <!-- Cart Items Rendered by JavaScript -->
+      <!-- Cart Items -->
       <div id="cart-items"></div>
 
 
-      <!-- Empty Cart Message -->
+      <!-- Empty Cart -->
       <div
         id="cart-empty"
         class="cart-empty"
         hidden
       >
 
-        <p>Your cart is empty</p>
+        <p>
+          Your cart is empty
+        </p>
 
         <button
           id="cart-browse-btn"
@@ -216,9 +279,12 @@
 
 
       <!-- ======================================
-           8.1 CUSTOMER ORDER DETAILS
+           CUSTOMER ORDER DETAILS
       ======================================= -->
-      <div id="cart-footer" hidden>
+      <div
+        id="cart-footer"
+        hidden
+      >
 
         <div class="order-details-box">
 
@@ -227,7 +293,7 @@
           </p>
 
 
-          <!-- Delivery / Pickup Selection -->
+          <!-- Delivery / Pickup -->
           <div
             class="order-type-options"
             role="radiogroup"
@@ -241,9 +307,20 @@
               role="radio"
               aria-checked="false"
             >
-              <span aria-hidden="true">🛵</span>
-              <span>Delivery</span>
+
+              <span
+                class="order-type-icon"
+                aria-hidden="true"
+              >
+                🛵
+              </span>
+
+              <span>
+                Delivery
+              </span>
+
             </button>
+
 
             <button
               type="button"
@@ -252,14 +329,24 @@
               role="radio"
               aria-checked="false"
             >
-              <span aria-hidden="true">🥡</span>
-              <span>Pickup</span>
+
+              <span
+                class="order-type-icon"
+                aria-hidden="true"
+              >
+                🥡
+              </span>
+
+              <span>
+                Pickup
+              </span>
+
             </button>
 
           </div>
 
 
-          <!-- Order Type Instructions -->
+          <!-- Order Type Hint -->
           <p
             class="order-type-hint"
             id="order-type-hint"
@@ -268,8 +355,11 @@
           </p>
 
 
-          <!-- Customer Information Fields -->
-          <div id="cart-customer-fields" hidden>
+          <!-- Customer Fields -->
+          <div
+            id="cart-customer-fields"
+            hidden
+          >
 
             <input
               type="text"
@@ -280,6 +370,7 @@
               autocomplete="name"
               maxlength="80"
             >
+
 
             <input
               type="tel"
@@ -292,184 +383,13 @@
             >
 
 
-            <!-- Delivery-Only Fields -->
-            <div data-delivery-only hidden>
+            <!-- Delivery Fields -->
+            <div
+              data-delivery-only
+              hidden
+            >
 
               <input
                 type="text"
                 id="customer-area"
                 class="cart-input"
-                placeholder="Delivery area *"
-                aria-label="Delivery area (required)"
-                maxlength="100"
-              >
-
-              <input
-                type="text"
-                id="customer-address"
-                class="cart-input"
-                placeholder="Delivery address *"
-                aria-label="Delivery address (required)"
-                autocomplete="street-address"
-                maxlength="200"
-              >
-
-            </div>
-
-
-            <!-- Optional Customer Note -->
-            <textarea
-              id="customer-note"
-              class="cart-input"
-              placeholder="Additional note (optional)"
-              aria-label="Additional note (optional)"
-              maxlength="300"
-            ></textarea>
-
-          </div>
-
-        </div>
-
-
-        <!-- ==================================
-             8.2 ORDER TOTALS
-        =================================== -->
-        <div
-          class="cart-total-rows"
-          id="cart-total-rows"
-        ></div>
-
-
-        <!-- ==================================
-             8.3 WHATSAPP ORDER BUTTON
-        =================================== -->
-        <button
-          id="whatsapp-order-btn"
-          class="whatsapp-btn"
-          type="button"
-          disabled
-        >
-          📲 Order via WhatsApp
-        </button>
-
-
-        <!-- WhatsApp Order Status / Instructions -->
-        <p
-          class="whatsapp-hint"
-          id="whatsapp-hint"
-          role="status"
-        ></p>
-
-
-        <!-- Clear Cart Button -->
-        <button
-          id="clear-cart-btn"
-          class="clear-cart-btn"
-          type="button"
-        >
-          Clear Cart
-        </button>
-
-      </div>
-
-    </div>
-
-  </aside>
-
-
-  <!-- ========================================
-       9. DRINK CUSTOMISATION MODAL
-  ========================================= -->
-  <dialog
-    id="customModal"
-    class="modal"
-    aria-labelledby="cmTitle"
-  >
-
-    <form
-      method="dialog"
-      class="modal-inner"
-      id="cmForm"
-      onsubmit="return false"
-    >
-
-      <!-- Modal Header -->
-      <header class="modal-head">
-
-        <h2 id="cmTitle">Customise Your Drink</h2>
-
-        <button
-          type="button"
-          class="icon-btn"
-          id="cmClose"
-          aria-label="Close"
-        >
-          ✕
-        </button>
-
-      </header>
-
-
-      <!-- Customisation Options Rendered by JavaScript -->
-      <div
-        class="modal-body"
-        id="cmBody"
-      ></div>
-
-
-      <!-- ======================================
-           9.1 PRICE BREAKDOWN AND TOTAL
-      ======================================= -->
-      <footer class="modal-foot">
-
-        <!-- Customisation Price Breakdown -->
-        <div
-          class="breakdown"
-          id="cmBreakdown"
-          aria-live="polite"
-        ></div>
-
-
-        <!-- Total Price and Add to Cart -->
-        <div class="foot-row">
-
-          <div class="total">
-
-            <span>Total</span>
-
-            <strong id="cmTotal">TSh 0</strong>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-accent"
-            id="cmAdd"
-          >
-            Add to Cart
-          </button>
-
-        </div>
-
-
-        <!-- Customisation Status / Instructions -->
-        <p
-          class="hint"
-          id="cmHint"
-          role="status"
-        ></p>
-
-      </footer>
-
-    </form>
-
-  </dialog>
-
-
-  <!-- ========================================
-       10. ONLINE ORDERING JAVASCRIPT
-  ========================================= -->
-  <script src="script2.js"></script>
-
-</body>
-</html>
