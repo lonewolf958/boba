@@ -1,29 +1,138 @@
-/* HOME PAGE — edit your restaurant details below.
-   (The same details also appear at the top of script1.js and script2.js.) */
-const CONFIG = {
-  restaurant: {
-    name: "Boba Bear",                       // PLACEHOLDER name (menu shows a bear logo only) – replace
-    tagline: "Pop it. Sip it. Love it.",     // PLACEHOLDER tagline
-    whatsapp: "2550000000",                // Digits only, with country code, no "+" (e.g. 255712345678)
-    address: "[Add restaurant address]",
-    phone: "[Add telephone number]",
-    hours: "[Add opening hours]",
-    socials: [ /* { label: "Instagram", url: "https://instagram.com/yourpage" } */ ],
-    deliveryNote: "Home Delivery Available",  // shown on the home page (edit or set "")
-    deliveryFee: 0                           // TSh, added to Delivery orders only
-  },
-};
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* ==========================================================================
+   BOBA BAY — SCRIPT
 
-function bindBrand() {
-  const r = CONFIG.restaurant;
-  $$("[data-bind]").forEach(el => { el.textContent = r[el.dataset.bind] ?? ""; });
-  const soc = $("#socials");
-  if (soc) soc.innerHTML = r.socials.length ? r.socials.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(" · ") : "[Add social media links]";
-  const y = $("#year"); if (y) y.textContent = new Date().getFullYear();
-  const t = document.documentElement.dataset.title; document.title = t ? `${r.name} — ${t}` : r.name;
-}
+   Handles:
+   - Copyright year
+   - Gentle scroll-reveal animation
+   - Image fallback handling
+   - Reduced-motion accessibility
 
-bindBrand();
+   No frameworks.
+   No server code.
+   Safe for static hosting such as GitHub Pages or Netlify.
+   ========================================================================== */
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+  /* =========================================================================
+     1. CURRENT COPYRIGHT YEAR
+     ========================================================================= */
+
+  var yearElement = document.getElementById("year");
+
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+
+  /* =========================================================================
+     2. SCROLL-REVEAL ANIMATION
+     ========================================================================= */
+
+  var revealTargets = document.querySelectorAll(
+    ".choose, .featured, .about, .site-footer"
+  );
+
+  var prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+
+  /*
+   * Add the initial reveal class.
+   * The CSS controls the actual animation.
+   */
+
+  revealTargets.forEach(function (element) {
+    element.classList.add("reveal");
+  });
+
+
+  /*
+   * If the user prefers reduced motion,
+   * show everything immediately.
+   */
+
+  if (prefersReducedMotion) {
+
+    revealTargets.forEach(function (element) {
+      element.classList.add("is-visible");
+    });
+
+  }
+
+
+  /*
+   * Use IntersectionObserver when available.
+   */
+
+  else if ("IntersectionObserver" in window) {
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+
+        entries.forEach(function (entry) {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("is-visible");
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+
+    revealTargets.forEach(function (element) {
+      observer.observe(element);
+    });
+
+  }
+
+
+  /*
+   * Fallback for older browsers.
+   */
+
+  else {
+
+    revealTargets.forEach(function (element) {
+      element.classList.add("is-visible");
+    });
+
+  }
+
+
+  /* =========================================================================
+     3. IMAGE ERROR HANDLING
+     ========================================================================= */
+
+  var images = document.querySelectorAll("img");
+
+  images.forEach(function (image) {
+
+    image.addEventListener("error", function () {
+
+      var frame = image.closest(
+        ".hero-image-frame, .food-image-frame, .about-image-frame"
+      );
+
+      if (frame) {
+        frame.classList.add("image-fallback");
+      }
+
+    });
+
+  });
+
+
+});
