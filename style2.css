@@ -1,65 +1,88 @@
-/* =========================================================================
-   BOBA BAY — ORDER ONLINE STYLESHEET
-
+```css
+/* ==========================================================================
+   BOBA BEAR — MAIN STYLESHEET
+   --------------------------------------------------------------------------
    Theme: Deep Teal + Coral
+   Layout: Mobile-first / Responsive
    Fonts: Manrope + Fraunces
-   Layout: Mobile-first and responsive
 
-   This stylesheet controls appearance and layout.
-   Ordering functionality is handled by script2.js.
-   ========================================================================= */
+   QUICK EDIT GUIDE
+   ---------------
+   1. Change colours       → DESIGN SETTINGS
+   2. Change fonts         → DESIGN SETTINGS
+   3. Change spacing       → DESIGN SETTINGS
+   4. Header / navigation  → HEADER
+   5. Menu                 → MENU
+   6. Product customization→ CUSTOMIZATION MODAL
+   7. Cart                 → CART / ORDER DRAWER
+   8. Home page            → HOME / MENU PAGES
+   9. Desktop changes      → RESPONSIVE
+   ========================================================================== */
 
 
-/* =========================================================================
+/* ==========================================================================
    1. DESIGN SETTINGS
-   ========================================================================= */
+   --------------------------------------------------------------------------
+   Change the values below to change the overall appearance of the website.
+   ========================================================================== */
 
 :root {
 
-  /* ---------- Main colours ---------- */
+  /* ---------- Main Colours ---------- */
 
-  --green: #0f766e;
-  --green-d: #0b4f4a;
+  --green: #0f766e;          /* Main teal */
+  --green-dark: #0b4f4a;     /* Dark teal */
+  --green-light: #1b9c8c;    /* Light teal */
 
-  --cream: #f2f8f7;
-  --card: #ffffff;
+  --cream: #f2f8f7;          /* Main page background */
+  --white: #ffffff;          /* Cards / white backgrounds */
 
-  --ink: #10282a;
-  --muted: #587370;
+  --ink: #10282a;            /* Main text */
+  --muted: #587370;          /* Secondary text */
 
+  --accent: #f26b3a;         /* Coral */
+  --accent-dark: #d9541f;    /* Dark coral */
 
-  /* ---------- Accent colours ---------- */
+  --taro: #6d5fd0;           /* Taro / special tag */
 
-  --accent: #f26b3a;
-  --accent-d: #d9541f;
+  --line: #d6e5e2;            /* Borders */
 
-  --taro: #6d5fd0;
+  /* ---------- Extra Colours ---------- */
 
+  --cream-light: #fffaf2;
+  --teal-light: #e6f4f1;
+  --teal-border: #c5e2dd;
+  --coral-light: #fff1ea;
+  --yellow-note: #fff7d6;
+  --yellow-border: #d9b84a;
 
-  /* ---------- Borders and effects ---------- */
+  /* ---------- Typography ---------- */
 
-  --line: #d6e5e2;
+  --font-body: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: Fraunces, Georgia, "Times New Roman", serif;
 
-  --r: 18px;
+  /* ---------- Sizes ---------- */
+
+  --radius: 18px;
+  --radius-small: 12px;
+  --radius-medium: 14px;
+  --radius-large: 22px;
+
+  --header-height: 64px;
+
+  /* ---------- Shadows ---------- */
 
   --shadow:
     0 6px 20px rgba(11, 79, 74, 0.12);
 
-
-  /* ---------- Header ---------- */
-
-  --nav-height: 76px;
-
-
-  /* ---------- Layout ---------- */
-
-  --content-width: 1120px;
+  --shadow-strong:
+    0 8px 22px rgba(0, 0, 0, 0.28);
 }
 
 
-/* =========================================================================
-   2. RESET AND BASE
-   ========================================================================= */
+/* ==========================================================================
+   2. RESET / BASE
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -67,48 +90,30 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 150px;
+  scroll-padding-top: 70px;
 }
 
 body {
   margin: 0;
-
-  font:
-    16px/1.5
-    Manrope,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
-
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--ink);
   background: var(--cream);
-
   overflow-x: hidden;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family:
-    Fraunces,
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  line-height: 1.15;
 }
 
 h1,
 h2,
 h3 {
   margin: 0 0 0.4em;
+  font-family: var(--font-heading);
+  line-height: 1.15;
 }
 
 h2 {
-  color: var(--green-d);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--green-dark);
 }
 
 img {
@@ -117,21 +122,9 @@ img {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
-}
-
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
 }
 
 [hidden] {
@@ -143,229 +136,209 @@ a {
 }
 
 
-/* =========================================================================
-   3. REUSABLE LAYOUT
-   ========================================================================= */
+/* ==========================================================================
+   3. GLOBAL HELPERS
+   ========================================================================== */
 
 .wrap {
-  width: min(
-    var(--content-width),
-    calc(100% - 32px)
-  );
-
+  width: min(1120px, calc(100% - 32px));
   margin-inline: auto;
 }
 
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: 8px;
+  top: 8px;
+  z-index: 99;
+  padding: 8px;
+  background: var(--white);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .section {
-  padding: 32px 0 12px;
-}
-
-
-/* =========================================================================
-   4. PAGE INTRODUCTION
-   ========================================================================= */
-
-.page-intro {
-  padding: 4px 0 4px;
-}
-
-.page-title {
-  margin: 0 0 5px;
-
-  color: var(--green-d);
-
-  font-size:
-    clamp(
-      2rem,
-      6vw,
-      2.8rem
-    );
+  padding: 48px 0 12px;
 }
 
 .sub {
-  max-width: 720px;
-
   margin: 0 0 20px;
-
   color: var(--muted);
-
-  font-size: 0.94rem;
 }
 
 
-/* =========================================================================
-   5. HEADER
-   ========================================================================= */
+/* ==========================================================================
+   4. HEADER
+   ========================================================================== */
 
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 30;
+  z-index: 20;
 
-  background: var(--green-d);
-
-  border-bottom: 3px solid var(--accent);
-
-  box-shadow:
-    0 4px 14px rgba(11, 79, 74, 0.18);
+  background: var(--green-dark);
+  border-bottom: 0;
 
   backdrop-filter: blur(8px);
 }
 
-.header-inner {
-  min-height: var(--nav-height);
+.bar {
+  position: relative;
 
   display: flex;
   align-items: center;
-
   gap: 12px;
+
+  height: var(--header-height);
 }
 
 
 /* ---------- Brand ---------- */
 
 .brand {
-  min-width: 0;
-
   display: flex;
   align-items: center;
+  gap: 8px;
 
-  gap: 10px;
-
+  min-width: 0;
   margin-right: auto;
 
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
+
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
-.brand-logo {
+.brand span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ---------- Logo ---------- */
+
+.logo {
   display: grid;
   place-items: center;
 
+  width: 38px;
+  height: 38px;
+
   flex: none;
 
-  width: 48px;
-  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
 
-  border-radius: 12px;
-
-  background: #fff;
-
-  border: 2px solid rgba(255, 255, 255, 0.9);
-
-  box-shadow:
-    0 3px 10px rgba(0, 0, 0, 0.12);
-
-  font-size: 1.45rem;
+  font-size: 1.2rem;
 }
 
-.brand-copy {
-  min-width: 0;
 
-  display: flex;
+/* ---------- Navigation ---------- */
+
+.nav {
+  display: none;
+
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+
   flex-direction: column;
 
-  justify-content: center;
+  padding: 8px 16px 16px;
+
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow);
 }
 
-.brand-name {
-  display: block;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  color: #fff;
-
-  font:
-    700
-    clamp(1.15rem, 4vw, 1.45rem)
-    Fraunces,
-    Georgia,
-    serif;
-
-  line-height: 1.05;
+.nav.open {
+  display: flex;
 }
 
-.brand-tagline {
-  display: block;
+.nav a {
+  padding: 12px 4px;
 
-  margin-top: 2px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  color: #b9ddd8;
-
-  font-size: 0.74rem;
+  color: var(--ink);
+  text-decoration: none;
   font-weight: 600;
 }
 
-.header-actions {
+
+/* ---------- Header Actions ---------- */
+
+.actions {
   display: flex;
   align-items: center;
+  gap: 8px;
 
   flex: none;
 }
 
-.home-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.icon-btn {
+  position: relative;
 
-  min-height: 40px;
+  width: 42px;
+  height: 42px;
 
-  padding: 8px 15px;
+  border: 0;
+  border-radius: 50%;
 
-  border-radius: 999px;
+  background: var(--white);
 
-  background: #fff;
+  font-size: 1.1rem;
 
-  color: var(--green-d);
-
-  font-size: 0.88rem;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  box-shadow:
-    0 3px 10px rgba(0, 0, 0, 0.08);
-
-  transition:
-    transform 0.15s,
-    background 0.15s;
+  cursor: pointer;
+  box-shadow: var(--shadow);
 }
 
-.home-button:hover {
-  background: #e6f6f3;
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
 
-  transform: translateY(-1px);
+  min-width: 20px;
+  height: 20px;
+
+  padding: 0 5px;
+
+  border-radius: 10px;
+
+  background: var(--accent);
+  color: var(--white);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 20px;
+
+  text-align: center;
 }
 
 
-/* =========================================================================
-   6. BUTTONS
-   ========================================================================= */
+/* ==========================================================================
+   5. BUTTONS
+   ========================================================================== */
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
 
-  gap: 7px;
-
-  padding: 12px 22px;
+  padding: 12px 24px;
 
   border: 0;
   border-radius: 999px;
 
-  font:
-    700
-    0.95rem
-    Manrope,
-    system-ui,
-    sans-serif;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
 
   text-align: center;
   text-decoration: none;
@@ -374,8 +347,7 @@ a {
 
   transition:
     transform 0.15s,
-    background 0.15s,
-    opacity 0.15s;
+    background 0.15s;
 }
 
 .btn:hover:not(:disabled) {
@@ -387,27 +359,30 @@ a {
   cursor: not-allowed;
 }
 
+
+/* ---------- Button Types ---------- */
+
 .btn-primary {
-  background: var(--green);
-  color: #fff;
+  background: var(--white);
+  color: var(--green-dark);
 }
 
-.btn-primary:hover:not(:disabled) {
-  background: var(--green-d);
+.btn-primary:hover {
+  background: #e6f6f3;
 }
 
 .btn-accent {
   background: var(--accent);
-  color: #fff;
+  color: var(--white);
 }
 
 .btn-accent:hover:not(:disabled) {
-  background: var(--accent-d);
+  background: var(--accent-dark);
 }
 
 .btn-sm {
   padding: 9px 16px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
 }
 
 .btn-block {
@@ -415,1346 +390,446 @@ a {
 }
 
 
-/* =========================================================================
-   7. CATEGORY NAVIGATION
-   ========================================================================= */
+/* ==========================================================================
+   6. HERO SECTION
+   ========================================================================== */
 
-.cat-nav-holder {
-  position: sticky;
-
-  top: calc(var(--nav-height) + 3px);
-
-  z-index: 20;
-
-  margin: 0 -2px 24px;
-
-  padding: 8px 2px;
-
+.hero {
   background:
     linear-gradient(
-      to bottom,
-      var(--cream) 75%,
-      rgba(242, 248, 247, 0)
+      155deg,
+      var(--green-dark) 0%,
+      var(--green) 55%,
+      var(--green-light) 100%
     );
+
+  color: #e6f6f3;
 }
 
-.cat-nav {
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  overflow-x: auto;
-
-  padding: 2px 0 10px;
-
-  scrollbar-width: none;
-
-  -webkit-overflow-scrolling: touch;
+.hero h1,
+.hero h2 {
+  color: var(--white);
 }
 
-.cat-nav::-webkit-scrollbar {
-  display: none;
+.hero .tagline {
+  color: #ffd2bf;
 }
 
-.cat-nav button,
-.cat-nav a {
-  flex: 0 0 auto;
-
-  padding: 9px 15px;
-
-  border: 1px solid var(--line);
-  border-radius: 999px;
-
-  background: #fff;
-
-  color: var(--green-d);
-
-  font-size: 0.82rem;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  transition:
-    background 0.15s,
-    color 0.15s,
-    border-color 0.15s,
-    transform 0.15s;
+.hero .logo-lg {
+  background: var(--white);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
-.cat-nav button:hover,
-.cat-nav a:hover {
-  border-color: var(--green);
-
-  transform: translateY(-1px);
+.hero .btn-primary {
+  background: var(--white);
+  color: var(--green-dark);
 }
 
-.cat-nav .active,
-.cat-nav button.active,
-.cat-nav a.active {
-  border-color: var(--green);
-
-  background: var(--green);
-
-  color: #fff;
+.hero .btn-primary:hover {
+  background: #e6f6f3;
 }
 
 
-/* =========================================================================
-   8. MENU
-   ========================================================================= */
+/* ---------- Decorative Hero Elements ---------- */
 
-#menuRoot {
-  display: block;
+.hero .cup {
+  background: rgba(255, 255, 255, 0.95);
 }
 
-.menu-section {
-  margin: 0 0 34px;
-
-  scroll-margin-top: 155px;
+.hero .c2 {
+  background: #d7f0ec;
 }
 
-.menu-section-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-
-  gap: 12px;
-
-  margin: 0 0 14px;
-
-  color: var(--green-d);
-
-  font-size: 1.65rem;
+.hero .c3 {
+  background: #ffe0d3;
 }
 
-.menu-section-title::after {
-  content: "";
-
-  flex: 1;
-
-  height: 2px;
-
-  margin-left: 10px;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--line),
-      transparent
-    );
-}
-
-.menu-section-subtitle {
-  margin: -7px 0 14px;
-
-  color: var(--muted);
-
-  font-size: 0.86rem;
+.bubble {
+  background: #ffb899;
 }
 
 
-/* ---------- Menu grid ---------- */
+/* ==========================================================================
+   7. HOME PAGE
+   ========================================================================== */
 
-.menu-grid {
+.page-title {
+  margin-bottom: 4px;
+
+  color: var(--green-dark);
+
+  font-size: clamp(2rem, 6vw, 2.8rem);
+}
+
+.logo-lg {
+  width: 84px;
+  height: 84px;
+
+  margin-bottom: 14px;
+
+  border: 4px solid var(--white);
+  border-radius: 50%;
+
+  box-shadow: var(--shadow);
+
+  font-size: 2.6rem;
+}
+
+.info-list {
   display: grid;
+  gap: 4px;
 
-  grid-template-columns: 1fr;
+  margin: 14px 0 6px;
+  padding: 0;
 
-  gap: 12px;
+  list-style: none;
+
+  font-weight: 600;
+}
+
+.welcome {
+  margin-top: 20px;
+  font-size: 1.5rem;
 }
 
 
-/* ---------- Menu card ---------- */
+/* ---------- Home Choices ---------- */
 
-.menu-card {
-  display: flex;
-  flex-direction: column;
+.choices {
+  display: grid;
+  gap: 16px;
+}
 
-  min-width: 0;
+.choice {
+  display: block;
 
-  padding: 15px;
+  padding: 22px;
 
-  border: 1px solid var(--line);
+  background: var(--white);
 
-  border-radius: var(--r);
+  border: 2px solid transparent;
+  border-top: 5px solid var(--green);
+  border-radius: var(--radius);
 
-  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
 
   box-shadow: var(--shadow);
 
   transition:
     transform 0.15s,
-    box-shadow 0.15s;
+    border-color 0.15s;
 }
 
-.menu-card:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 10px 25px rgba(11, 79, 74, 0.14);
+.choice:nth-child(2) {
+  border-top-color: var(--accent);
 }
 
-.menu-card h3 {
-  margin: 0 0 5px;
-
-  color: var(--green-d);
-
-  font-size: 1.08rem;
+.choice:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
 }
 
-.menu-card p {
-  margin: 0 0 12px;
+.choice .ic {
+  font-size: 2.2rem;
+}
 
+.choice h3 {
+  margin: 6px 0 4px;
+}
+
+.choice p {
+  margin: 0 0 14px;
   color: var(--muted);
-
-  font-size: 0.84rem;
-}
-
-.menu-card-price {
-  margin-top: auto;
-
-  color: var(--accent);
-
-  font-size: 0.96rem;
-  font-weight: 800;
 }
 
 
-/* ---------- Menu card action ---------- */
+/* ==========================================================================
+   8. ABOUT SECTION
+   ========================================================================== */
 
-.menu-card button {
-  width: 100%;
+.about {
+  max-width: 760px;
 
-  margin-top: 12px;
+  margin-top: 40px;
+  padding: 28px 24px 40px;
 
-  padding: 10px 14px;
+  background: var(--white);
 
-  border: 0;
-  border-radius: 12px;
+  border-left: 5px solid var(--accent);
+  border-radius: var(--radius);
 
-  background: var(--green);
-
-  color: #fff;
-
-  font-size: 0.86rem;
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition:
-    background 0.15s,
-    transform 0.15s;
-}
-
-.menu-card button:hover {
-  background: var(--green-d);
-
-  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
 
 
-/* ---------- Customizable badge ---------- */
+/* ==========================================================================
+   9. SECTION HEADINGS
+   ========================================================================== */
 
-.custom-badge {
-  display: inline-flex;
-
-  align-items: center;
-
-  width: fit-content;
-
-  margin-bottom: 8px;
-
-  padding: 4px 8px;
-
-  border-radius: 999px;
-
-  background: #fff0ea;
-
-  color: var(--accent-d);
-
-  font-size: 0.68rem;
-  font-weight: 800;
+.section > h2 {
+  position: relative;
+  padding-bottom: 8px;
 }
 
+.section > h2::after {
+  content: "";
 
-/* =========================================================================
-   9. FOOTER
-   ========================================================================= */
+  display: block;
 
-.site-footer {
-  margin-top: 45px;
+  width: 48px;
+  height: 4px;
 
-  padding: 28px 0 100px;
+  margin-top: 8px;
 
-  border-top: 1px solid var(--line);
-
-  background: #eaf3f1;
-}
-
-.copy {
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: 0.78rem;
-
-  text-align: center;
-}
-
-
-/* =========================================================================
-   10. FLOATING CART BUTTON
-   ========================================================================= */
-
-.cart-fab {
-  position: fixed;
-
-  right: 18px;
-  bottom: 18px;
-
-  z-index: 60;
-
-  display: inline-flex;
-  align-items: center;
-
-  gap: 8px;
-
-  min-height: 52px;
-
-  padding: 8px 13px 8px 12px;
-
-  border: 0;
-  border-radius: 999px;
+  border-radius: 2px;
 
   background: var(--accent);
-
-  color: #fff;
-
-  box-shadow:
-    0 8px 25px rgba(217, 84, 31, 0.32);
-
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.15s,
-    background 0.15s;
 }
 
-.cart-fab:hover {
-  background: var(--accent-d);
 
-  transform: translateY(-2px);
+/* ==========================================================================
+   10. MENU CATEGORY NAVIGATION
+   ========================================================================== */
+
+.cat-nav-holder {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 10;
+
+  margin-bottom: 8px;
+  padding: 8px 0;
+
+  background: var(--cream);
 }
 
-.cart-fab-icon {
-  font-size: 1.15rem;
+.cat-nav {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding-bottom: 4px;
+
+  scrollbar-width: thin;
 }
 
-.cart-fab-label {
-  font-size: 0.88rem;
-}
+.cat-nav a {
+  flex: none;
 
-.cart-fab-count {
-  display: grid;
-  place-items: center;
+  padding: 8px 16px;
 
-  min-width: 23px;
-  height: 23px;
-
-  padding: 0 5px;
-
+  border: 1px solid var(--line);
   border-radius: 999px;
 
-  background: #fff;
+  background: var(--white);
+  color: var(--green-dark);
 
-  color: var(--accent-d);
-
-  font-size: 0.72rem;
-  font-weight: 800;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-
-/* =========================================================================
-   11. CART OVERLAY
-   ========================================================================= */
-
-.cart-overlay {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 70;
-
-  background: rgba(8, 36, 34, 0.5);
-
-  backdrop-filter: blur(2px);
-}
-
-
-/* =========================================================================
-   12. CART DRAWER
-   ========================================================================= */
-
-.cart-drawer {
-  position: fixed;
-
-  top: 0;
-  right: 0;
-  bottom: 0;
-
-  z-index: 80;
-
-  width: min(
-    100%,
-    440px
-  );
-
-  display: flex;
-  flex-direction: column;
-
-  background: var(--cream);
-
-  box-shadow:
-    -10px 0 35px rgba(11, 79, 74, 0.18);
-
-  overflow: hidden;
-}
-
-
-/* ---------- Cart header ---------- */
-
-.cart-drawer-header {
-  flex: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 15px;
-
-  padding: 18px 18px 16px;
-
-  background: var(--green-d);
-
-  color: #fff;
-}
-
-.cart-eyebrow {
-  margin: 0 0 2px;
-
-  color: #a8d3ce;
-
-  font-size: 0.7rem;
-  font-weight: 800;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-}
-
-.cart-drawer-header h2 {
-  margin: 0;
-
-  color: #fff;
-
-  font-size: 1.35rem;
-}
-
-.cart-close-btn {
-  display: grid;
-  place-items: center;
-
-  flex: none;
-
-  width: 38px;
-  height: 38px;
-
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.1);
-
-  color: #fff;
-
-  cursor: pointer;
-
-  font-size: 1rem;
-
-  transition:
-    background 0.15s,
-    transform 0.15s;
-}
-
-.cart-close-btn:hover {
-  background: rgba(255,255,255,0.2);
-
-  transform: rotate(4deg);
-}
-
-
-/* ---------- Cart body ---------- */
-
-.cart-body {
-  flex: 1;
-
-  min-height: 0;
-
-  overflow-y: auto;
-
-  padding: 16px;
-}
-
-
-/* =========================================================================
-   13. CART ITEMS
-   ========================================================================= */
-
-#cart-items {
-  display: flex;
-  flex-direction: column;
-
-  gap: 10px;
-}
-
-.cart-item {
-  display: grid;
-
-  grid-template-columns: 1fr auto;
-
-  gap: 10px;
-
-  padding: 13px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 15px;
-
-  background: #fff;
-}
-
-.cart-item-name {
-  margin: 0 0 3px;
-
-  color: var(--green-d);
-
-  font-size: 0.94rem;
-  font-weight: 800;
-}
-
-.cart-item-details {
-  margin: 0;
-
-  color: var(--muted);
-
-  font-size: 0.75rem;
-
-  line-height: 1.45;
-}
-
-.cart-item-price {
-  color: var(--accent);
-
-  font-size: 0.84rem;
-  font-weight: 800;
-
-  text-align: right;
-}
-
-.cart-item-controls {
-  display: flex;
-  align-items: center;
-
-  gap: 7px;
-
-  margin-top: 9px;
-}
-
-.cart-qty-btn {
-  display: grid;
-  place-items: center;
-
-  width: 30px;
-  height: 30px;
-
-  border: 1px solid var(--line);
-  border-radius: 9px;
-
-  background: #f5faf9;
-
-  color: var(--green-d);
-
-  font-weight: 800;
-
-  cursor: pointer;
-}
-
-.cart-qty-btn:hover {
-  background: #e5f2f0;
-}
-
-.cart-qty {
-  min-width: 22px;
-
-  color: var(--ink);
-
-  font-size: 0.82rem;
-  font-weight: 800;
-
-  text-align: center;
-}
-
-.cart-remove-btn {
-  margin-left: 3px;
-
-  padding: 4px 7px;
-
-  border: 0;
-
-  background: transparent;
-
-  color: var(--accent-d);
-
-  font-size: 0.72rem;
-  font-weight: 800;
-
-  cursor: pointer;
-}
-
-
-/* =========================================================================
-   14. EMPTY CART
-   ========================================================================= */
-
-.cart-empty {
-  padding: 35px 15px;
-
-  text-align: center;
-}
-
-.cart-empty p {
-  margin: 0 0 15px;
-
-  color: var(--muted);
-
-  font-size: 0.92rem;
-}
-
-
-/* =========================================================================
-   15. ORDER DETAILS
-   ========================================================================= */
-
-.order-details-box {
-  margin-top: 18px;
-
-  padding-top: 18px;
-
-  border-top: 1px solid var(--line);
-}
-
-.order-type-label {
-  margin: 0 0 10px;
-
-  color: var(--green-d);
-
-  font-size: 0.88rem;
-  font-weight: 800;
-}
-
-
-/* ---------- Delivery / Pickup ---------- */
-
-.order-type-options {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 8px;
-}
-
-.order-type-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  min-height: 48px;
-
-  padding: 8px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 13px;
-
-  background: #fff;
-
-  color: var(--green-d);
-
-  font-size: 0.82rem;
-  font-weight: 800;
-
-  cursor: pointer;
-
-  transition:
-    border-color 0.15s,
-    background 0.15s,
-    color 0.15s;
-}
-
-.order-type-btn:hover {
-  border-color: var(--green);
-}
-
-.order-type-btn[aria-checked="true"],
-.order-type-btn.active {
-  border-color: var(--green);
-
+.cat-nav a.active {
   background: var(--green);
-
-  color: #fff;
-}
-
-.order-type-icon {
-  font-size: 1rem;
-}
-
-.order-type-hint {
-  margin: 8px 0 12px;
-
-  color: var(--muted);
-
-  font-size: 0.74rem;
-}
-
-
-/* =========================================================================
-   16. CUSTOMER INPUTS
-   ========================================================================= */
-
-#cart-customer-fields {
-  display: flex;
-  flex-direction: column;
-
-  gap: 9px;
-
-  margin-top: 10px;
-}
-
-.cart-input {
-  width: 100%;
-
-  min-height: 46px;
-
-  padding: 11px 13px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 12px;
-
-  outline: none;
-
-  background: #fff;
-
-  color: var(--ink);
-
-  font-size: 0.84rem;
-
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-.cart-input::placeholder {
-  color: #91a6a3;
-}
-
-.cart-input:focus {
   border-color: var(--green);
-
-  box-shadow:
-    0 0 0 3px rgba(15, 118, 110, 0.1);
-}
-
-.cart-textarea {
-  min-height: 80px;
-
-  resize: vertical;
+  color: var(--white);
 }
 
 
-/* =========================================================================
-   17. CART TOTALS
-   ========================================================================= */
+/* ==========================================================================
+   11. MENU CATEGORIES
+   ========================================================================== */
 
-.cart-totals {
-  margin-top: 18px;
-
-  padding-top: 13px;
-
-  border-top: 1px solid var(--line);
+.cat {
+  padding-top: 20px;
 }
 
-.cart-total-row {
+.cat h3 {
+  padding-left: 12px;
+
+  border-left: 5px solid var(--accent);
+
+  color: var(--green-dark);
+
+  font-size: 1.6rem;
+}
+
+
+/* ---------- Category Notes ---------- */
+
+.note {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+
+  background: var(--yellow-note);
+
+  border: 1px dashed var(--yellow-border);
+  border-radius: var(--radius-small);
+
+  font-size: 0.85rem;
+}
+
+
+/* ---------- Category Chips ---------- */
+
+.chips {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
 
-  gap: 12px;
-
-  padding: 5px 0;
-
-  color: var(--muted);
-
-  font-size: 0.84rem;
+  margin: 8px 0 16px;
 }
 
-.cart-total-row strong {
-  color: var(--ink);
-}
+.chip {
+  padding: 6px 14px;
 
-.cart-total-final {
-  margin-top: 5px;
+  background: var(--teal-light);
 
-  padding-top: 11px;
+  border: 1px solid var(--teal-border);
+  border-radius: 999px;
 
-  border-top: 1px dashed var(--line);
-
-  color: var(--green-d);
-
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.cart-total-final strong {
-  color: var(--accent);
-
-  font-size: 1.12rem;
-}
-
-
-/* =========================================================================
-   18. WHATSAPP ORDER BUTTON
-   ========================================================================= */
-
-.btn-whatsapp {
-  width: 100%;
-
-  margin-top: 14px;
-
-  background: #25d366;
-
-  color: #fff;
-}
-
-.btn-whatsapp:hover:not(:disabled) {
-  background: #1daa52;
-}
-
-.cart-order-note {
-  margin: 8px 0 0;
-
-  color: var(--muted);
-
-  font-size: 0.68rem;
-
-  line-height: 1.4;
-
-  text-align: center;
-}
-
-
-/* =========================================================================
-   19. CUSTOMIZATION MODAL
-   ========================================================================= */
-
-.custom-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 100;
-
-  display: grid;
-
-  place-items: center;
-
-  padding: 16px;
-}
-
-.custom-modal-overlay {
-  position: absolute;
-
-  inset: 0;
-
-  background: rgba(8, 36, 34, 0.55);
-
-  backdrop-filter: blur(3px);
-}
-
-.custom-modal-dialog {
-  position: relative;
-
-  z-index: 1;
-
-  width: min(
-    100%,
-    520px
-  );
-
-  max-height: min(
-    90vh,
-    720px
-  );
-
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 22px;
-
-  background: var(--cream);
-
-  box-shadow:
-    0 20px 60px rgba(11, 79, 74, 0.28);
-
-  overflow: hidden;
-}
-
-
-/* ---------- Modal header ---------- */
-
-.custom-modal-header {
-  flex: none;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  gap: 15px;
-
-  padding: 18px;
-
-  background: var(--green-d);
-
-  color: #fff;
-}
-
-.custom-modal-eyebrow {
-  margin: 0 0 3px;
-
-  color: #a8d3ce;
-
-  font-size: 0.68rem;
-  font-weight: 800;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-}
-
-.custom-modal-header h2 {
-  margin: 0;
-
-  color: #fff;
-
-  font-size: 1.35rem;
-}
-
-.custom-modal-close {
-  display: grid;
-  place-items: center;
-
-  flex: none;
-
-  width: 38px;
-  height: 38px;
-
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.1);
-
-  color: #fff;
-
-  cursor: pointer;
-}
-
-
-/* ---------- Modal body ---------- */
-
-.custom-modal-body {
-  flex: 1;
-
-  min-height: 0;
-
-  overflow-y: auto;
-
-  padding: 18px;
-}
-
-
-/* =========================================================================
-   20. CUSTOMIZATION OPTIONS
-   These classes support dynamically rendered options from script2.js.
-   ========================================================================= */
-
-.custom-group {
-  margin-bottom: 20px;
-}
-
-.custom-group:last-child {
-  margin-bottom: 0;
-}
-
-.custom-group-title {
-  margin: 0 0 9px;
-
-  color: var(--green-d);
-
-  font-family:
-    Manrope,
-    system-ui,
-    sans-serif;
+  color: var(--green-dark);
 
   font-size: 0.9rem;
-  font-weight: 800;
 }
 
-.custom-group-hint {
-  margin: -4px 0 9px;
+
+/* ==========================================================================
+   12. MENU LIST
+   ========================================================================== */
+
+.menu-list {
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+
+  background: var(--white);
+
+  border-top: 4px solid var(--green);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  padding: 12px 16px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-row:last-child {
+  border-bottom: 0;
+}
+
+.menu-row b {
+  display: block;
+}
+
+.menu-row small {
+  display: block;
 
   color: var(--muted);
 
-  font-size: 0.73rem;
+  font-size: 0.85rem;
 }
 
-.custom-options {
-  display: grid;
-
-  gap: 8px;
+.menu-row .price {
+  white-space: nowrap;
 }
 
-.custom-option {
-  position: relative;
 
+/* ---------- Menu Row Right Side ---------- */
+
+.menu-row .row-end {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
 
-  gap: 10px;
-
-  min-height: 46px;
-
-  padding: 10px 12px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 12px;
-
-  background: #fff;
-
-  cursor: pointer;
-
-  transition:
-    border-color 0.15s,
-    background 0.15s;
+  flex: none;
 }
 
-.custom-option:hover {
-  border-color: var(--green);
-}
 
-.custom-option.selected,
-.custom-option:has(input:checked) {
-  border-color: var(--green);
+/* ==========================================================================
+   13. PRODUCT INFORMATION
+   ========================================================================== */
 
-  background: #eaf6f4;
-}
-
-.custom-option input {
-  accent-color: var(--green);
-}
-
-.custom-option-label {
+.desc {
   flex: 1;
 
-  color: var(--ink);
+  margin: 0;
 
-  font-size: 0.82rem;
+  color: var(--muted);
+
+  font-size: 0.88rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-top: 6px;
+}
+
+.price {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.price.tbc {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tag {
+  margin-top: 2px;
+
+  color: var(--taro);
+
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
-.custom-option-price {
-  color: var(--accent);
 
-  font-size: 0.76rem;
-  font-weight: 800;
+/* ==========================================================================
+   14. INFORMATION CARDS
+   ========================================================================== */
+
+.info-card {
+  margin-bottom: 14px;
+  padding: 16px;
+
+  background: var(--white);
+
+  border-left: 5px solid var(--green);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.info-card h4 {
+  margin: 0 0 4px;
+
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
 }
 
 
-/* ---------- Selection cards ---------- */
-
-.custom-choice-grid {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 8px;
-}
-
-.custom-choice {
-  display: flex;
-  flex-direction: column;
-
-  gap: 3px;
-
-  padding: 12px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 14px;
-
-  background: #fff;
-
-  cursor: pointer;
-}
-
-.custom-choice.selected,
-.custom-choice:has(input:checked) {
-  border-color: var(--green);
-
-  background: #eaf6f4;
-}
-
-.custom-choice input {
-  accent-color: var(--green);
-}
-
-.custom-choice-title {
-  color: var(--green-d);
-
-  font-size: 0.84rem;
-  font-weight: 800;
-}
-
-.custom-choice-description {
-  color: var(--muted);
-
-  font-size: 0.7rem;
-}
-
-
-/* =========================================================================
-   21. CUSTOM MODAL FOOTER
-   ========================================================================= */
-
-.custom-modal-footer {
-  flex: none;
-
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
-  padding: 13px 18px;
-
-  border-top: 1px solid var(--line);
-
-  background: #fff;
-}
-
-.custom-modal-price {
-  min-width: 0;
-
-  margin-right: auto;
-}
-
-.custom-modal-price span {
-  display: block;
-
-  color: var(--muted);
-
-  font-size: 0.68rem;
-}
-
-.custom-modal-price strong {
-  display: block;
-
-  color: var(--accent);
-
-  font-size: 1rem;
-}
-
-.custom-modal-footer .btn {
-  flex: none;
-}
-
-
-/* =========================================================================
-   22. RESPONSIVE — TABLETS
-   ========================================================================= */
-
-@media (min-width: 600px) {
-
-  .wrap {
-    width: min(
-      var(--content-width),
-      calc(100% - 48px)
-    );
-  }
-
-  .menu-grid {
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
-  }
-
-  .cart-body {
-    padding: 18px;
-  }
-}
-
-
-/* =========================================================================
-   23. RESPONSIVE — DESKTOP
-   ========================================================================= */
-
-@media (min-width: 900px) {
-
-  .section {
-    padding-top: 38px;
-  }
-
-  .page-intro {
-    padding-bottom: 8px;
-  }
-
-  .menu-grid {
-    grid-template-columns:
-      repeat(
-        3,
-        minmax(0, 1fr)
-      );
-
-    gap: 15px;
-  }
-
-  .menu-card {
-    padding: 17px;
-  }
-
-  .cat-nav-holder {
-    margin-bottom: 28px;
-  }
-
-  .cart-drawer {
-    width: 440px;
-  }
-}
-
-
-/* =========================================================================
-   24. RESPONSIVE — LARGE DESKTOP
-   ========================================================================= */
-
-@media (min-width: 1200px) {
-
-  .menu-grid {
-    grid-template-columns:
-      repeat(
-        4,
-        minmax(0, 1fr)
-      );
-  }
-}
-
-
-/* =========================================================================
-   25. SMALL MOBILE DEVICES
-   ========================================================================= */
-
-@media (max-width: 420px) {
-
-  .wrap {
-    width: min(
-      100% - 24px,
-      var(--content-width)
-    );
-  }
-
-  :root {
-    --nav-height: 70px;
-  }
-
-  .brand-logo {
-    width: 43px;
-    height: 43px;
-
-    border-radius: 11px;
-  }
-
-  .brand-tagline {
-    font-size: 0.67rem;
-  }
-
-  .home-button {
-    min-height: 38px;
-
-    padding: 7px 11px;
-
-    font-size: 0.78rem;
-  }
-
-  .page-title {
-    font-size: 2rem;
-  }
-
-  .sub {
-    font-size: 0.86rem;
-  }
-
-  .cart-fab {
-    right: 12px;
-    bottom: 12px;
-  }
-
-  .custom-modal {
-    padding: 10px;
-  }
-
-  .custom-modal-dialog {
-    max-height: 94vh;
-
-    border-radius: 18px;
-  }
-
-  .custom-choice-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* =========================================================================
-   26. REDUCED MOTION
-   ========================================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
+/* ==========================================================================
+   15. GALLERY
+   =========================
+```
