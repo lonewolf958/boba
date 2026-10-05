@@ -1,9 +1,10 @@
 /* =========================================================================
-   BOBA BEAR — MENU STYLESHEET
+   BOBA BAY — TABLE MENU STYLESHEET
 
-   Theme: Deep Teal + Coral
+   Theme: Deep Teal + Coral + Cream
    Fonts: Manrope + Fraunces
    Layout: Mobile-first and responsive
+   Compatible with the current Boba Bay Table Menu HTML.
    ========================================================================= */
 
 
@@ -31,8 +32,9 @@
   --r: 18px;
   --shadow: 0 6px 20px rgba(11, 79, 74, 0.12);
 
-  /* Header height */
-  --nav-height: 64px;
+  /* Header and navigation */
+  --nav-height: 76px;
+  --content-width: 1120px;
 }
 
 
@@ -46,7 +48,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+  scroll-padding-top: calc(var(--nav-height) + 64px);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -76,9 +79,21 @@ img {
   max-width: 100%;
 }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :focus-visible {
   outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 
@@ -87,12 +102,12 @@ img {
    ========================================================================= */
 
 .wrap {
-  width: min(1120px, calc(100% - 32px));
+  width: min(var(--content-width), calc(100% - 32px));
   margin-inline: auto;
 }
 
 .section {
-  padding: 48px 0 12px;
+  padding: 32px 0 12px;
 }
 
 .sub {
@@ -106,11 +121,11 @@ img {
   margin-bottom: 4px;
 }
 
-/* Skip link for keyboard accessibility */
+/* Keyboard accessibility */
 
 .skip {
   position: absolute;
-  left: -999px;
+  left: -9999px;
 }
 
 .skip:focus {
@@ -123,142 +138,148 @@ img {
 
 
 /* =========================================================================
-   4. HEADER AND NAVIGATION
+   4. HEADER — MATCHES THE CURRENT HTML
+   HTML classes:
+   .site-header
+   .header-inner
+   .brand-logo
+   .brand-copy
+   .brand-eyebrow
+   .brand-name
+   .brand-tagline
+   .home-button
    ========================================================================= */
 
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
   background: var(--green-d);
-  border-bottom: 0;
-  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--accent);
+  box-shadow: 0 3px 14px rgba(11, 79, 74, 0.16);
 }
 
-.bar {
+/* Main header layout */
+
+.header-inner {
+  width: min(var(--content-width), calc(100% - 24px));
+  min-height: var(--nav-height);
+  margin-inline: auto;
+  padding: 10px 0;
+
   display: flex;
   align-items: center;
   gap: 12px;
-  height: var(--nav-height);
-  position: relative;
 }
 
-/* Logo and restaurant name */
+/* Restaurant logo container */
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  margin-right: auto;
-
-  font: 700 1.25rem Fraunces, Georgia, serif;
-  color: #fff;
-  text-decoration: none;
-}
-
-.brand span:last-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.logo {
+.brand-logo {
   display: grid;
   place-items: center;
-  flex: none;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  padding: 2px;
 
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
   background: #fff;
-  font-size: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.logo-lg {
-  width: 84px;
-  height: 84px;
-  font-size: 2.6rem;
-  margin-bottom: 14px;
-  border: 4px solid #fff;
-  box-shadow: var(--shadow);
+/* Actual logo image */
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-/* Mobile navigation menu */
+/* Restaurant name and tagline */
 
-.nav {
+.brand-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: #fff;
+}
+
+.brand-eyebrow {
   display: none;
-  position: absolute;
-  top: var(--nav-height);
-  left: 0;
-  right: 0;
-
-  flex-direction: column;
-  padding: 8px 16px 16px;
-
-  background: var(--cream);
-  border-bottom: 1px solid var(--line);
-  box-shadow: var(--shadow);
 }
 
-.nav.open {
-  display: flex;
+.brand-name {
+  margin: 0;
+  color: #fff;
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(1.05rem, 4vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
-.nav a {
-  padding: 12px 4px;
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 600;
+.brand-tagline {
+  margin: 3px 0 0;
+  color: #d8eeea;
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
-/* Header action buttons */
+/* Home button */
 
-.actions {
-  display: flex;
+.home-button {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  flex: none;
-}
+  justify-content: center;
+  flex: 0 0 auto;
+  gap: 5px;
 
-.icon-btn {
-  position: relative;
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
+  min-height: 40px;
+  padding: 9px 12px;
 
   background: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: var(--shadow);
+  color: var(--green-d);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 999px;
+
+  font-family: Manrope, system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Notification or cart count */
-
-.badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
-
+.home-button:hover {
   background: var(--accent);
   color: #fff;
-  font: 700 0.75rem/20px system-ui, sans-serif;
-  text-align: center;
+  transform: translateY(-1px);
+}
+
+.home-button:active {
+  transform: scale(0.97);
 }
 
 
 /* =========================================================================
    5. BUTTONS
+   General-purpose buttons for other pages and components.
    ========================================================================= */
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 0;
   border-radius: 999px;
   padding: 12px 24px;
@@ -268,7 +289,9 @@ img {
   text-decoration: none;
 
   cursor: pointer;
-  transition: transform 0.15s, background 0.15s;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
 }
 
 .btn:hover:not(:disabled) {
@@ -280,18 +303,14 @@ img {
   cursor: not-allowed;
 }
 
-/* Main button */
-
 .btn-primary {
-  background: #fff;
-  color: var(--green-d);
+  background: var(--green);
+  color: #fff;
 }
 
-.btn-primary:hover {
-  background: #e6f6f3;
+.btn-primary:hover:not(:disabled) {
+  background: var(--green-d);
 }
-
-/* Accent button */
 
 .btn-accent {
   background: var(--accent);
@@ -301,8 +320,6 @@ img {
 .btn-accent:hover:not(:disabled) {
   background: var(--accent-d);
 }
-
-/* Button sizes */
 
 .btn-sm {
   padding: 9px 16px;
@@ -316,49 +333,84 @@ img {
 
 /* =========================================================================
    6. MENU CATEGORY NAVIGATION
-   The horizontal scrolling category links.
+   Matches #catNav.cat-nav inside .cat-nav-holder.
    ========================================================================= */
 
 .cat-nav-holder {
   position: sticky;
   top: var(--nav-height);
-  z-index: 10;
+  z-index: 20;
 
-  padding: 8px 0;
+  padding: 10px 0 8px;
   margin-bottom: 8px;
+
   background: var(--cream);
+  border-bottom: 1px solid var(--line);
 }
+
+/* Horizontal scrolling categories */
 
 .cat-nav {
   display: flex;
+  align-items: center;
   gap: 8px;
+
+  width: 100%;
+  min-width: 0;
   overflow-x: auto;
-  padding-bottom: 4px;
+  overflow-y: hidden;
+
+  padding: 2px 1px 7px;
+
   scrollbar-width: thin;
+  scrollbar-color: #9fc9c2 transparent;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
-/* Category links */
+/* Individual category links */
 
 .cat-nav a {
-  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  min-height: 38px;
   padding: 8px 16px;
-  border-radius: 999px;
 
   background: #fff;
   border: 1px solid var(--line);
-  color: var(--green-d);
+  border-radius: 999px;
 
+  color: var(--green-d);
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
+  white-space: nowrap;
+
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
-/* Currently selected category */
+.cat-nav a:hover {
+  background: #e6f4f1;
+  border-color: var(--green);
+}
 
 .cat-nav a.active {
   background: var(--green);
   border-color: var(--green);
   color: #fff;
+}
+
+/* Visible keyboard focus */
+
+.cat-nav a:focus-visible {
+  outline-offset: -2px;
 }
 
 
@@ -367,27 +419,32 @@ img {
    ========================================================================= */
 
 .cat {
-  padding-top: 20px;
+  padding-top: 22px;
+  scroll-margin-top: calc(var(--nav-height) + 64px);
 }
 
 .cat h3 {
-  padding-left: 12px;
+  margin-bottom: 14px;
+  padding: 3px 0 3px 12px;
+
   border-left: 5px solid var(--accent);
 
   color: var(--green-d);
-  font-size: 1.6rem;
+  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  overflow-wrap: anywhere;
 }
 
-/* Special notes, such as menu notices */
+/* Notes and menu notices */
 
 .note {
   margin: 0 0 12px;
-  padding: 8px 12px;
+  padding: 10px 12px;
 
   background: #fff7d6;
   border: 1px dashed #d9b84a;
   border-radius: 12px;
 
+  color: #574619;
   font-size: 0.85rem;
 }
 
@@ -396,16 +453,12 @@ img {
    8. CHIPS AND TAGS
    ========================================================================= */
 
-/* Groups of chips */
-
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin: 8px 0 16px;
 }
-
-/* Individual chips */
 
 .chip {
   padding: 6px 14px;
@@ -416,8 +469,6 @@ img {
   color: var(--green-d);
   font-size: 0.9rem;
 }
-
-/* Small item labels */
 
 .tag {
   color: var(--taro);
@@ -434,7 +485,7 @@ img {
   padding: 16px;
   margin-bottom: 14px;
 
-  background: #fff;
+  background: var(--card);
   border-left: 5px solid var(--green);
   border-radius: var(--r);
   box-shadow: var(--shadow);
@@ -448,22 +499,23 @@ img {
 
 /* =========================================================================
    10. MENU ITEMS AND PRICES
+   Compatible with .menu-list, .menu-row, .desc, .row-end and .price.
    ========================================================================= */
-
-/* Menu list container */
 
 .menu-list {
   margin: 0;
   padding: 0;
   list-style: none;
 
-  background: #fff;
+  background: var(--card);
   border-top: 4px solid var(--green);
   border-radius: var(--r);
   box-shadow: var(--shadow);
+
+  overflow: hidden;
 }
 
-/* Individual menu row */
+/* Individual menu item */
 
 .menu-row {
   display: flex;
@@ -471,7 +523,9 @@ img {
   justify-content: space-between;
   gap: 14px;
 
-  padding: 12px 16px;
+  min-width: 0;
+  padding: 13px 16px;
+
   border-bottom: 1px solid var(--line);
 }
 
@@ -483,21 +537,32 @@ img {
 
 .menu-row b {
   display: block;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 /* Item description */
 
 .desc {
-  flex: 1;
-  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 4px 0 0;
+
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .menu-row small {
   display: block;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 /* Price and description alignment */
@@ -510,11 +575,12 @@ img {
   margin-top: 6px;
 }
 
-/* Price */
+/* Prices */
 
 .price {
   color: var(--green);
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .price.tbc {
@@ -523,29 +589,34 @@ img {
   font-weight: 600;
 }
 
-/* Price and tag area at the end of a menu row */
-
 .menu-row .price {
   white-space: nowrap;
 }
 
+/* Right-hand price and tag container */
+
 .menu-row .row-end {
   display: flex;
-  flex: none;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: flex-end;
-  gap: 6px;
+  justify-content: center;
+  gap: 5px;
+
+  max-width: 45%;
+  text-align: right;
 }
 
 .menu-row .tag {
   margin-top: 2px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 
 /* =========================================================================
    11. HOME PAGE — CHOICES AND LINKS
+   Retained for compatibility with other pages using this stylesheet.
    ========================================================================= */
 
 .info-list {
@@ -567,8 +638,6 @@ img {
   gap: 16px;
 }
 
-/* Home page choice cards */
-
 .choice {
   display: block;
   padding: 22px;
@@ -582,7 +651,9 @@ img {
   border-radius: var(--r);
   box-shadow: var(--shadow);
 
-  transition: transform 0.15s, border-color 0.15s;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .choice:nth-child(2) {
@@ -614,12 +685,13 @@ img {
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
 figure {
   margin: 0;
+  min-width: 0;
 }
 
 .ph {
@@ -644,10 +716,8 @@ figcaption {
 
 /* =========================================================================
    13. ORDER CUSTOMISATION AND MODALS
-   These styles support item options and order customisation.
+   Shared styles for pages/components that use these classes.
    ========================================================================= */
-
-/* Selected option */
 
 .opt:has(input:checked) {
   border-color: var(--accent);
@@ -658,8 +728,6 @@ figcaption {
   color: var(--green);
 }
 
-/* Modal header and footer */
-
 .modal-head,
 .modal-foot {
   background: #fff;
@@ -668,8 +736,6 @@ figcaption {
 .modal-head {
   border-top: 5px solid var(--green);
 }
-
-/* Order totals */
 
 .total strong,
 .cart-totals .grand {
@@ -684,7 +750,7 @@ figcaption {
 .about {
   max-width: 760px;
   padding: 28px 24px 40px;
-  margin-top: 40px;
+  margin: 40px auto 0;
 
   background: #fff;
   border-left: 5px solid var(--accent);
@@ -694,11 +760,11 @@ figcaption {
 
 
 /* =========================================================================
-   15. FOOTER
+   15. FOOTER — MATCHES THE CURRENT HTML
    ========================================================================= */
 
 .site-footer {
-  padding: 36px 0 16px;
+  padding: 28px 16px 18px;
   margin-top: 40px;
 
   background: #0a3a3a;
@@ -724,10 +790,12 @@ figcaption {
 }
 
 .copy {
-  margin: 24px 0 0;
+  margin: 0;
   text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.8;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  opacity: 0.9;
 }
 
 .site-footer .copy {
@@ -737,58 +805,129 @@ figcaption {
 
 /* =========================================================================
    16. TABLET AND DESKTOP LAYOUT
-   These rules apply to screens 760px and wider.
    ========================================================================= */
 
 @media (min-width: 760px) {
 
-  /* Desktop navigation */
-
-  .nav {
-    position: static;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-    background: none;
+  :root {
+    --nav-height: 80px;
   }
 
-  .nav a {
-    color: #fff;
+  .header-inner {
+    gap: 16px;
+    padding: 12px 0;
   }
 
-  .menu-toggle {
-    display: none;
+  .brand-logo {
+    width: 54px;
+    height: 54px;
   }
 
-  /* Home page cards */
+  .brand-name {
+    font-size: 1.45rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.82rem;
+  }
+
+  .home-button {
+    min-height: 42px;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+  }
+
+  .cat-nav-holder {
+    padding: 12px 0 9px;
+  }
+
+  .cat-nav {
+    gap: 10px;
+  }
+
+  .cat-nav a {
+    padding: 9px 18px;
+  }
+
+  .section {
+    padding-top: 36px;
+  }
 
   .choices {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  /* Gallery */
 
   .gallery {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  /* Footer columns */
-
   .foot-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 
 /* =========================================================================
-   17. ACCESSIBILITY — REDUCED MOTION
+   17. SMALL MOBILE SCREENS
+   ========================================================================= */
+
+@media (max-width: 380px) {
+
+  .header-inner {
+    width: calc(100% - 16px);
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.68rem;
+  }
+
+  .home-button {
+    min-height: 36px;
+    padding: 8px 9px;
+    gap: 3px;
+    font-size: 0.75rem;
+  }
+
+  .wrap {
+    width: calc(100% - 20px);
+  }
+
+  .menu-row {
+    gap: 8px;
+    padding: 12px 11px;
+  }
+
+  .menu-row b {
+    font-size: 0.9rem;
+  }
+
+  .menu-row .row-end {
+    max-width: 42%;
+  }
+
+  .cat-nav a {
+    padding: 8px 13px;
+    font-size: 0.83rem;
+  }
+}
+
+
+/* =========================================================================
+   18. ACCESSIBILITY — REDUCED MOTION
    ========================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
