@@ -1,11 +1,12 @@
+```html
 <!DOCTYPE html>
 <html lang="en" data-title="Order Online">
 
 <head>
 
-  <!-- ========================================
-       1. PAGE SETTINGS
-  ========================================= -->
+  <!-- ================================================================
+       BASIC PAGE SETTINGS
+       ================================================================ -->
 
   <meta charset="UTF-8">
 
@@ -14,7 +15,7 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <title>Boba Bay — Order Online</title>
+  <title>Boba Bear — Order Online</title>
 
   <meta
     name="description"
@@ -22,11 +23,13 @@
   >
 
 
-  <!-- ========================================
-       2. GOOGLE FONTS
-  ======================================== -->
+  <!-- ================================================================
+       GOOGLE FONTS
+       Change fonts here if you want a different style.
+       ================================================================ -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
@@ -39,9 +42,9 @@
   >
 
 
-  <!-- ========================================
-       3. ORDER ONLINE STYLESHEET
-  ======================================== -->
+  <!-- ================================================================
+       MAIN STYLESHEET
+       ================================================================ -->
 
   <link rel="stylesheet" href="style2.css">
 
@@ -50,57 +53,51 @@
 
 <body>
 
-  <!-- ========================================
-       4. HEADER
-  ======================================== -->
+
+  <!-- ================================================================
+       HEADER
+       ----------------------------------------------------------------
+       Contains:
+       - Boba Bear logo / name
+       - Home button
+       ================================================================ -->
 
   <header class="site-header">
 
-    <div class="header-inner wrap">
+    <div class="wrap bar">
 
-      <!-- Brand -->
+
+      <!-- ---------- Brand ---------- -->
 
       <a
         class="brand"
         href="index.html"
-        aria-label="Boba Bay home"
+        aria-label="Home"
       >
 
         <span
-          class="brand-logo"
+          class="logo"
           aria-hidden="true"
         >
           🐻
         </span>
 
-        <span class="brand-copy">
-
-          <span
-            class="brand-name"
-            data-bind="name"
-          >
-            Boba Bay
-          </span>
-
-          <span class="brand-tagline">
-            Ride the Wave of Flavor.
-          </span>
-
-        </span>
+        <!-- Restaurant name is inserted by JavaScript -->
+        <span data-bind="name"></span>
 
       </a>
 
 
-      <!-- Header Action -->
+      <!-- ---------- Header Actions ---------- -->
 
-      <div class="header-actions">
+      <div class="actions">
 
         <a
-          class="home-button"
+          class="btn btn-primary btn-sm"
           href="index.html"
           aria-label="Back to home page"
         >
-          🏠 Home
+          Home
         </a>
 
       </div>
@@ -110,36 +107,42 @@
   </header>
 
 
-  <!-- ========================================
-       5. MAIN CONTENT
-  ======================================== -->
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
 
   <main class="wrap">
 
     <section
       class="section"
-      style="padding-top: 24px;"
+      style="padding-top: 24px"
     >
 
-      <!-- Page Introduction -->
 
-      <div class="page-intro">
+      <!-- ============================================================
+           PAGE INTRODUCTION
+           ============================================================ -->
 
-        <h1 class="page-title">
-          Order Online
-        </h1>
+      <h1 class="page-title">
+        Order Online
+      </h1>
 
-        <p class="sub">
-          Choose your favourite drinks, customise them,
-          add them to your cart and place your order via WhatsApp.
-        </p>
+      <p class="sub">
+        Tap Add to Cart on a drink.
+        Milk, Slushy and Fizzy drinks can be customised
+        with boba and toppings.
+        Open your cart to choose Delivery or Pickup
+        and send your order via WhatsApp.
+      </p>
 
-      </div>
 
 
-      <!-- ========================================
-           5.1 CATEGORY NAVIGATION
-      ======================================== -->
+      <!-- ============================================================
+           MENU CATEGORY NAVIGATION
+           ----------------------------------------------------------------
+           JavaScript automatically creates the category buttons here.
+           ============================================================ -->
 
       <div class="cat-nav-holder">
 
@@ -147,70 +150,66 @@
           id="catNav"
           class="cat-nav"
           aria-label="Menu categories"
-        ></nav>
+        >
+          <!-- Categories are inserted by script2.js -->
+        </nav>
 
       </div>
 
 
-      <!-- ========================================
-           5.2 MENU
-           Rendered by script2.js
-      ======================================== -->
 
-      <div id="menuRoot"></div>
+      <!-- ============================================================
+           MENU
+           ----------------------------------------------------------------
+           JavaScript automatically creates the complete menu here.
+           ============================================================ -->
+
+      <div id="menuRoot">
+        <!-- Menu items are inserted by script2.js -->
+      </div>
+
 
     </section>
 
   </main>
 
 
-  <!-- ========================================
-       6. FOOTER
-  ======================================== -->
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
 
   <footer class="site-footer">
 
-    <div class="wrap">
+    <p class="copy">
 
-      <p class="copy">
+      ©
+      <span id="year"></span>
 
-        ©
-        <span id="year"></span>
+      <span data-bind="name"></span>.
 
-        <span data-bind="name"></span>.
+      All prices in Tanzanian Shillings.
 
-        All prices in Tanzanian Shillings.
-
-      </p>
-
-    </div>
+    </p>
 
   </footer>
 
 
-  <!-- ========================================
-       7. FLOATING CART BUTTON
-  ======================================== -->
+
+  <!-- ================================================================
+       FLOATING CART BUTTON
+       ----------------------------------------------------------------
+       This button stays at the bottom of the screen.
+       ================================================================ -->
 
   <button
     id="cart-toggle-btn"
     class="cart-fab"
     type="button"
     aria-label="Open cart, 0 items"
-    aria-controls="cart-drawer"
-    aria-expanded="false"
   >
 
-    <span
-      class="cart-fab-icon"
-      aria-hidden="true"
-    >
-      🛒
-    </span>
-
-    <span class="cart-fab-label">
-      Cart
-    </span>
+    🛒 Cart
 
     <span
       id="cart-count"
@@ -223,9 +222,12 @@
   </button>
 
 
-  <!-- ========================================
-       8. CART OVERLAY
-  ======================================== -->
+
+  <!-- ================================================================
+       CART OVERLAY
+       ----------------------------------------------------------------
+       Dark background shown behind the cart drawer.
+       ================================================================ -->
 
   <div
     id="cart-overlay"
@@ -234,9 +236,17 @@
   ></div>
 
 
-  <!-- ========================================
-       9. SHOPPING CART DRAWER
-  ======================================== -->
+
+  <!-- ================================================================
+       CART DRAWER
+       ----------------------------------------------------------------
+       Contains:
+       - Cart items
+       - Delivery / Pickup
+       - Customer information
+       - Order totals
+       - WhatsApp order button
+       ================================================================ -->
 
   <aside
     id="cart-drawer"
@@ -247,21 +257,16 @@
     hidden
   >
 
-    <!-- Cart Header -->
+
+    <!-- ============================================================
+         CART HEADER
+         ============================================================ -->
 
     <div class="cart-drawer-header">
 
-      <div>
-
-        <p class="cart-eyebrow">
-          Boba Bay
-        </p>
-
-        <h2 id="cart-drawer-title">
-          🛒 Your Order
-        </h2>
-
-      </div>
+      <h2 id="cart-drawer-title">
+        🛒 Your Order
+      </h2>
 
       <button
         id="cart-close-btn"
@@ -275,16 +280,29 @@
     </div>
 
 
-    <!-- Cart Content -->
+
+    <!-- ============================================================
+         CART BODY
+         ============================================================ -->
 
     <div class="cart-body">
 
-      <!-- Cart Items -->
 
-      <div id="cart-items"></div>
+      <!-- ==========================================================
+           CART ITEMS
+           ----------------------------------------------------------------
+           Products added to the cart appear here.
+           ========================================================== -->
+
+      <div id="cart-items">
+        <!-- Cart items inserted by script2.js -->
+      </div>
 
 
-      <!-- Empty Cart -->
+
+      <!-- ==========================================================
+           EMPTY CART MESSAGE
+           ========================================================== -->
 
       <div
         id="cart-empty"
@@ -293,7 +311,7 @@
       >
 
         <p>
-          Your cart is empty.
+          Your cart is empty
         </p>
 
         <button
@@ -307,31 +325,39 @@
       </div>
 
 
-      <!-- ======================================
-           CUSTOMER ORDER DETAILS
-      ======================================= -->
+
+      <!-- ==========================================================
+           CART FOOTER / CHECKOUT DETAILS
+           ========================================================== -->
 
       <div
         id="cart-footer"
         hidden
       >
 
+
+        <!-- ========================================================
+             ORDER DETAILS
+             ======================================================== -->
+
         <div class="order-details-box">
+
+
+          <!-- ---------- Order Type ---------- -->
 
           <p class="order-type-label">
             How would you like your order?
           </p>
 
 
-          <!-- ==================================
-               DELIVERY / PICKUP
-          ================================== -->
-
           <div
             class="order-type-options"
             role="radiogroup"
             aria-label="Order type"
           >
+
+
+            <!-- Delivery -->
 
             <button
               type="button"
@@ -341,10 +367,7 @@
               aria-checked="false"
             >
 
-              <span
-                class="order-type-icon"
-                aria-hidden="true"
-              >
+              <span aria-hidden="true">
                 🛵
               </span>
 
@@ -355,6 +378,8 @@
             </button>
 
 
+            <!-- Pickup -->
+
             <button
               type="button"
               class="order-type-btn"
@@ -363,10 +388,7 @@
               aria-checked="false"
             >
 
-              <span
-                class="order-type-icon"
-                aria-hidden="true"
-              >
+              <span aria-hidden="true">
                 🥡
               </span>
 
@@ -376,10 +398,11 @@
 
             </button>
 
+
           </div>
 
 
-          <!-- Order Type Hint -->
+          <!-- ---------- Order Type Help ---------- -->
 
           <p
             class="order-type-hint"
@@ -389,14 +412,16 @@
           </p>
 
 
-          <!-- ==================================
-               CUSTOMER FIELDS
-          ================================== -->
+
+          <!-- ======================================================
+               CUSTOMER INFORMATION
+               ====================================================== -->
 
           <div
             id="cart-customer-fields"
             hidden
           >
+
 
             <!-- Customer Name -->
 
@@ -411,7 +436,7 @@
             >
 
 
-            <!-- Contact Number -->
+            <!-- Customer Contact -->
 
             <input
               type="tel"
@@ -424,14 +449,13 @@
             >
 
 
-            <!-- ==================================
-                 DELIVERY-ONLY FIELDS
-            ================================== -->
+            <!-- ====================================================
+                 DELIVERY-ONLY INFORMATION
+                 ----------------------------------------------------------------
+                 These fields only appear when Delivery is selected.
+                 ==================================================== -->
 
-            <div
-              data-delivery-only
-              hidden
-            >
+            <div data-delivery-only hidden>
 
               <!-- Delivery Area -->
 
@@ -441,124 +465,97 @@
                 class="cart-input"
                 placeholder="Delivery area *"
                 aria-label="Delivery area (required)"
-                autocomplete="address-level2"
-                maxlength="120"
+                maxlength="100"
               >
 
 
               <!-- Delivery Address -->
 
-              <textarea
+              <input
+                type="text"
                 id="customer-address"
-                class="cart-input cart-textarea"
-                placeholder="Delivery address / location details *"
-                aria-label="Delivery address or location details (required)"
+                class="cart-input"
+                placeholder="Delivery address *"
+                aria-label="Delivery address (required)"
                 autocomplete="street-address"
-                rows="3"
-                maxlength="300"
-              ></textarea>
+                maxlength="200"
+              >
 
             </div>
 
 
-            <!-- ==================================
-                 OPTIONAL ORDER NOTE
-            ================================== -->
+
+            <!-- ---------- Optional Customer Note ---------- -->
 
             <textarea
               id="customer-note"
-              class="cart-input cart-textarea"
-              placeholder="Order note (optional)"
-              aria-label="Order note (optional)"
-              rows="2"
+              class="cart-input"
+              placeholder="Additional note (optional)"
+              aria-label="Additional note (optional)"
               maxlength="300"
             ></textarea>
 
-          </div>
-
-
-          <!-- ==================================
-               CART TOTALS
-          ================================== -->
-
-          <div class="cart-totals">
-
-            <!-- Subtotal -->
-
-            <div class="cart-total-row">
-
-              <span>
-                Subtotal
-              </span>
-
-              <strong id="cart-subtotal">
-                TSh 0
-              </strong>
-
-            </div>
-
-
-            <!-- Delivery Fee -->
-
-            <div
-              class="cart-total-row"
-              id="cart-delivery-row"
-              hidden
-            >
-
-              <span>
-                Delivery
-              </span>
-
-              <strong id="cart-delivery-fee">
-                TSh 0
-              </strong>
-
-            </div>
-
-
-            <!-- Final Total -->
-
-            <div class="cart-total-row cart-total-final">
-
-              <span>
-                Total
-              </span>
-
-              <strong id="cart-total">
-                TSh 0
-              </strong>
-
-            </div>
 
           </div>
-
-
-          <!-- ==================================
-               WHATSAPP ORDER BUTTON
-          ================================== -->
-
-          <button
-            id="whatsapp-order-btn"
-            class="btn btn-whatsapp"
-            type="button"
-            disabled
-          >
-
-            <span aria-hidden="true">
-              💬
-            </span>
-
-            Order via WhatsApp
-
-          </button>
-
-
-          <p class="cart-order-note">
-            Your order will be sent to Boba Bay on WhatsApp.
-          </p>
 
         </div>
+
+
+
+        <!-- ========================================================
+             ORDER TOTALS
+             ----------------------------------------------------------------
+             JavaScript inserts:
+             - Subtotal
+             - Delivery fee
+             - Grand total
+             ======================================================== -->
+
+        <div
+          class="cart-total-rows"
+          id="cart-total-rows"
+        >
+          <!-- Totals inserted by script2.js -->
+        </div>
+
+
+
+        <!-- ========================================================
+             WHATSAPP ORDER BUTTON
+             ======================================================== -->
+
+        <button
+          id="whatsapp-order-btn"
+          class="whatsapp-btn"
+          type="button"
+          disabled
+        >
+          📲 Order via WhatsApp
+        </button>
+
+
+        <!-- WhatsApp status / validation message -->
+
+        <p
+          class="whatsapp-hint"
+          id="whatsapp-hint"
+          role="status"
+        ></p>
+
+
+
+        <!-- ========================================================
+             CLEAR CART
+             ======================================================== -->
+
+        <button
+          id="clear-cart-btn"
+          class="clear-cart-btn"
+          type="button"
+        >
+          Clear Cart
+        </button>
+
 
       </div>
 
@@ -567,109 +564,167 @@
   </aside>
 
 
-  <!-- ========================================
-       10. PRODUCT CUSTOMIZATION MODAL
-  ======================================== -->
 
-  <div
-    id="custom-modal"
-    class="custom-modal"
-    hidden
-    aria-hidden="true"
+  <!-- ================================================================
+       PRODUCT CUSTOMIZATION MODAL
+       ----------------------------------------------------------------
+       Used for drinks that allow customization.
+
+       Examples:
+       - Milk
+       - Slushy
+       - Fizzy
+
+       JavaScript builds the customization options inside #cmBody.
+       ================================================================ -->
+
+  <dialog
+    id="customModal"
+    class="modal"
+    aria-labelledby="cmTitle"
   >
 
-    <!-- Modal Overlay -->
 
-    <div
-      class="custom-modal-overlay"
-      data-close-custom-modal
-    ></div>
-
-
-    <!-- Modal Dialog -->
-
-    <div
-      class="custom-modal-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="custom-modal-title"
+    <form
+      method="dialog"
+      class="modal-inner"
+      id="cmForm"
+      onsubmit="return false"
     >
 
-      <!-- Modal Header -->
 
-      <div class="custom-modal-header">
+      <!-- ==========================================================
+           MODAL HEADER
+           ========================================================== -->
 
-        <div>
+      <header class="modal-head">
 
-          <p class="custom-modal-eyebrow">
-            Customise your drink
-          </p>
-
-          <h2 id="custom-modal-title">
-            Choose your options
-          </h2>
-
-        </div>
-
+        <h2 id="cmTitle">
+          Customise Your Drink
+        </h2>
 
         <button
           type="button"
-          class="custom-modal-close"
-          data-close-custom-modal
-          aria-label="Close customisation"
+          class="icon-btn"
+          id="cmClose"
+          aria-label="Close"
         >
           ✕
         </button>
 
+      </header>
+
+
+
+      <!-- ==========================================================
+           CUSTOMIZATION OPTIONS
+           ----------------------------------------------------------------
+           JavaScript inserts:
+           - Boba choices
+           - Flavours
+           - Toppings
+           - Extra boba
+           - Other options
+           ========================================================== -->
+
+      <div
+        class="modal-body"
+        id="cmBody"
+      >
+        <!-- Customization options inserted by script2.js -->
       </div>
 
 
-      <!-- Modal Body -->
 
-      <div
-        id="custom-modal-body"
-        class="custom-modal-body"
-      ></div>
+      <!-- ==========================================================
+           MODAL FOOTER
+           ----------------------------------------------------------------
+           Contains:
+           - Price breakdown
+           - Total
+           - Add to Cart button
+           - Validation message
+           ========================================================== -->
+
+      <footer class="modal-foot">
 
 
-      <!-- Modal Footer -->
+        <!-- Price breakdown -->
 
-      <div class="custom-modal-footer">
+        <div
+          class="breakdown"
+          id="cmBreakdown"
+          aria-live="polite"
+        >
+          <!-- Price details inserted by script2.js -->
+        </div>
 
-        <div class="custom-modal-price">
 
-          <span>
-            Total
-          </span>
 
-          <strong id="custom-modal-price">
-            TSh 0
-          </strong>
+        <!-- Total + Add to Cart -->
+
+        <div class="foot-row">
+
+
+          <!-- Total -->
+
+          <div class="total">
+
+            <span>
+              Total
+            </span>
+
+            <strong id="cmTotal">
+              TSh 0
+            </strong>
+
+          </div>
+
+
+          <!-- Add to Cart -->
+
+          <button
+            type="button"
+            class="btn btn-accent"
+            id="cmAdd"
+          >
+            Add to Cart
+          </button>
+
 
         </div>
 
 
-        <button
-          id="custom-add-btn"
-          class="btn btn-primary"
-          type="button"
-        >
-          Add to Cart
-        </button>
 
-      </div>
+        <!-- Validation / Help Message -->
 
-    </div>
-
-  </div>
+        <p
+          class="hint"
+          id="cmHint"
+          role="status"
+        ></p>
 
 
-  <!-- ========================================
-       11. JAVASCRIPT
-  ======================================== -->
+      </footer>
+
+
+    </form>
+
+  </dialog>
+
+
+
+  <!-- ================================================================
+       JAVASCRIPT
+       ----------------------------------------------------------------
+       IMPORTANT:
+       Keep this script at the bottom so the HTML is loaded before
+       script2.js tries to access the elements.
+       ================================================================ -->
 
   <script src="script2.js"></script>
 
-</body>
 
+</body>
 </html>
+```
