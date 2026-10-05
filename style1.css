@@ -1,938 +1,731 @@
 /* =========================================================================
    BOBA BAY — TABLE MENU STYLESHEET
 
-   Theme: Deep Teal + Coral + Cream
-   Fonts: Manrope + Fraunces
-   Layout: Mobile-first and responsive
-   Compatible with the current Boba Bay Table Menu HTML.
+   Theme:
+   Deep Teal + Coral
+
+   Fonts:
+   Manrope + Fraunces
+
+   Purpose:
+   Table menu only.
+
+   No cart/order/checkout styling.
    ========================================================================= */
 
 
 /* =========================================================================
    1. DESIGN SETTINGS
-   Change these variables to update the website's colours and style.
    ========================================================================= */
 
 :root {
+
   /* Main colours */
   --green: #0f766e;
   --green-d: #0b4f4a;
+
   --cream: #f2f8f7;
   --card: #ffffff;
+
   --ink: #10282a;
   --muted: #587370;
 
-  /* Accent colours */
   --accent: #f26b3a;
   --accent-d: #d9541f;
+
   --taro: #6d5fd0;
 
-  /* Borders and effects */
+  /* Borders */
   --line: #d6e5e2;
+
+  /* Corners */
   --r: 18px;
+
+  /* Shadow */
   --shadow: 0 6px 20px rgba(11, 79, 74, 0.12);
 
-  /* Header and navigation */
-  --nav-height: 76px;
+  /* Layout */
+  --header-height: 76px;
   --content-width: 1120px;
+
 }
 
 
 /* =========================================================================
-   2. RESET AND BASE STYLES
+   2. RESET
    ========================================================================= */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 64px);
-  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 145px;
 }
+
 
 body {
   margin: 0;
-  font-family: Manrope, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  background: var(--cream);
+  color: var(--ink);
+
+  font-family: "Manrope", sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--ink);
-  background: var(--cream);
-  overflow-x: hidden;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1,
-h2,
-h3 {
-  font-family: Fraunces, Georgia, "Times New Roman", serif;
-  line-height: 1.15;
-  margin: 0 0 0.4em;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  color: var(--green-d);
-}
 
 img {
   max-width: 100%;
+  display: block;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
+
 
 button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
 
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
-}
-
 
 /* =========================================================================
-   3. GENERAL LAYOUT
-   ========================================================================= */
-
-.wrap {
-  width: min(var(--content-width), calc(100% - 32px));
-  margin-inline: auto;
-}
-
-.section {
-  padding: 32px 0 12px;
-}
-
-.sub {
-  color: var(--muted);
-  margin: 0 0 20px;
-}
-
-.page-title {
-  font-size: clamp(2rem, 6vw, 2.8rem);
-  color: var(--green-d);
-  margin-bottom: 4px;
-}
-
-/* Keyboard accessibility */
-
-.skip {
-  position: absolute;
-  left: -9999px;
-}
-
-.skip:focus {
-  left: 8px;
-  top: 8px;
-  background: #fff;
-  padding: 8px;
-  z-index: 99;
-}
-
-
-/* =========================================================================
-   4. HEADER — MATCHES THE CURRENT HTML
-   HTML classes:
-   .site-header
-   .header-inner
-   .brand-logo
-   .brand-copy
-   .brand-eyebrow
-   .brand-name
-   .brand-tagline
-   .home-button
+   3. HEADER
    ========================================================================= */
 
 .site-header {
+
   position: sticky;
   top: 0;
-  z-index: 30;
+
+  z-index: 100;
+
   background: var(--green-d);
+
   border-bottom: 3px solid var(--accent);
-  box-shadow: 0 3px 14px rgba(11, 79, 74, 0.16);
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
 }
 
-/* Main header layout */
 
 .header-inner {
-  width: min(var(--content-width), calc(100% - 24px));
-  min-height: var(--nav-height);
-  margin-inline: auto;
-  padding: 10px 0;
 
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+  width: min(
+    calc(100% - 28px),
+    var(--content-width)
+  );
 
-/* Restaurant logo container */
+  min-height: var(--header-height);
 
-.brand-logo {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 48px;
-  height: 48px;
-  padding: 2px;
+  margin: 0 auto;
 
-  background: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.75);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Actual logo image */
-
-.brand-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-/* Restaurant name and tagline */
-
-.brand-copy {
-  flex: 1 1 auto;
-  min-width: 0;
-  color: #fff;
-}
-
-.brand-eyebrow {
-  display: none;
-}
-
-.brand-name {
-  margin: 0;
-  color: #fff;
-  font-family: Fraunces, Georgia, serif;
-  font-size: clamp(1.05rem, 4vw, 1.4rem);
-  font-weight: 700;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
-.brand-tagline {
-  margin: 3px 0 0;
-  color: #d8eeea;
-  font-size: 0.76rem;
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-/* Home button */
-
-.home-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  gap: 5px;
-
-  min-height: 40px;
-  padding: 9px 12px;
-
-  background: #fff;
-  color: var(--green-d);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 999px;
-
-  font-family: Manrope, system-ui, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 800;
-  line-height: 1.2;
-  text-decoration: none;
-  white-space: nowrap;
-
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.home-button:hover {
-  background: var(--accent);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-.home-button:active {
-  transform: scale(0.97);
-}
-
-
-/* =========================================================================
-   5. BUTTONS
-   General-purpose buttons for other pages and components.
-   ========================================================================= */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 0;
-  border-radius: 999px;
-  padding: 12px 24px;
-
-  font: 700 1rem system-ui, sans-serif;
-  text-align: center;
-  text-decoration: none;
-
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease;
-}
-
-.btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--green);
-  color: #fff;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: var(--green-d);
-}
-
-.btn-accent {
-  background: var(--accent);
-  color: #fff;
-}
-
-.btn-accent:hover:not(:disabled) {
-  background: var(--accent-d);
-}
-
-.btn-sm {
-  padding: 9px 16px;
-  font-size: 0.9rem;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-
-/* =========================================================================
-   6. MENU CATEGORY NAVIGATION
-   Matches #catNav.cat-nav inside .cat-nav-holder.
-   ========================================================================= */
-
-.cat-nav-holder {
-  position: sticky;
-  top: var(--nav-height);
-  z-index: 20;
-
-  padding: 10px 0 8px;
-  margin-bottom: 8px;
-
-  background: var(--cream);
-  border-bottom: 1px solid var(--line);
-}
-
-/* Horizontal scrolling categories */
-
-.cat-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  width: 100%;
-  min-width: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  padding: 2px 1px 7px;
-
-  scrollbar-width: thin;
-  scrollbar-color: #9fc9c2 transparent;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-}
-
-/* Individual category links */
-
-.cat-nav a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-
-  min-height: 38px;
-  padding: 8px 16px;
-
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-
-  color: var(--green-d);
-  text-decoration: none;
-  white-space: nowrap;
-
-  font-size: 0.88rem;
-  font-weight: 700;
-
-  transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    color 0.18s ease;
-}
-
-.cat-nav a:hover {
-  background: #e6f4f1;
-  border-color: var(--green);
-}
-
-.cat-nav a.active {
-  background: var(--green);
-  border-color: var(--green);
-  color: #fff;
-}
-
-/* Visible keyboard focus */
-
-.cat-nav a:focus-visible {
-  outline-offset: -2px;
-}
-
-
-/* =========================================================================
-   7. MENU CATEGORIES AND NOTES
-   ========================================================================= */
-
-.cat {
-  padding-top: 22px;
-  scroll-margin-top: calc(var(--nav-height) + 64px);
-}
-
-.cat h3 {
-  margin-bottom: 14px;
-  padding: 3px 0 3px 12px;
-
-  border-left: 5px solid var(--accent);
-
-  color: var(--green-d);
-  font-size: clamp(1.4rem, 4vw, 1.7rem);
-  overflow-wrap: anywhere;
-}
-
-/* Notes and menu notices */
-
-.note {
-  margin: 0 0 12px;
-  padding: 10px 12px;
-
-  background: #fff7d6;
-  border: 1px dashed #d9b84a;
-  border-radius: 12px;
-
-  color: #574619;
-  font-size: 0.85rem;
-}
-
-
-/* =========================================================================
-   8. CHIPS AND TAGS
-   ========================================================================= */
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0 16px;
-}
-
-.chip {
-  padding: 6px 14px;
-  border: 1px solid #c5e2dd;
-  border-radius: 999px;
-
-  background: #e6f4f1;
-  color: var(--green-d);
-  font-size: 0.9rem;
-}
-
-.tag {
-  color: var(--taro);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
-
-/* =========================================================================
-   9. INFORMATION CARDS
-   ========================================================================= */
-
-.info-card {
-  padding: 16px;
-  margin-bottom: 14px;
-
-  background: var(--card);
-  border-left: 5px solid var(--green);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-
-.info-card h4 {
-  margin: 0 0 4px;
-  font: 700 1.05rem system-ui, sans-serif;
-}
-
-
-/* =========================================================================
-   10. MENU ITEMS AND PRICES
-   Compatible with .menu-list, .menu-row, .desc, .row-end and .price.
-   ========================================================================= */
-
-.menu-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  background: var(--card);
-  border-top: 4px solid var(--green);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-
-  overflow: hidden;
-}
-
-/* Individual menu item */
-
-.menu-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 14px;
 
+}
+
+
+.brand {
+
   min-width: 0;
-  padding: 13px 16px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+
+.brand-logo {
+
+  width: 48px;
+  height: 48px;
+
+  flex: 0 0 48px;
+
+  object-fit: cover;
+
+  background: #ffffff;
+
+  border: 2px solid rgba(255, 255, 255, 0.9);
+
+  border-radius: 12px;
+}
+
+
+.brand-copy {
+  min-width: 0;
+}
+
+
+.brand-name {
+
+  color: #ffffff;
+
+  font-family: "Fraunces", serif;
+
+  font-size: clamp(1.15rem, 4vw, 1.55rem);
+
+  font-weight: 700;
+
+  line-height: 1.05;
+
+}
+
+
+.brand-tagline {
+
+  margin-top: 3px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 0.74rem;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+}
+
+
+.home-button {
+
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  padding: 8px 13px;
+
+  background: #ffffff;
+
+  color: var(--green-d);
+
+  border-radius: 999px;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.home-button:active {
+  transform: translateY(1px);
+}
+
+
+/* =========================================================================
+   4. CATEGORY NAVIGATION
+   ========================================================================= */
+
+.cat-nav-holder {
+
+  position: sticky;
+
+  /*
+    The category bar sits directly underneath
+    the header.
+  */
+  top: var(--header-height);
+
+  z-index: 90;
+
+  background: rgba(242, 248, 247, 0.97);
+
+  border-bottom: 1px solid var(--line);
+
+  box-shadow: 0 3px 12px rgba(11, 79, 74, 0.06);
+
+}
+
+
+.cat-nav {
+
+  width: min(
+    calc(100% - 28px),
+    var(--content-width)
+  );
+
+  margin: 0 auto;
+
+  padding: 10px 0;
+
+  display: flex;
+
+  gap: 8px;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+
+  -webkit-overflow-scrolling: touch;
+
+  overscroll-behavior-x: contain;
+}
+
+
+.cat-nav::-webkit-scrollbar {
+  display: none;
+}
+
+
+.cat-nav a {
+
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+
+  padding: 8px 13px;
+
+  background: #ffffff;
+
+  color: var(--green-d);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  font-size: 0.78rem;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+.cat-nav a:hover {
+
+  background: var(--green);
+
+  color: #ffffff;
+
+  border-color: var(--green);
+
+}
+
+
+.cat-nav a:active {
+
+  background: var(--accent);
+
+  color: #ffffff;
+
+  border-color: var(--accent);
+
+}
+
+
+/* =========================================================================
+   5. MAIN CONTENT
+   ========================================================================= */
+
+.wrap {
+
+  width: min(
+    calc(100% - 28px),
+    var(--content-width)
+  );
+
+  margin: 0 auto;
+
+  padding: 8px 0 40px;
+
+}
+
+
+/* =========================================================================
+   6. MENU CATEGORY
+   ========================================================================= */
+
+.cat {
+
+  /*
+    Important for anchor navigation.
+
+    The category will stop below both
+    sticky header elements.
+  */
+  scroll-margin-top: 145px;
+
+  padding-top: 20px;
+
+  margin-bottom: 24px;
+}
+
+
+.cat h3 {
+
+  margin: 0 0 10px;
+
+  padding-left: 12px;
+
+  color: var(--green-d);
+
+  border-left: 5px solid var(--accent);
+
+  font-family: "Fraunces", serif;
+
+  font-size: clamp(1.35rem, 5vw, 1.75rem);
+
+  font-weight: 700;
+
+  line-height: 1.15;
+}
+
+
+/* =========================================================================
+   7. MENU LIST
+   ========================================================================= */
+
+.menu-list {
+
+  overflow: hidden;
+
+  background: var(--card);
+
+  border: 1px solid var(--line);
+
+  border-top: 4px solid var(--green);
+
+  border-radius: var(--r);
+
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================================================================
+   8. MENU ROW
+   ========================================================================= */
+
+.menu-row {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 14px 16px;
 
   border-bottom: 1px solid var(--line);
 }
+
 
 .menu-row:last-child {
   border-bottom: 0;
 }
 
-/* Item name */
 
-.menu-row b {
-  display: block;
+/* =========================================================================
+   9. ITEM LEFT SIDE
+   ========================================================================= */
+
+.row-main {
+
   min-width: 0;
+
+  flex: 1 1 auto;
+}
+
+
+.item-name {
+
+  display: block;
+
   color: var(--ink);
+
   font-size: 0.96rem;
+
   font-weight: 800;
-  line-height: 1.4;
+
+  line-height: 1.3;
+
   overflow-wrap: anywhere;
 }
 
-/* Item description */
 
 .desc {
-  flex: 1 1 auto;
-  min-width: 0;
-  margin: 4px 0 0;
+
+  display: block;
+
+  margin-top: 3px;
 
   color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
+
+  font-size: 0.78rem;
+
+  line-height: 1.45;
+
   overflow-wrap: anywhere;
 }
 
-.menu-row small {
-  display: block;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.4;
-}
 
-/* Price and description alignment */
+/* =========================================================================
+   10. PRICE
+   ========================================================================= */
 
-.price-row {
+.row-end {
+
+  flex: 0 0 auto;
+
+  min-width: max-content;
+
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 6px;
+
+  align-items: flex-start;
+
+  justify-content: flex-end;
+
 }
 
-/* Prices */
 
 .price {
+
   color: var(--green);
+
+  font-size: 0.88rem;
+
   font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
 
-.price.tbc {
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
+  line-height: 1.3;
 
-.menu-row .price {
   white-space: nowrap;
 }
 
-/* Right-hand price and tag container */
-
-.menu-row .row-end {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 5px;
-
-  max-width: 45%;
-  text-align: right;
-}
-
-.menu-row .tag {
-  margin-top: 2px;
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-
 
 /* =========================================================================
-   11. HOME PAGE — CHOICES AND LINKS
-   Retained for compatibility with other pages using this stylesheet.
+   11. EMPTY CATEGORY
    ========================================================================= */
 
-.info-list {
-  display: grid;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
-  margin: 14px 0 6px;
-  font-weight: 600;
-}
+.empty-menu {
 
-.welcome {
-  margin-top: 20px;
-  font-size: 1.5rem;
-}
+  padding: 18px 16px;
 
-.choices {
-  display: grid;
-  gap: 16px;
-}
-
-.choice {
-  display: block;
-  padding: 22px;
-
-  background: #fff;
-  color: var(--ink);
-  text-decoration: none;
-
-  border: 2px solid transparent;
-  border-top: 5px solid var(--green);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-
-  transition:
-    transform 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.choice:nth-child(2) {
-  border-top-color: var(--accent);
-}
-
-.choice:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-}
-
-.choice .ic {
-  font-size: 2.2rem;
-}
-
-.choice h3 {
-  margin: 6px 0 4px;
-}
-
-.choice p {
-  margin: 0 0 14px;
   color: var(--muted);
-}
 
+  font-size: 0.85rem;
 
-/* =========================================================================
-   12. GALLERY
-   ========================================================================= */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-figure {
-  margin: 0;
-  min-width: 0;
-}
-
-.ph {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-
-  background: var(--tint, #e6f4f1);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-
-  font-size: 3.6rem;
-}
-
-figcaption {
-  margin-top: 8px;
   text-align: center;
-  font-weight: 700;
-  font-style: italic;
 }
 
 
 /* =========================================================================
-   13. ORDER CUSTOMISATION AND MODALS
-   Shared styles for pages/components that use these classes.
-   ========================================================================= */
-
-.opt:has(input:checked) {
-  border-color: var(--accent);
-  background: #fff1ea;
-}
-
-.opt .p {
-  color: var(--green);
-}
-
-.modal-head,
-.modal-foot {
-  background: #fff;
-}
-
-.modal-head {
-  border-top: 5px solid var(--green);
-}
-
-.total strong,
-.cart-totals .grand {
-  color: var(--green-d);
-}
-
-
-/* =========================================================================
-   14. ABOUT SECTION
-   ========================================================================= */
-
-.about {
-  max-width: 760px;
-  padding: 28px 24px 40px;
-  margin: 40px auto 0;
-
-  background: #fff;
-  border-left: 5px solid var(--accent);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-
-
-/* =========================================================================
-   15. FOOTER — MATCHES THE CURRENT HTML
+   12. FOOTER
    ========================================================================= */
 
 .site-footer {
-  padding: 28px 16px 18px;
-  margin-top: 40px;
 
-  background: #0a3a3a;
-  color: #d7ebe8;
+  margin-top: 20px;
+
+  padding: 24px 14px;
+
+  background: var(--green-d);
+
+  color: rgba(255, 255, 255, 0.76);
+
+  text-align: center;
 }
 
-.foot-grid {
-  display: grid;
-  gap: 24px;
-}
-
-.site-footer h3 {
-  color: #fff;
-  font-size: 1.15rem;
-}
-
-.site-footer a {
-  color: #ffc4ac;
-}
-
-.site-footer p {
-  margin: 4px 0;
-}
 
 .copy {
-  margin: 0;
-  text-align: center;
-  font-size: 0.8rem;
-  line-height: 1.7;
-  overflow-wrap: anywhere;
-  opacity: 0.9;
-}
 
-.site-footer .copy {
-  margin-top: 0;
+  font-size: 0.75rem;
+
+  line-height: 1.5;
 }
 
 
 /* =========================================================================
-   16. TABLET AND DESKTOP LAYOUT
+   13. TABLET / DESKTOP
    ========================================================================= */
 
 @media (min-width: 760px) {
 
   :root {
-    --nav-height: 80px;
+    --header-height: 80px;
   }
+
 
   .header-inner {
-    gap: 16px;
-    padding: 12px 0;
+    width: min(
+      calc(100% - 40px),
+      var(--content-width)
+    );
   }
+
 
   .brand-logo {
-    width: 54px;
-    height: 54px;
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
   }
 
-  .brand-name {
-    font-size: 1.45rem;
+
+  .cat-nav {
+    width: min(
+      calc(100% - 40px),
+      var(--content-width)
+    );
+
+    padding: 11px 0;
   }
 
-  .brand-tagline {
+
+  .cat-nav a {
     font-size: 0.82rem;
   }
 
-  .home-button {
-    min-height: 42px;
-    padding: 10px 18px;
-    font-size: 0.88rem;
+
+  .wrap {
+    width: min(
+      calc(100% - 40px),
+      var(--content-width)
+    );
+
+    padding-top: 12px;
   }
 
-  .cat-nav-holder {
-    padding: 12px 0 9px;
+
+  .cat {
+    scroll-margin-top: 150px;
   }
 
-  .cat-nav {
-    gap: 10px;
+
+  .menu-row {
+    padding: 16px 18px;
   }
 
-  .cat-nav a {
-    padding: 9px 18px;
+
+  .item-name {
+    font-size: 1rem;
   }
 
-  .section {
-    padding-top: 36px;
+
+  .price {
+    font-size: 0.92rem;
   }
 
-  .choices {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .foot-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 
 /* =========================================================================
-   17. SMALL MOBILE SCREENS
+   14. SMALL PHONES
    ========================================================================= */
 
 @media (max-width: 380px) {
 
   .header-inner {
-    width: calc(100% - 16px);
+    width: min(
+      calc(100% - 20px),
+      var(--content-width)
+    );
+
     gap: 8px;
   }
+
 
   .brand-logo {
     width: 42px;
     height: 42px;
+    flex-basis: 42px;
+
+    border-radius: 10px;
   }
 
+
   .brand-name {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
+
 
   .brand-tagline {
     font-size: 0.68rem;
   }
 
+
   .home-button {
     min-height: 36px;
-    padding: 8px 9px;
-    gap: 3px;
+
+    padding: 7px 10px;
+
     font-size: 0.75rem;
   }
+
+
+  .cat-nav {
+    width: calc(100% - 20px);
+
+    gap: 6px;
+  }
+
+
+  .cat-nav a {
+    min-height: 35px;
+
+    padding: 7px 11px;
+
+    font-size: 0.72rem;
+  }
+
 
   .wrap {
     width: calc(100% - 20px);
   }
 
+
   .menu-row {
-    gap: 8px;
-    padding: 12px 11px;
+    gap: 10px;
+
+    padding: 13px 12px;
   }
 
-  .menu-row b {
+
+  .item-name {
     font-size: 0.9rem;
   }
 
-  .menu-row .row-end {
-    max-width: 42%;
+
+  .desc {
+    font-size: 0.74rem;
   }
 
-  .cat-nav a {
-    padding: 8px 13px;
-    font-size: 0.83rem;
+
+  .price {
+    font-size: 0.8rem;
   }
-}
 
-
-/* =========================================================================
-   18. ACCESSIBILITY — REDUCED MOTION
-   ========================================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
 }
