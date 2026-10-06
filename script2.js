@@ -1,27 +1,30 @@
 /* BOBA BAY — script2.js
-   Edit CONFIG, the option lists and MENU_DATA below. Everything else can stay as is. */
+   Edit CONFIG, option lists and MENU_DATA below. */
 
 /* ---------- Settings ---------- */
-const CONFIG={name:"Boba Bay",whatsapp:"255700000000",deliveryFee:3000,
-  toppingPrice:1000,maxToppings:2,extraBobaPrice:1000,storageKey:"bobabay_cart"};
+const CONFIG={
+  name:"Boba Bay",
+  whatsapp:"255700000000",
+  deliveryFee:3000,
+  toppingPrice:1000,
+  maxToppings:2,
+  extraBobaPrice:1000,
+  storageKey:"bobabay_cart"
+};
 
-/* Popping boba flavours and jelly flavours: no extra charge. */
 const POPPING_FLAVOURS=["Strawberry","Blueberry","Mango","Orange","Green Apple","Grape","Pink Lemon","Lemon","Kiwi","Watermelon","Raspberry","Passion","Lychee","Pomegranate","Peach","Salty Caramel","Chocolate","Coffee","Taro","Tropical"];
 const JELLY_FLAVOURS=["Rainbow jelly","Coffee jelly"];
 
-/* Boba type: choose one, no extra charge.
-   options = a second choice shown only when this type is selected (label = its heading). */
 const BOBA_TYPES=[
   {id:"popping",name:"Popping Boba",note:"",label:"Popping boba flavour",options:POPPING_FLAVOURS,cols:"cols-3"},
   {id:"chewy",name:"Chewy Boba",note:"(Tapioca)",label:"",options:[],cols:""},
   {id:"jelly",name:"Jelly",note:"",label:"Jelly flavour",options:JELLY_FLAVOURS,cols:"cols-2"}
 ];
-/* Toppings: CONFIG.toppingPrice each, up to CONFIG.maxToppings. */
+
 const TOPPINGS=["Strawberry Chunks","Marshmallows","Chocolate Sprinkles","Whipped Cream","Toasted Nuts","Oreo Crumbs"];
-/* Extras: each has its own price. */
 const EXTRAS=[{name:"Extra Boba / Tapioca",price:CONFIG.extraBobaPrice}];
 
-/* custom:true = shows the customise popup. p = price in TSh. */
+/* ---------- Menu ---------- */
 const MENU_DATA=[
  {id:"weekend",name:"Weekend Specials",custom:true,items:[
   {n:"Classic Frappuccino",d:"Iced coffee with a shot of espresso topped with whipped cream. Choice of caramel or chocolate drizzle",p:12000},
@@ -68,89 +71,70 @@ const MENU_DATA=[
   {n:"Strawberries & Cream",d:"Strawberry milkshake, whipped cream and strawberry",p:12000},
   {n:"Strawberry Jasmine Milk",d:"",p:12000}]},
  {id:"chocolate",name:"Chocolate",custom:true,items:[
-  {n:"Chocolate",d:"",p:11000},
-  {n:"Choco Mint",d:"Chocolate milk paired with mint and chocolate chunks",p:12000},
-  {n:"Nutella Shake",d:"",p:12000},
-  {n:"Choco Overload",d:"Chocolate milkshake with chocolate chunks and extra chocolate drizzles",p:13000},
-  {n:"Hazelnut",d:"",p:12000},
-  {n:"Oreo",d:"Oreo milkshake with Oreo crumbs on top",p:12000},
-  {n:"Hazelnut Frappe",d:"Hazelnut + coffee",p:12000},
-  {n:"Rich and Creamy Coco",d:"Rich dark cocoa with whipped cream",p:13000},
-  {n:"Chocolate Truffle",d:"Chocolate ganache, toasted nuts and coconut",p:12000},
-  {n:"Nutcracker",d:"Hazelnut and Nutella milk topped with toasted nuts",p:12000},
-  {n:"Rudolph",d:"KitKat milk topped with whipped cream and KitKat shavings",p:12000},
-  {n:"Issac",d:"Rich chocolate topped with toasted marshmallows, Oreo crumbs and whipped cream",p:13000},
+  {n:"Chocolate",d:"",p:11000},{n:"Choco Mint",d:"Chocolate milk paired with mint and chocolate chunks",p:12000},
+  {n:"Nutella Shake",d:"",p:12000},{n:"Choco Overload",d:"Chocolate milkshake with chocolate chunks and extra chocolate drizzles",p:13000},
+  {n:"Hazelnut",d:"",p:12000},{n:"Oreo",d:"Oreo milkshake with Oreo crumbs on top",p:12000},
+  {n:"Hazelnut Frappe",d:"Hazelnut + coffee",p:12000},{n:"Rich and Creamy Coco",d:"Rich dark cocoa with whipped cream",p:13000},
+  {n:"Chocolate Truffle",d:"Chocolate ganache, toasted nuts and coconut",p:12000},{n:"Nutcracker",d:"Hazelnut and Nutella milk topped with toasted nuts",p:12000},
+  {n:"Rudolph",d:"KitKat milk topped with whipped cream and KitKat shavings",p:12000},{n:"Issac",d:"Rich chocolate topped with toasted marshmallows, Oreo crumbs and whipped cream",p:13000},
   {n:"Death by Chocolate",d:"Chocolate, Nutella and hazelnut milkshake with chocolate whipped cream, marshmallows and chocolate sprinkles",p:13000},
-  {n:"Nimbus 2000",d:"Tiramisu and dark chocolate",p:13000},
-  {n:"Warm Hug",d:"Ferrero Rocher and dark chocolate",p:16000},
-  {n:"Minty Mistletoe",d:"Minty chocolate topped with whipped cream and chocolate shavings",p:13000},
-  {n:"Ferrero",d:"",p:16000}]},
+  {n:"Nimbus 2000",d:"Tiramisu and dark chocolate",p:13000},{n:"Warm Hug",d:"Ferrero Rocher and dark chocolate",p:16000},
+  {n:"Minty Mistletoe",d:"Minty chocolate topped with whipped cream and chocolate shavings",p:13000},{n:"Ferrero",d:"",p:16000}]},
  {id:"milktea",name:"Milk Tea",custom:true,note:"Add a shot of tea (Oolong, Jasmine or Assam): ask us when you order or add it in the order note.",items:[
   {n:"Assam",d:"Take a breath of fresh air from the valleys of the Assam garden with every sip!",p:11000},
   {n:"Jasmine",d:"Dive deep into the aroma of our Jasmine milk tea",p:11000},
   {n:"Oolong",d:"Dark roasted Oolong tea leaves with slight smokiness and earthy tones",p:11000}]},
  {id:"fruit",name:"Fruit Tea",custom:true,items:[
-  {n:"Mango Dream",d:"Mango + orange",p:8000},
-  {n:"Summer Blaze",d:"Strawberry + blueberry",p:10000},
-  {n:"Super Melon",d:"Watermelon + strawberry",p:8000},
-  {n:"Passionfruit Sunrise",d:"Passion + mango + strawberry",p:10000},
-  {n:"Hawaii",d:"Pineapple + mango + passion juice",p:10000},
-  {n:"Caribbean Love",d:"Passion + peach + mango",p:10000},
-  {n:"Twisted Lemonade",d:"Refreshing strawberry lemonade",p:8000},
-  {n:"Spicy Mango",d:"Mango with a hint of chilli",p:8000},
-  {n:"Tiki Passion",d:"Strawberry + watermelon + passion + mango",p:10000},
-  {n:"Pina Colada",d:"Pineapple + passion",p:8000},
-  {n:"Mango Passion Frappe",d:"Mango, passion and berries infused drink",p:12000},
-  {n:"Peachy Sweetie",d:"Peach and strawberry",p:10000},
-  {n:"Pomegranate Paradise",d:"Mango + strawberry + pomegranate + peach",p:10000},
-  {n:"Dragon",d:"Mango + passion + pomegranate + raspberry",p:10000},
-  {n:"Strawberry Lychee",d:"Strawberry + lychee",p:10000},
-  {n:"Treasure Mango",d:"Mango, strawberry and peach",p:10000}]},
+  {n:"Mango Dream",d:"Mango + orange",p:8000},{n:"Summer Blaze",d:"Strawberry + blueberry",p:10000},
+  {n:"Super Melon",d:"Watermelon + strawberry",p:8000},{n:"Passionfruit Sunrise",d:"Passion + mango + strawberry",p:10000},
+  {n:"Hawaii",d:"Pineapple + mango + passion juice",p:10000},{n:"Caribbean Love",d:"Passion + peach + mango",p:10000},
+  {n:"Twisted Lemonade",d:"Refreshing strawberry lemonade",p:8000},{n:"Spicy Mango",d:"Mango with a hint of chilli",p:8000},
+  {n:"Tiki Passion",d:"Strawberry + watermelon + passion + mango",p:10000},{n:"Pina Colada",d:"Pineapple + passion",p:8000},
+  {n:"Mango Passion Frappe",d:"Mango, passion and berries infused drink",p:12000},{n:"Peachy Sweetie",d:"Peach and strawberry",p:10000},
+  {n:"Pomegranate Paradise",d:"Mango + strawberry + pomegranate + peach",p:10000},{n:"Dragon",d:"Mango + passion + pomegranate + raspberry",p:10000},
+  {n:"Strawberry Lychee",d:"Strawberry + lychee",p:10000},{n:"Treasure Mango",d:"Mango, strawberry and peach",p:10000}]},
  {id:"slushy",name:"Slushy",custom:true,items:[
-  {n:"Icy Lemon",d:"",p:8000},
-  {n:"Apple Burst",d:"",p:8000},
-  {n:"Winter Blaze",d:"",p:10000},
-  {n:"Red Grape",d:"",p:10000},
-  {n:"Bloody Vampire",d:"Cranberry slush",p:10000},
-  {n:"Witches Brew",d:"Kiwi slush",p:10000},
-  {n:"Poison Apple",d:"Apple Burst + Icy Lemon with a hint of blood (grape)",p:8000},
-  {n:"Jack Frost",d:"Winter Blaze + Icy Lemon + grape slush",p:10000},
-  {n:"Strawberry Blush",d:"Strawberry + orange",p:10000},
-  {n:"Mango Berry",d:"Mango + blackberry",p:10000},
-  {n:"Mixed Berry",d:"A perfect blend of all delicious berries",p:10000},
-  {n:"Pink Lemonade",d:"Strawberry and lemon slush",p:10000},
-  {n:"Blue Lemonade",d:"Blueberry and lemon slush",p:10000},
-  {n:"Boo Berry",d:"Strawberry, blueberry and grape slush",p:10000},
-  {n:"North Pole",d:"Blueberry and lemon slush",p:10000},
-  {n:"Gryffindor",d:"Vampire and raspberry",p:10000},
-  {n:"Hufflepuff",d:"Mango and orange",p:10000},
-  {n:"Slytherin",d:"Kiwi and apple",p:10000},
-  {n:"Ravenclaw",d:"Winter and blue raspberry",p:10000},
-  {n:"Love Struck",d:"Strawberry lemonade and pink lemonade topped with a lemon slice",p:10000}]},
+  {n:"Icy Lemon",d:"",p:8000},{n:"Apple Burst",d:"",p:8000},{n:"Winter Blaze",d:"",p:10000},
+  {n:"Red Grape",d:"",p:10000},{n:"Bloody Vampire",d:"Cranberry slush",p:10000},{n:"Witches Brew",d:"Kiwi slush",p:10000},
+  {n:"Poison Apple",d:"Apple Burst + Icy Lemon with a hint of blood (grape)",p:8000},{n:"Jack Frost",d:"Winter Blaze + Icy Lemon + grape slush",p:10000},
+  {n:"Strawberry Blush",d:"Strawberry + orange",p:10000},{n:"Mango Berry",d:"Mango + blackberry",p:10000},
+  {n:"Mixed Berry",d:"A perfect blend of all delicious berries",p:10000},{n:"Pink Lemonade",d:"Strawberry and lemon slush",p:10000},
+  {n:"Blue Lemonade",d:"Blueberry and lemon slush",p:10000},{n:"Boo Berry",d:"Strawberry, blueberry and grape slush",p:10000},
+  {n:"North Pole",d:"Blueberry and lemon slush",p:10000},{n:"Gryffindor",d:"Vampire and raspberry",p:10000},
+  {n:"Hufflepuff",d:"Mango and orange",p:10000},{n:"Slytherin",d:"Kiwi and apple",p:10000},
+  {n:"Ravenclaw",d:"Winter and blue raspberry",p:10000},{n:"Love Struck",d:"Strawberry lemonade and pink lemonade topped with a lemon slice",p:10000}]},
  {id:"fizzy",name:"Fizzy",custom:true,items:[
-  {n:"Frozen Strawberry Fizz",d:"",p:8000},
-  {n:"Passionfruit & Mango Fizz",d:"",p:8000},
-  {n:"Mojito Fizz",d:"",p:8000},
-  {n:"Red Raspberry Fizz",d:"",p:8000},
+  {n:"Frozen Strawberry Fizz",d:"",p:8000},{n:"Passionfruit & Mango Fizz",d:"",p:8000},
+  {n:"Mojito Fizz",d:"",p:8000},{n:"Red Raspberry Fizz",d:"",p:8000},
   {n:"Electric Fizz",d:"A much-requested drink and a favourite for the kids. A blue fizzy drink that is super delicious",p:8000},
-  {n:"Grape Soda",d:"",p:8000},
-  {n:"Energizer",d:"",p:8000}]}
+  {n:"Grape Soda",d:"",p:8000},{n:"Energizer",d:"",p:8000}]}
 ];
 
 /* ---------- Helpers & state ---------- */
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=n=>"TSh "+Number(n).toLocaleString("en-US");
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let cart=[],orderType=null,current=null,closeTimer=null;
+
+/*
+  current:
+    { it, editIndex:-1 } for Add to Cart
+    { it, editIndex:number } for Edit
+*/
 try{
   const saved=JSON.parse(localStorage.getItem(CONFIG.storageKey));
-  /* keep only well-formed items so an old/bad save can never break the page */
-  cart=Array.isArray(saved)?saved.filter(c=>c&&typeof c.name==="string"&&Number.isFinite(c.price)&&Number.isFinite(c.qty)&&c.qty>0)
-    .map(c=>({key:String(c.key||c.name),name:c.name,opts:Array.isArray(c.opts)?c.opts.map(String):[],price:c.price,qty:c.qty})):[];
+  cart=Array.isArray(saved)?saved.filter(c=>c&&typeof c.name==="string"&&Number.isFinite(Number(c.price))&&Number.isFinite(Number(c.qty))&&Number(c.qty)>0)
+    .map(c=>({
+      key:String(c.key||c.name),
+      name:c.name,
+      opts:Array.isArray(c.opts)?c.opts.map(String):[],
+      price:Number(c.price),
+      qty:Number(c.qty)
+    })):[];
 }catch(e){cart=[]}
+
 const save=()=>{try{localStorage.setItem(CONFIG.storageKey,JSON.stringify(cart))}catch(e){}};
 
-/* ---------- Page text ---------- */
 $$("[data-bind=name]").forEach(e=>e.textContent=CONFIG.name);
 $("#year").textContent=new Date().getFullYear();
 
@@ -159,117 +143,171 @@ function renderMenu(){
   $("#catNav").innerHTML=MENU_DATA.map(c=>`<a href="#${c.id}">${esc(c.name)}</a>`).join("");
   $("#menuRoot").innerHTML=MENU_DATA.map(c=>`<section class="cat" id="${c.id}"><h3>${esc(c.name)}</h3>`+
     (c.note?`<p class="note">${esc(c.note)}</p>`:"")+
-    `<ul class="menu-list">`+c.items.map((it,i)=>`<li class="menu-row"><div><b>${esc(it.n)}</b>`+
-    (it.d?`<small>${esc(it.d)}</small>`:"")+(c.custom?`<span class="tag">Customisable</span>`:"")+
-    `</div><div class="row-end"><span class="price">${fmt(it.p)}</span>`+
-    `<button class="btn btn-accent btn-sm" type="button" data-add="${c.id}:${i}">Add to Cart</button></div></li>`).join("")+
+    `<ul class="menu-list">`+
+    c.items.map((it,i)=>`<li class="menu-row"><div><b>${esc(it.n)}</b>`+
+      (it.d?`<small>${esc(it.d)}</small>`:"")+
+      (c.custom?`<span class="tag">Customisable</span>`:"")+
+      `</div><div class="row-end"><span class="price">${fmt(it.p)}</span>`+
+      `<button class="btn btn-accent btn-sm" type="button" data-add="${c.id}:${i}">Add to Cart</button></div></li>`).join("")+
     `</ul></section>`).join("");
 }
+
 $("#menuRoot").addEventListener("click",e=>{
-  const b=e.target.closest("[data-add]");if(!b)return;
-  const [cid,i]=b.dataset.add.split(":"),cat=MENU_DATA.find(c=>c.id===cid),it=cat&&cat.items[Number(i)];
+  const b=e.target.closest("[data-add]");
+  if(!b)return;
+  const [cid,i]=b.dataset.add.split(":");
+  const cat=MENU_DATA.find(c=>c.id===cid);
+  const it=cat&&cat.items[Number(i)];
   if(!it)return;
-  cat.custom?openModal(it):addToCart(it.n,[],it.p);
+  cat.custom?openModal(it,-1):addToCart(it.n,[],it.p);
 });
-/* highlight active category while scrolling */
+
 function watchCats(){
   if(!("IntersectionObserver" in window))return;
   const io=new IntersectionObserver(es=>es.forEach(en=>{
-    if(en.isIntersecting)$$("#catNav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id));
+    if(en.isIntersecting){
+      $$("#catNav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id));
+    }
   }),{rootMargin:"-30% 0px -60% 0px"});
   $$(".cat").forEach(s=>io.observe(s));
 }
 
-/* ---------- Customise popup ---------- */
+/* ---------- Customise / Edit modal ---------- */
 const modal=$("#customModal");
 
-function openModal(it){
-  current=it;
+function openModal(it,editIndex=-1){
+  current={it,editIndex};
+  $("#cmTitle").textContent=editIndex>=0?"Edit Your Drink":"Customise Your Drink";
+  $("#cmAdd").textContent=editIndex>=0?"Update Cart":"Add to Cart";
   $("#cmHint").textContent="";
+
   $("#cmBody").innerHTML=
-   /* 1. product */
    `<div class="cm-product"><h3>${esc(it.n)}</h3><p>Base price: ${fmt(it.p)}</p></div>`+
-   /* 2. boba type */
    `<fieldset class="opt"><legend>Boba type</legend>`+
    `<p class="help">Optional — choose one (no extra charge)</p>`+
    `<div class="opt-grid cols-types">`+
    BOBA_TYPES.map(b=>`<label class="option boba-card"><input type="radio" name="boba" value="${b.id}">`+
      `<span>${esc(b.name)}</span>${b.note?`<small>${esc(b.note)}</small>`:""}</label>`).join("")+
    `</div><button type="button" class="clear-choice" id="cmClearBoba">Clear boba choice</button></fieldset>`+
-   /* 3. flavour lists (each only shown for its own boba type) */
    BOBA_TYPES.filter(b=>b.options.length).map(b=>
      `<fieldset class="opt" id="cmOpt-${b.id}" hidden><legend>${esc(b.label)}</legend>`+
      `<p class="help">Choose one (no extra charge)</p>`+
      `<div class="opt-grid ${b.cols||"cols-3"}">`+
      b.options.map(f=>`<label class="option"><input type="radio" name="sub-${b.id}" value="${esc(f)}">${esc(f)}</label>`).join("")+
      `</div></fieldset>`).join("")+
-   /* 4. toppings */
    `<fieldset class="opt"><legend>Toppings</legend>`+
    `<p class="help">Choose up to ${CONFIG.maxToppings} toppings · ${fmt(CONFIG.toppingPrice)} each <span id="cmTopCount"></span></p>`+
    `<div class="opt-grid cols-2">`+
    TOPPINGS.map(t=>`<label class="option topping"><input type="checkbox" name="top" value="${esc(t)}"><span>${esc(t)}</span><em>+${fmt(CONFIG.toppingPrice)}</em></label>`).join("")+
    `</div></fieldset>`+
-   /* 5. extras */
    (EXTRAS.length?`<fieldset class="opt"><legend>Extras</legend><p class="help">Optional</p><div class="opt-grid cols-2">`+
    EXTRAS.map((x,i)=>`<label class="option topping"><input type="checkbox" name="extra" value="${i}"><span>${esc(x.name)}</span><em>+${fmt(x.price)}</em></label>`).join("")+
    `</div></fieldset>`:"");
+
+  if(editIndex>=0 && cart[editIndex]){
+    restoreCartOptions(cart[editIndex]);
+  }
+
   $("#cmBody").scrollTop=0;
   calc();
+
   document.body.classList.add("no-scroll");
-  modal.showModal?modal.showModal():modal.setAttribute("open","");
+  if(modal.showModal)modal.showModal();
+  else modal.setAttribute("open","");
+}
+
+function restoreCartOptions(item){
+  const opts=item.opts||[];
+  const bobaOpt=opts.find(o=>BOBA_TYPES.some(b=>o===b.name || o.startsWith(b.name+" " ) || o.startsWith(b.name+" – ")));
+  if(bobaOpt){
+    const type=BOBA_TYPES.find(b=>bobaOpt===b.name || bobaOpt.startsWith(b.name+" ") || bobaOpt.startsWith(b.name+" – "));
+    if(type){
+      const input=$("#cmBody").querySelector(`[name="boba"][value="${type.id}"]`);
+      if(input)input.checked=true;
+      const flavour=opts.find(o=>type.options.some(f=>o===f || o.endsWith(" – "+f)));
+      if(flavour && type.options.length){
+        const selectedFlavour=type.options.find(f=>flavour===f || flavour.endsWith(" – "+f));
+        const fInput=[...$("#cmBody").querySelectorAll(`[name="sub-${type.id}"]`)]
+          .find(x=>x.value===selectedFlavour);
+        if(fInput)fInput.checked=true;
+      }
+    }
+  }
+
+  opts.forEach(o=>{
+    const topping=TOPPINGS.find(t=>o===`Toppings: ${t}` || o.startsWith("Toppings: ") && o.split(": ").slice(1).includes(t));
+    if(topping){
+      const all=opts.find(x=>x.startsWith("Toppings: "));
+      if(all){
+        all.replace("Toppings: ","").split(", ").forEach(name=>{
+          const input=[...$("#cmBody").querySelectorAll('[name="top"]')].find(x=>x.value===name);
+          if(input)input.checked=true;
+        });
+      }
+    }
+    EXTRAS.forEach((x,i)=>{
+      if(o===x.name){
+        const input=$("#cmBody").querySelector(`[name="extra"][value="${i}"]`);
+        if(input)input.checked=true;
+      }
+    });
+  });
 }
 
 function closeModal(){
-  modal.close?modal.close():modal.removeAttribute("open");
+  if(modal.close)modal.close();
+  else modal.removeAttribute("open");
   document.body.classList.remove("no-scroll");
+  current=null;
 }
 
-/* Reads the form, updates the UI and summary, returns what to add to the cart. */
 function calc(){
   const f=$("#cmBody");
+  if(!current)return null;
+
   const bobaEl=f.querySelector("[name=boba]:checked");
   const boba=bobaEl?BOBA_TYPES.find(b=>b.id===bobaEl.value):null;
 
-  /* each flavour list only exists for its own boba type */
   BOBA_TYPES.filter(b=>b.options.length).forEach(b=>{
-    const fs=f.querySelector("#cmOpt-"+b.id),show=!!(boba&&boba.id===b.id);
+    const fs=f.querySelector("#cmOpt-"+b.id);
+    const show=!!(boba&&boba.id===b.id);
     fs.hidden=!show;
     if(!show)fs.querySelectorAll("input").forEach(x=>x.checked=false);
   });
-  const hasSub=!!(boba&&boba.options.length);
-  const subEl=hasSub?f.querySelector(`[name="sub-${boba.id}"]:checked`):null,sub=subEl?subEl.value:"";
 
-  /* toppings: lock the rest once the maximum is reached */
+  const hasSub=!!(boba&&boba.options.length);
+  const subEl=hasSub?f.querySelector(`[name="sub-${boba.id}"]:checked`):null;
+  const sub=subEl?subEl.value:"";
+
   const tops=[...f.querySelectorAll("[name=top]:checked")].map(x=>x.value);
   f.querySelectorAll("[name=top]").forEach(x=>x.disabled=!x.checked&&tops.length>=CONFIG.maxToppings);
   $("#cmTopCount").textContent=`(${tops.length}/${CONFIG.maxToppings} selected)`;
 
-  const extras=[...f.querySelectorAll("[name=extra]:checked")].map(x=>EXTRAS[Number(x.value)]).filter(Boolean);
+  const extras=[...f.querySelectorAll("[name=extra]:checked")]
+    .map(x=>EXTRAS[Number(x.value)]).filter(Boolean);
 
-  /* selected / disabled looks */
-  f.querySelectorAll(".option").forEach(l=>{
-    const i=l.querySelector("input");
-    l.classList.toggle("selected",i.checked);
-    l.classList.toggle("disabled",i.disabled);
+  f.querySelectorAll(".option").forEach(label=>{
+    const input=label.querySelector("input");
+    label.classList.toggle("selected",input.checked);
+    label.classList.toggle("disabled",input.disabled);
   });
 
-  /* price: boba and flavour are free */
-  const topTotal=tops.length*CONFIG.toppingPrice,extraTotal=extras.reduce((s,x)=>s+x.price,0);
-  const price=current.p+topTotal+extraTotal;
+  const topTotal=tops.length*CONFIG.toppingPrice;
+  const extraTotal=extras.reduce((s,x)=>s+x.price,0);
+  const price=current.it.p+topTotal+extraTotal;
 
-  /* cart / WhatsApp option lines */
   const bobaName=boba?boba.name+(boba.note?" "+boba.note:""):"";
   const opts=[];
   if(boba)opts.push(bobaName+(sub?" – "+sub:""));
   if(tops.length)opts.push("Toppings: "+tops.join(", "));
   extras.forEach(x=>opts.push(x.name));
 
-  /* bottom summary */
-  let h=`<div class="sum-main"><span>${esc(current.n)}</span><span>${fmt(current.p)}</span></div>`;
+  let h=`<div class="sum-main"><span>${esc(current.it.n)}</span><span>${fmt(current.it.p)}</span></div>`;
   if(boba)h+=`<div><span>${esc(bobaName)}</span><span>No charge</span></div>`;
   if(sub)h+=`<div><span>${esc(sub)}</span><span>No charge</span></div>`;
   if(tops.length)h+=`<div><span>Toppings: ${tops.map(esc).join(", ")}</span><span>${fmt(topTotal)}</span></div>`;
-  extras.forEach(x=>{h+=`<div><span>${esc(x.name)}</span><span>${fmt(x.price)}</span></div>`});
+  extras.forEach(x=>h+=`<div><span>${esc(x.name)}</span><span>${fmt(x.price)}</span></div>`);
+
   $("#cmBreakdown").innerHTML=h;
   $("#cmTotal").textContent=fmt(price);
 
@@ -277,23 +315,50 @@ function calc(){
 }
 
 $("#cmBody").addEventListener("change",()=>{$("#cmHint").textContent="";calc()});
+
 $("#cmBody").addEventListener("click",e=>{
   if(e.target.closest("#cmClearBoba")){
     $$("#cmBody [name=boba]").forEach(x=>x.checked=false);
     calc();
   }
 });
+
 $("#cmClose").onclick=closeModal;
 modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 modal.addEventListener("close",()=>document.body.classList.remove("no-scroll"));
+
 $("#cmAdd").onclick=()=>{
   const r=calc();
+  if(!r)return;
+
   if(r.needSub){
     $("#cmHint").textContent="Please choose a "+r.boba.label.toLowerCase()+".";
-    const box=$("#cmOpt-"+r.boba.id);if(box)box.scrollIntoView({block:"nearest",behavior:"smooth"});
+    const box=$("#cmOpt-"+r.boba.id);
+    if(box)box.scrollIntoView({block:"nearest",behavior:"smooth"});
     return;
   }
-  addToCart(current.n,r.opts,r.price);
+
+  if(current.editIndex>=0){
+    const index=current.editIndex;
+    if(cart[index]){
+      /*
+        Editing changes the existing item in place.
+        Quantity is deliberately preserved.
+      */
+      cart[index]={
+        key:current.it.n+"|"+r.opts.join("|"),
+        name:current.it.n,
+        opts:r.opts,
+        price:r.price,
+        qty:cart[index].qty
+      };
+      save();
+      renderCart();
+    }
+  }else{
+    addToCart(current.it.n,r.opts,r.price);
+  }
+
   closeModal();
 };
 
@@ -301,100 +366,247 @@ $("#cmAdd").onclick=()=>{
 function addToCart(name,opts,price){
   const key=name+"|"+opts.join("|");
   const f=cart.find(c=>c.key===key);
-  f?f.qty++:cart.push({key,name,opts,price,qty:1});
-  save();renderCart();
-  const fab=$("#cart-toggle-btn");fab.animate&&fab.animate([{transform:"scale(1)"},{transform:"scale(1.12)"},{transform:"scale(1)"}],{duration:250});
+
+  if(f)f.qty++;
+  else cart.push({key,name,opts,price,qty:1});
+
+  save();
+  renderCart();
+
+  const fab=$("#cart-toggle-btn");
+  if(fab.animate){
+    fab.animate(
+      [{transform:"scale(1)"},{transform:"scale(1.12)"},{transform:"scale(1)"}],
+      {duration:250}
+    );
+  }
 }
+
 const subtotal=()=>cart.reduce((s,c)=>s+c.price*c.qty,0);
 const count=()=>cart.reduce((s,c)=>s+c.qty,0);
+
 function renderCart(){
   const n=count(),empty=!n;
   $("#cart-count").textContent=n;
   $("#cart-toggle-btn").setAttribute("aria-label",`Open cart, ${n} item${n===1?"":"s"}`);
-  $("#cart-empty").hidden=!empty;$("#cart-footer").hidden=empty;
-  $("#cart-items").innerHTML=cart.map((c,i)=>`<div class="cart-item"><div class="ci-top"><span>${esc(c.name)}</span><span>${fmt(c.price*c.qty)}</span></div>`+
-    (c.opts.length?`<div class="ci-opts">${c.opts.map(o=>`<div>${esc(o)}</div>`).join("")}</div>`:"")+
-    `<div class="ci-act"><div class="qty"><button type="button" data-q="${i}:-1" aria-label="Fewer">−</button><span>${c.qty}</span><button type="button" data-q="${i}:1" aria-label="More">+</button></div>`+
-    `<button type="button" class="link-btn" data-rm="${i}">Remove</button></div></div>`).join("");
-  const sub=subtotal(),fee=orderType==="delivery"?CONFIG.deliveryFee:0;
-  $("#cart-total-rows").innerHTML=`<div class="trow"><span>Subtotal</span><span>${fmt(sub)}</span></div>`+
+  $("#cart-empty").hidden=!empty;
+  $("#cart-footer").hidden=empty;
+
+  $("#cart-items").innerHTML=cart.map((c,i)=>
+    `<div class="cart-item">
+      <div class="ci-top">
+        <span>${esc(c.name)}</span>
+        <span>${fmt(c.price*c.qty)}</span>
+      </div>`+
+      (c.opts.length?`<div class="ci-opts">${c.opts.map(o=>`<div>${esc(o)}</div>`).join("")}</div>`:"")+
+      `<div class="ci-act">
+        <div class="qty">
+          <button type="button" data-q="${i}:-1" aria-label="Fewer">−</button>
+          <span>${c.qty}</span>
+          <button type="button" data-q="${i}:1" aria-label="More">+</button>
+        </div>
+        <button type="button" class="link-btn edit-btn" data-edit="${i}">Edit</button>
+        <button type="button" class="link-btn" data-rm="${i}">Remove</button>
+      </div>
+    </div>`
+  ).join("");
+
+  const sub=subtotal();
+  const fee=orderType==="delivery"?CONFIG.deliveryFee:0;
+
+  $("#cart-total-rows").innerHTML=
+    `<div class="trow"><span>Subtotal</span><span>${fmt(sub)}</span></div>`+
     (orderType==="delivery"?`<div class="trow"><span>Delivery fee</span><span>${fmt(fee)}</span></div>`:"")+
     `<div class="trow grand"><span>Total</span><span>${fmt(sub+fee)}</span></div>`;
+
   validate();
 }
-$("#cart-items").addEventListener("click",e=>{
-  const q=e.target.closest("[data-q]"),r=e.target.closest("[data-rm]");
-  if(q){
-    const[i,d]=q.dataset.q.split(":").map(Number);
-    if(!cart[i])return;
-    cart[i].qty+=d;if(cart[i].qty<1)cart.splice(i,1);
-  }else if(r){cart.splice(Number(r.dataset.rm),1)}
-  else return;
-  save();renderCart();
-});
-$("#clear-cart-btn").onclick=()=>{if(confirm("Clear your cart?")){cart=[];save();renderCart()}};
 
-/* drawer open/close */
+$("#cart-items").addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]");
+  const edit=e.target.closest("[data-edit]");
+  const r=e.target.closest("[data-rm]");
+
+  if(q){
+    const [i,d]=q.dataset.q.split(":").map(Number);
+    if(!cart[i])return;
+    cart[i].qty+=d;
+    if(cart[i].qty<1)cart.splice(i,1);
+    save();
+    renderCart();
+    return;
+  }
+
+  if(edit){
+    const i=Number(edit.dataset.edit);
+    if(!cart[i])return;
+
+    /*
+      Find the menu item by name so Edit uses the original base price.
+      If the item is no longer present in MENU_DATA, editing is disabled
+      gracefully rather than corrupting the cart.
+    */
+    let menuItem=null;
+    for(const cat of MENU_DATA){
+      menuItem=cat.items.find(it=>it.n===cart[i].name);
+      if(menuItem)break;
+    }
+
+    if(menuItem){
+      openModal(menuItem,i);
+    }else{
+      alert("This item can no longer be edited because it is not available on the current menu.");
+    }
+    return;
+  }
+
+  if(r){
+    cart.splice(Number(r.dataset.rm),1);
+    save();
+    renderCart();
+  }
+});
+
+$("#clear-cart-btn").onclick=()=>{
+  if(confirm("Clear your cart?")){
+    cart=[];
+    save();
+    renderCart();
+  }
+};
+
+/* ---------- Drawer ---------- */
 const drawer=$("#cart-drawer"),overlay=$("#cart-overlay");
+
 function openCart(){
   clearTimeout(closeTimer);
-  drawer.hidden=overlay.hidden=false;document.body.classList.add("no-scroll");
-  requestAnimationFrame(()=>{drawer.classList.add("open");overlay.classList.add("open")});
+  drawer.hidden=false;
+  overlay.hidden=false;
+  document.body.classList.add("no-scroll");
+
+  requestAnimationFrame(()=>{
+    drawer.classList.add("open");
+    overlay.classList.add("open");
+  });
+
   $("#cart-close-btn").focus();
 }
+
 function closeCart(){
-  drawer.classList.remove("open");overlay.classList.remove("open");document.body.classList.remove("no-scroll");
+  drawer.classList.remove("open");
+  overlay.classList.remove("open");
+  document.body.classList.remove("no-scroll");
+
   clearTimeout(closeTimer);
-  closeTimer=setTimeout(()=>{drawer.hidden=overlay.hidden=true},250);
+  closeTimer=setTimeout(()=>{
+    drawer.hidden=true;
+    overlay.hidden=true;
+  },250);
+
   $("#cart-toggle-btn").focus();
 }
+
 $("#cart-toggle-btn").onclick=openCart;
 $("#cart-close-btn").onclick=closeCart;
 overlay.onclick=closeCart;
 $("#cart-browse-btn").onclick=closeCart;
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!drawer.hidden)closeCart()});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    if(!drawer.hidden)closeCart();
+    else if(modal.open)closeModal();
+  }
+});
 
 /* ---------- Order details + WhatsApp ---------- */
 $$(".order-type-btn").forEach(b=>b.onclick=()=>{
   orderType=b.dataset.type;
-  $$(".order-type-btn").forEach(x=>x.setAttribute("aria-checked",String(x===b)));
+
+  $$(".order-type-btn").forEach(x=>
+    x.setAttribute("aria-checked",String(x===b))
+  );
+
   $("#cart-customer-fields").hidden=false;
   $("[data-delivery-only]").hidden=orderType!=="delivery";
-  $("#order-type-hint").textContent=orderType==="delivery"?`Delivery fee: ${fmt(CONFIG.deliveryFee)}`:"Pick up at the shop. No delivery fee.";
+
+  $("#order-type-hint").textContent=
+    orderType==="delivery"
+      ?`Delivery fee: ${fmt(CONFIG.deliveryFee)}`
+      :"Pick up at the shop. No delivery fee.";
+
   renderCart();
 });
+
 const val=id=>$("#"+id).value.trim();
+
 function missing(){
   const m=[];
   if(!cart.length)m.push("add a drink");
-  if(!orderType)return m.concat("choose Delivery or Pickup");
+  if(!orderType)m.push("choose Delivery or Pickup");
   if(!val("customer-name"))m.push("your name");
   if(val("customer-contact").replace(/\D/g,"").length<9)m.push("a valid phone number");
-  if(orderType==="delivery"){if(!val("customer-area"))m.push("delivery area");if(!val("customer-address"))m.push("delivery address")}
+
+  if(orderType==="delivery"){
+    if(!val("customer-area"))m.push("delivery area");
+    if(!val("customer-address"))m.push("delivery address");
+  }
+
   return m;
 }
+
 function validate(){
-  const m=missing(),btn=$("#whatsapp-order-btn");
+  const m=missing();
+  const btn=$("#whatsapp-order-btn");
   btn.disabled=m.length>0;
-  $("#whatsapp-hint").textContent=m.length?"Still needed: "+m.join(", "):"Ready. This opens WhatsApp with your order.";
+  $("#whatsapp-hint").textContent=
+    m.length
+      ?"Still needed: "+m.join(", ")
+      :"Ready. This opens WhatsApp with your order.";
 }
-["customer-name","customer-contact","customer-area","customer-address","customer-note"].forEach(id=>$("#"+id).addEventListener("input",validate));
+
+["customer-name","customer-contact","customer-area","customer-address","customer-note"]
+.forEach(id=>$("#"+id).addEventListener("input",validate));
+
 $("#whatsapp-order-btn").onclick=()=>{
-  if(missing().length)return validate();
-  const sub=subtotal(),fee=orderType==="delivery"?CONFIG.deliveryFee:0;
-  const L=[`*New order: ${CONFIG.name}*`,`Type: ${orderType==="delivery"?"Delivery":"Pickup"}`,`Name: ${val("customer-name")}`,`Phone: ${val("customer-contact")}`];
-  if(orderType==="delivery")L.push(`Area: ${val("customer-area")}`,`Address: ${val("customer-address")}`);
+  if(missing().length){
+    validate();
+    return;
+  }
+
+  const sub=subtotal();
+  const fee=orderType==="delivery"?CONFIG.deliveryFee:0;
+
+  const L=[
+    `*New order: ${CONFIG.name}*`,
+    `Type: ${orderType==="delivery"?"Delivery":"Pickup"}`,
+    `Name: ${val("customer-name")}`,
+    `Phone: ${val("customer-contact")}`
+  ];
+
+  if(orderType==="delivery"){
+    L.push(`Area: ${val("customer-area")}`,`Address: ${val("customer-address")}`);
+  }
+
   L.push("","*Items*");
+
   cart.forEach(c=>{
     L.push(`${c.qty} x ${c.name} - ${fmt(c.price*c.qty)}`);
     c.opts.forEach(o=>L.push(`   • ${o}`));
   });
+
   L.push("",`Subtotal: ${fmt(sub)}`);
   if(fee)L.push(`Delivery fee: ${fmt(fee)}`);
   L.push(`*Total: ${fmt(sub+fee)}*`);
+
   if(val("customer-note"))L.push("",`Note: ${val("customer-note")}`);
-  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(L.join("\n"))}`,"_blank");
+
+  window.open(
+    `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(L.join("\n"))}`,
+    "_blank"
+  );
 };
 
 /* ---------- Start ---------- */
-renderMenu();watchCats();renderCart();
+renderMenu();
+watchCats();
+renderCart();
