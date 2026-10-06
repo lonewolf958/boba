@@ -1,121 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Boba Bay — Order Online</title>
-<meta name="description" content="Boba, milkshakes, slushies and fizzy drinks. Order online via WhatsApp.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style2.css">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>Boba Bay — Order Online</title>
+
+  <meta
+    name="description"
+    content="Boba, milkshakes, slushies and fizzy drinks. Order online via WhatsApp."
+  >
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style2.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="wrap bar">
-    <a class="brand" href="index.html" aria-label="Home">
-      <span class="logo" aria-hidden="true">🐻</span>
-      <span data-bind="name">Boba Bay</span>
-    </a>
-    <div class="actions">
-      <a class="btn btn-primary btn-sm" href="index.html">Home</a>
-    </div>
-  </div>
-</header>
+  <!-- =========================================================
+       HEADER
+  ========================================================== -->
+  <header class="site-header">
+    <div class="wrap bar">
 
-<main class="wrap">
-  <section class="section">
-    <h1 class="page-title">Order Online</h1>
-    <p class="sub">Tap Add to Cart on a drink. Most drinks can be customised with boba and toppings. Open your cart to choose Delivery or Pickup and send your order via WhatsApp.</p>
-    <div class="cat-nav-holder"><nav id="catNav" class="cat-nav" aria-label="Menu categories"></nav></div>
-    <div id="menuRoot"></div>
-  </section>
-</main>
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Go to Boba Bay home"
+      >
+        <span class="logo" aria-hidden="true">🐻</span>
 
-<footer class="site-footer">
-  <p class="copy">© <span id="year"></span> <span data-bind="name">Boba Bay</span>. All prices in Tanzanian Shillings.</p>
-</footer>
+        <span data-bind="name">
+          Boba Bay
+        </span>
+      </a>
 
-<button id="cart-toggle-btn" class="cart-fab" type="button" aria-label="Open cart, 0 items">
-  🛒 Cart <span id="cart-count" class="cart-fab-count" aria-hidden="true">0</span>
-</button>
-
-<div id="cart-overlay" class="cart-overlay" hidden></div>
-
-<aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" hidden>
-  <div class="cart-drawer-header">
-    <h2 id="cart-drawer-title">🛒 Your Order</h2>
-    <button id="cart-close-btn" class="cart-close-btn" type="button" aria-label="Close cart">✕</button>
-  </div>
-
-  <div class="cart-body">
-    <div id="cart-items"></div>
-
-    <div id="cart-empty" class="cart-empty" hidden>
-      <p>Your cart is empty</p>
-      <button id="cart-browse-btn" class="btn btn-accent btn-sm" type="button">Browse Menu</button>
-    </div>
-
-    <div id="cart-footer" hidden>
-      <div class="order-details-box">
-        <p class="order-type-label">How would you like your order?</p>
-
-        <div class="order-type-options" role="radiogroup" aria-label="Order type">
-          <button type="button" class="order-type-btn" data-type="delivery" role="radio" aria-checked="false">
-            <span aria-hidden="true">🛵</span><span>Delivery</span>
-          </button>
-          <button type="button" class="order-type-btn" data-type="pickup" role="radio" aria-checked="false">
-            <span aria-hidden="true">🥡</span><span>Pickup</span>
-          </button>
-        </div>
-
-        <p class="order-type-hint" id="order-type-hint">Select Delivery or Pickup to continue.</p>
-
-        <div id="cart-customer-fields" hidden>
-          <input type="text" id="customer-name" class="cart-input" placeholder="Your name *" aria-label="Your name" autocomplete="name" maxlength="80">
-          <input type="tel" id="customer-contact" class="cart-input" placeholder="Contact number *" aria-label="Contact number" autocomplete="tel" maxlength="20">
-
-          <div data-delivery-only hidden>
-            <input type="text" id="customer-area" class="cart-input" placeholder="Delivery area *" aria-label="Delivery area" maxlength="100">
-            <input type="text" id="customer-address" class="cart-input" placeholder="Delivery address *" aria-label="Delivery address" autocomplete="street-address" maxlength="200">
-          </div>
-
-          <textarea id="customer-note" class="cart-input" placeholder="Additional note (optional)" aria-label="Additional note" maxlength="300"></textarea>
-        </div>
+      <div class="actions">
+        <a
+          class="btn btn-primary btn-sm"
+          href="index.html"
+        >
+          Home
+        </a>
       </div>
 
-      <div class="cart-total-rows" id="cart-total-rows"></div>
-      <button id="whatsapp-order-btn" class="whatsapp-btn" type="button" disabled>📲 Order via WhatsApp</button>
-      <p class="whatsapp-hint" id="whatsapp-hint" role="status"></p>
-      <button id="clear-cart-btn" class="clear-cart-btn" type="button">Clear Cart</button>
     </div>
-  </div>
-</aside>
+  </header>
 
-<dialog id="customModal" class="modal" aria-labelledby="cmTitle">
-  <div class="modal-inner" id="cmForm">
-    <header class="modal-head">
-      <h2 id="cmTitle">Customise Your Drink</h2>
-      <button type="button" class="icon-btn" id="cmClose" aria-label="Close">✕</button>
+
+  <!-- =========================================================
+       MAIN CONTENT
+  ========================================================== -->
+  <main class="wrap">
+
+    <section class="section">
+
+      <header class="section-header">
+        <h1 class="page-title">
+          Order Online
+        </h1>
+
+        <p class="sub">
+          Tap <strong>Add to Cart</strong> on a drink.
+          Most drinks can be customised with boba and toppings.
+          Open your cart to choose Delivery or Pickup and send
+          your order via WhatsApp.
+        </p>
+      </header>
+
+
+      <!-- Category navigation -->
+      <div class="cat-nav-holder">
+        <nav
+          id="catNav"
+          class="cat-nav"
+          aria-label="Menu categories"
+        ></nav>
+      </div>
+
+
+      <!-- Menu generated by JavaScript -->
+      <div
+        id="menuRoot"
+        aria-live="polite"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+  <footer class="site-footer">
+
+    <p class="copy">
+      © <span id="year"></span>
+      <span data-bind="name">Boba Bay</span>.
+      All prices in Tanzanian Shillings.
+    </p>
+
+  </footer>
+
+
+  <!-- =========================================================
+       CART BUTTON
+  ========================================================== -->
+  <button
+    id="cart-toggle-btn"
+    class="cart-fab"
+    type="button"
+    aria-label="Open cart, 0 items"
+  >
+    <span aria-hidden="true">🛒</span>
+    Cart
+
+    <span
+      id="cart-count"
+      class="cart-fab-count"
+      aria-hidden="true"
+    >
+      0
+    </span>
+  </button>
+
+
+  <!-- =========================================================
+       CART OVERLAY
+  ========================================================== -->
+  <div
+    id="cart-overlay"
+    class="cart-overlay"
+    hidden
+  ></div>
+
+
+  <!-- =========================================================
+       CART DRAWER
+  ========================================================== -->
+  <aside
+    id="cart-drawer"
+    class="cart-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    hidden
+  >
+
+    <!-- Cart header -->
+    <header class="cart-drawer-header">
+
+      <h2 id="cart-drawer-title">
+        <span aria-hidden="true">🛒</span>
+        Your Order
+      </h2>
+
+      <button
+        id="cart-close-btn"
+        class="cart-close-btn"
+        type="button"
+        aria-label="Close cart"
+      >
+        ✕
+      </button>
+
     </header>
 
-    <div class="modal-body" id="cmBody"></div>
 
-    <footer class="modal-foot">
-      <p class="sum-title">Your selection</p>
-      <div class="breakdown" id="cmBreakdown" aria-live="polite"></div>
+    <!-- Cart content -->
+    <div class="cart-body">
 
-      <div class="foot-row">
-        <div class="total"><span>Total</span><strong id="cmTotal">TSh 0</strong></div>
-        <button type="button" class="btn btn-accent btn-add" id="cmAdd">Add to Cart</button>
+      <!-- Cart items are generated by JavaScript -->
+      <div id="cart-items"></div>
+
+
+      <!-- Empty cart -->
+      <div
+        id="cart-empty"
+        class="cart-empty"
+        hidden
+      >
+        <p>Your cart is empty.</p>
+
+        <button
+          id="cart-browse-btn"
+          class="btn btn-accent btn-sm"
+          type="button"
+        >
+          Browse Menu
+        </button>
       </div>
 
-      <p class="hint" id="cmHint" role="status"></p>
-    </footer>
-  </div>
-</dialog>
 
-<script src="script2.js"></script>
+      <!-- =====================================================
+           CART FOOTER / ORDER DETAILS
+      ====================================================== -->
+      <div id="cart-footer" hidden>
+
+        <div class="order-details-box">
+
+          <p class="order-type-label">
+            How would you like your order?
+          </p>
+
+
+          <!-- Order type -->
+          <div
+            class="order-type-options"
+            role="radiogroup"
+            aria-label="Order type"
+          >
+
+            <button
+              type="button"
+              class="order-type-btn"
+              data-type="delivery"
+              role="radio"
+              aria-checked="false"
+            >
+              <span aria-hidden="true">🛵</span>
+              <span>Delivery</span>
+            </button>
+
+            <button
+              type="button"
+              class="order-type-btn"
+              data-type="pickup"
+              role="radio"
+              aria-checked="false"
+            >
+              <span aria-hidden="true">🥡</span>
+              <span>Pickup</span>
+            </button>
+
+          </div>
+
+
+          <p
+            class="order-type-hint"
+            id="order-type-hint"
+            role="status"
+          >
+            Select Delivery or Pickup to continue.
+          </p>
+
+
+          <!-- Customer details -->
+          <div
+            id="cart-customer-fields"
+            hidden
+          >
+
+            <input
+              type="text"
+              id="customer-name"
+              class="cart-input"
+              placeholder="Your name *"
+              aria-label="Your name"
+              autocomplete="name"
+              maxlength="80"
+            >
+
+            <input
+              type="tel"
+              id="customer-contact"
+              class="cart-input"
+              placeholder="Contact number *"
+              aria-label="Contact number"
+              autocomplete="tel"
+              maxlength="20"
+            >
+
+
+            <!-- Delivery-only fields -->
+            <div
+              data-delivery-only
+              hidden
+            >
+
+              <input
+                type="text"
+                id="customer-area"
+                class="cart-input"
+                placeholder="Delivery area *"
+                aria-label="Delivery area"
+                maxlength="100"
+              >
+
+              <input
+                type="text"
+                id="customer-address"
+                class="cart-input"
+                placeholder="Delivery address *"
+                aria-label="Delivery address"
+                autocomplete="street-address"
+                maxlength="200"
+              >
+
+            </div>
+
+
+            <!-- Optional note -->
+            <textarea
+              id="customer-note"
+              class="cart-input"
+              placeholder="Additional note (optional)"
+              aria-label="Additional note"
+              maxlength="300"
+              rows="3"
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <!-- Order totals -->
+        <div
+          class="cart-total-rows"
+          id="cart-total-rows"
+        ></div>
+
+
+        <!-- WhatsApp order button -->
+        <button
+          id="whatsapp-order-btn"
+          class="whatsapp-btn"
+          type="button"
+          disabled
+        >
+          <span aria-hidden="true">📲</span>
+          Order via WhatsApp
+        </button>
+
+
+        <!-- WhatsApp status -->
+        <p
+          class="whatsapp-hint"
+          id="whatsapp-hint"
+          role="status"
+        ></p>
+
+
+        <!-- Clear cart -->
+        <button
+          id="clear-cart-btn"
+          class="clear-cart-btn"
+          type="button"
+        >
+          Clear Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================================================
+       CUSTOMISATION MODAL
+  ========================================================== -->
+  <dialog
+    id="customModal"
+    class="modal"
+    aria-labelledby="cmTitle"
+  >
+
+    <div
+      class="modal-inner"
+      id="cmForm"
+    >
+
+      <!-- Modal header -->
+      <header class="modal-head">
+
+        <h2 id="cmTitle">
+          Customise Your Drink
+        </h2>
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="cmClose"
+          aria-label="Close customisation"
+        >
+          ✕
+        </button>
+
+      </header>
+
+
+      <!-- Modal content generated by JavaScript -->
+      <div
+        class="modal-body"
+        id="cmBody"
+      ></div>
+
+
+      <!-- Modal footer -->
+      <footer class="modal-foot">
+
+        <p class="sum-title">
+          Your selection
+        </p>
+
+        <div
+          class="breakdown"
+          id="cmBreakdown"
+          aria-live="polite"
+        ></div>
+
+
+        <div class="foot-row">
+
+          <div class="total">
+            <span>Total</span>
+
+            <strong id="cmTotal">
+              TSh 0
+            </strong>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-accent btn-add"
+            id="cmAdd"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+
+        <p
+          class="hint"
+          id="cmHint"
+          role="status"
+        ></p>
+
+      </footer>
+
+    </div>
+
+  </dialog>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+  <script src="script2.js"></script>
+
 </body>
 </html>
