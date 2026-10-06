@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Boba Bear — Order Online</title>
+<title>Boba Bay — Order Online</title>
 <meta name="description" content="Boba, milkshakes, slushies and fizzy drinks. Order online via WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
   <div class="wrap bar">
     <a class="brand" href="index.html" aria-label="Home">
       <span class="logo" aria-hidden="true">🐻</span>
-      <span data-bind="name">Boba Bear</span>
+      <span data-bind="name">Boba Bay</span>
     </a>
     <div class="actions">
       <a class="btn btn-primary btn-sm" href="index.html">Home</a>
@@ -28,14 +28,14 @@
 <main class="wrap">
   <section class="section">
     <h1 class="page-title">Order Online</h1>
-    <p class="sub">Tap Add to Cart on a drink. Milk, Slushy and Fizzy drinks can be customised with boba and toppings. Open your cart to choose Delivery or Pickup and send your order via WhatsApp.</p>
+    <p class="sub">Tap Add to Cart on a drink. Most drinks can be customised with boba and toppings. Open your cart to choose Delivery or Pickup and send your order via WhatsApp.</p>
     <div class="cat-nav-holder"><nav id="catNav" class="cat-nav" aria-label="Menu categories"></nav></div>
     <div id="menuRoot"></div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <p class="copy">© <span id="year"></span> <span data-bind="name">Boba Bear</span>. All prices in Tanzanian Shillings.</p>
+  <p class="copy">© <span id="year"></span> <span data-bind="name">Boba Bay</span>. All prices in Tanzanian Shillings.</p>
 </footer>
 
 <button id="cart-toggle-btn" class="cart-fab" type="button" aria-label="Open cart, 0 items">
@@ -89,10 +89,11 @@
     </header>
     <div class="modal-body" id="cmBody"></div>
     <footer class="modal-foot">
+      <p class="sum-title">Your selection</p>
       <div class="breakdown" id="cmBreakdown" aria-live="polite"></div>
       <div class="foot-row">
-        <div class="total"><span>Total</span> <strong id="cmTotal">TSh 0</strong></div>
-        <button type="button" class="btn btn-accent" id="cmAdd">Add to Cart</button>
+        <div class="total"><span>Total</span><strong id="cmTotal">TSh 0</strong></div>
+        <button type="button" class="btn btn-accent btn-add" id="cmAdd">Add to Cart</button>
       </div>
       <p class="hint" id="cmHint" role="status"></p>
     </footer>
