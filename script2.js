@@ -1,206 +1,400 @@
-/* BOBA BAY — style2.css (teal + coral). Edit colours in :root
+/* BOBA BAY — script2.js
+   Edit CONFIG, the option lists and MENU_DATA below. Everything else can stay as is. */
 
-   CONTENTS
-   1. Variables & base
-   2. Layout, header, buttons
-   3. Menu
-   4. Footer & cart button
-   5. Cart drawer
-   6. Order details & WhatsApp
-   7. Customise modal
-   8. Responsive
-*/
+/* ---------- Settings ---------- */
+const CONFIG={name:"Boba Bay",whatsapp:"255700000000",deliveryFee:3000,
+  toppingPrice:1000,maxToppings:2,extraBobaPrice:1000,storageKey:"bobabay_cart"};
 
-/* ========== 1. VARIABLES & BASE ========== */
-:root{
---green:#0f766e;--green-dark:#0b4f4a;--cream:#f2f8f7;--white:#fff;
---ink:#10282a;--muted:#587370;--accent:#f26b3a;--accent-dark:#d9541f;
---taro:#6d5fd0;--line:#d6e5e2;--teal-light:#e6f4f1;--coral-light:#fff1ea;
---ok:#1fa855;--yellow:#fff7d6;--yellow-b:#d9b84a;
---font-body:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
---font-heading:Fraunces,Georgia,serif;
---radius:18px;--header-height:64px;
---shadow:0 6px 20px rgba(11,79,74,.12);--shadow-strong:0 8px 22px rgba(0,0,0,.28)}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:130px}
-body{margin:0;font:16px/1.5 var(--font-body);color:var(--ink);background:var(--cream);overflow-x:hidden}
-h1,h2,h3{margin:0 0 .4em;font-family:var(--font-heading);line-height:1.15}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-[hidden]{display:none!important}
-.no-scroll{overflow:hidden}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* Popping boba flavours and jelly flavours: no extra charge. */
+const POPPING_FLAVOURS=["Strawberry","Blueberry","Mango","Orange","Green Apple","Grape","Pink Lemon","Lemon","Kiwi","Watermelon","Raspberry","Passion","Lychee","Pomegranate","Peach","Salty Caramel","Chocolate","Coffee","Taro","Tropical"];
+const JELLY_FLAVOURS=["Rainbow jelly","Coffee jelly"];
 
-/* ========== 2. LAYOUT, HEADER, BUTTONS ========== */
-.wrap{width:min(1120px,calc(100% - 32px));margin-inline:auto}
-.section{padding:24px 0 12px}
-.sub{margin:0 0 16px;color:var(--muted);max-width:640px}
-.page-title{color:var(--green-dark);font-size:clamp(2rem,6vw,2.8rem);margin-bottom:6px}
+/* Boba type: choose one, no extra charge.
+   options = a second choice shown only when this type is selected (label = its heading). */
+const BOBA_TYPES=[
+  {id:"popping",name:"Popping Boba",note:"",label:"Popping boba flavour",options:POPPING_FLAVOURS,cols:"cols-3"},
+  {id:"chewy",name:"Chewy Boba",note:"(Tapioca)",label:"",options:[],cols:""},
+  {id:"jelly",name:"Jelly",note:"",label:"Jelly flavour",options:JELLY_FLAVOURS,cols:"cols-2"}
+];
+/* Toppings: CONFIG.toppingPrice each, up to CONFIG.maxToppings. */
+const TOPPINGS=["Strawberry Chunks","Marshmallows","Chocolate Sprinkles","Whipped Cream","Toasted Nuts","Oreo Crumbs"];
+/* Extras: each has its own price. */
+const EXTRAS=[{name:"Extra Boba / Tapioca",price:CONFIG.extraBobaPrice}];
 
-.site-header{position:sticky;top:0;z-index:20;background:var(--green-dark);padding-top:env(safe-area-inset-top,0)}
-.bar{display:flex;align-items:center;gap:12px;height:var(--header-height)}
-.brand{display:flex;align-items:center;gap:8px;margin-right:auto;color:var(--white);text-decoration:none;font:700 1.25rem var(--font-heading)}
-.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--white);font-size:1.2rem}
-.actions{display:flex;gap:8px}
+/* custom:true = shows the customise popup. p = price in TSh. */
+const MENU_DATA=[
+ {id:"weekend",name:"Weekend Specials",custom:true,items:[
+  {n:"Classic Frappuccino",d:"Iced coffee with a shot of espresso topped with whipped cream. Choice of caramel or chocolate drizzle",p:12000},
+  {n:"Caramel Frappuccino",d:"Caramel iced coffee with a shot of espresso topped with whipped cream and caramel drizzles",p:12000},
+  {n:"Hazelnut Frappuccino",d:"Hazelnut iced coffee with a shot of espresso topped with whipped cream and chocolate drizzles",p:13000},
+  {n:"Pistachio Falooda",d:"Pistachio milkshake with fresh vegan jelly, vermicelli and sabja seeds",p:13000},
+  {n:"Rose Falooda",d:"Rose milkshake with fresh vegan jelly, vermicelli and sabja seeds",p:12000},
+  {n:"Strawberry Falooda",d:"Strawberry milkshake with fresh vegan jelly, vermicelli and sabja seeds",p:12000},
+  {n:"Coffee Falooda",d:"Coffee milkshake with fresh vegan jelly, vermicelli and sabja seeds",p:12000},
+  {n:"Iced Matcha",d:"Iced matcha with whipped cream",p:12000},
+  {n:"Iced Matcha Latte",d:"Iced matcha with a shot of espresso topped with whipped cream",p:12000},
+  {n:"Iced Latte",d:"",p:10000}]},
+ {id:"kunafa",name:"Kunafa",custom:false,items:[
+  {n:"Kunafa Milkshake",d:"Crispy kunafa, chocolate milkshake and pistachio",p:15000},
+  {n:"Kunafa Ice Cream",d:"Crispy kunafa, chocolate milkshake and pistachio",p:15000}]},
+ {id:"icecream",name:"Ice Cream",custom:false,note:"Boba ice creams are topped with fruit or tapioca boba. Tell us your choice in the order note.",items:[
+  {n:"Boba Ice Cream (Cup)",d:"Topped with fruit or tapioca boba",p:7000},
+  {n:"Boba Ice Cream (Cone)",d:"Topped with fruit or tapioca boba",p:12000}]},
+ {id:"milk",name:"Milk",custom:true,items:[
+  {n:"Caramel",d:"Keep it smooth and creamy with our Caramel Milk Tea",p:11000},
+  {n:"Coffee",d:"The perfect pick-me-up to start the day",p:11000},
+  {n:"Matcha",d:"When life's feeling evergreen, match it with our Matcha Milk Tea",p:12000},
+  {n:"Lotus",d:"A refreshing and indulgent Summer iced drink for all Lotus lovers!",p:12000},
+  {n:"Sakura",d:"A drink for sakura lovers. You'll be treated to the scent of sakura every time you take a sip",p:12000},
+  {n:"Blueberry",d:"Unique blend of blueberry milkshake!",p:13000},
+  {n:"Blue Velvet",d:"A twist on the classic red velvet. A must try!",p:12000},
+  {n:"Kiwi Delight",d:"Low calories, high in fiber and very tasty!",p:12000},
+  {n:"Red Velvet",d:"Perfect for anyone who loves a good red velvet cake",p:12000},
+  {n:"Unicorn Fluff",d:"Perfect blend of strawberry, blueberry and bubblegum milk",p:13000},
+  {n:"Tiramisu",d:"",p:13000},
+  {n:"Kahlua",d:"Sweet creamy coffee",p:11000},
+  {n:"Vanilla",d:"",p:11000},
+  {n:"Bubble Gum",d:"Take a trip down memory lane with this cool infusion. A nostalgic, caffeine-free indulgence that everyone can enjoy",p:11000},
+  {n:"Acai Smoothie",d:"Acai. Our absolute favourite",p:12000},
+  {n:"Creamy Mango",d:"Mango milkshake with whipped cream",p:12000},
+  {n:"Pistachio",d:"",p:13000},
+  {n:"Taro",d:"Give yourself a Taro-fic treat with our loveable Taro milk tea",p:12000},
+  {n:"Blueberry Swirl",d:"Blueberry milkshake with whipped cream and blueberry jam",p:14000},
+  {n:"Bamboo Charcoal",d:"Vanilla + bamboo charcoal",p:13000},
+  {n:"Rose",d:"Rose milkshake",p:12000},
+  {n:"Hedwig",d:"Vanilla frappe",p:11000},
+  {n:"Inaara Strawberry",d:"Strawberry milk with strawberry chunks",p:12000},
+  {n:"Strawberry",d:"Sweet, creamy, full bodied strawberry drink",p:11000},
+  {n:"Strawberries & Cream",d:"Strawberry milkshake, whipped cream and strawberry",p:12000},
+  {n:"Strawberry Jasmine Milk",d:"",p:12000}]},
+ {id:"chocolate",name:"Chocolate",custom:true,items:[
+  {n:"Chocolate",d:"",p:11000},
+  {n:"Choco Mint",d:"Chocolate milk paired with mint and chocolate chunks",p:12000},
+  {n:"Nutella Shake",d:"",p:12000},
+  {n:"Choco Overload",d:"Chocolate milkshake with chocolate chunks and extra chocolate drizzles",p:13000},
+  {n:"Hazelnut",d:"",p:12000},
+  {n:"Oreo",d:"Oreo milkshake with Oreo crumbs on top",p:12000},
+  {n:"Hazelnut Frappe",d:"Hazelnut + coffee",p:12000},
+  {n:"Rich and Creamy Coco",d:"Rich dark cocoa with whipped cream",p:13000},
+  {n:"Chocolate Truffle",d:"Chocolate ganache, toasted nuts and coconut",p:12000},
+  {n:"Nutcracker",d:"Hazelnut and Nutella milk topped with toasted nuts",p:12000},
+  {n:"Rudolph",d:"KitKat milk topped with whipped cream and KitKat shavings",p:12000},
+  {n:"Issac",d:"Rich chocolate topped with toasted marshmallows, Oreo crumbs and whipped cream",p:13000},
+  {n:"Death by Chocolate",d:"Chocolate, Nutella and hazelnut milkshake with chocolate whipped cream, marshmallows and chocolate sprinkles",p:13000},
+  {n:"Nimbus 2000",d:"Tiramisu and dark chocolate",p:13000},
+  {n:"Warm Hug",d:"Ferrero Rocher and dark chocolate",p:16000},
+  {n:"Minty Mistletoe",d:"Minty chocolate topped with whipped cream and chocolate shavings",p:13000},
+  {n:"Ferrero",d:"",p:16000}]},
+ {id:"milktea",name:"Milk Tea",custom:true,note:"Add a shot of tea (Oolong, Jasmine or Assam): ask us when you order or add it in the order note.",items:[
+  {n:"Assam",d:"Take a breath of fresh air from the valleys of the Assam garden with every sip!",p:11000},
+  {n:"Jasmine",d:"Dive deep into the aroma of our Jasmine milk tea",p:11000},
+  {n:"Oolong",d:"Dark roasted Oolong tea leaves with slight smokiness and earthy tones",p:11000}]},
+ {id:"fruit",name:"Fruit Tea",custom:true,items:[
+  {n:"Mango Dream",d:"Mango + orange",p:8000},
+  {n:"Summer Blaze",d:"Strawberry + blueberry",p:10000},
+  {n:"Super Melon",d:"Watermelon + strawberry",p:8000},
+  {n:"Passionfruit Sunrise",d:"Passion + mango + strawberry",p:10000},
+  {n:"Hawaii",d:"Pineapple + mango + passion juice",p:10000},
+  {n:"Caribbean Love",d:"Passion + peach + mango",p:10000},
+  {n:"Twisted Lemonade",d:"Refreshing strawberry lemonade",p:8000},
+  {n:"Spicy Mango",d:"Mango with a hint of chilli",p:8000},
+  {n:"Tiki Passion",d:"Strawberry + watermelon + passion + mango",p:10000},
+  {n:"Pina Colada",d:"Pineapple + passion",p:8000},
+  {n:"Mango Passion Frappe",d:"Mango, passion and berries infused drink",p:12000},
+  {n:"Peachy Sweetie",d:"Peach and strawberry",p:10000},
+  {n:"Pomegranate Paradise",d:"Mango + strawberry + pomegranate + peach",p:10000},
+  {n:"Dragon",d:"Mango + passion + pomegranate + raspberry",p:10000},
+  {n:"Strawberry Lychee",d:"Strawberry + lychee",p:10000},
+  {n:"Treasure Mango",d:"Mango, strawberry and peach",p:10000}]},
+ {id:"slushy",name:"Slushy",custom:true,items:[
+  {n:"Icy Lemon",d:"",p:8000},
+  {n:"Apple Burst",d:"",p:8000},
+  {n:"Winter Blaze",d:"",p:10000},
+  {n:"Red Grape",d:"",p:10000},
+  {n:"Bloody Vampire",d:"Cranberry slush",p:10000},
+  {n:"Witches Brew",d:"Kiwi slush",p:10000},
+  {n:"Poison Apple",d:"Apple Burst + Icy Lemon with a hint of blood (grape)",p:8000},
+  {n:"Jack Frost",d:"Winter Blaze + Icy Lemon + grape slush",p:10000},
+  {n:"Strawberry Blush",d:"Strawberry + orange",p:10000},
+  {n:"Mango Berry",d:"Mango + blackberry",p:10000},
+  {n:"Mixed Berry",d:"A perfect blend of all delicious berries",p:10000},
+  {n:"Pink Lemonade",d:"Strawberry and lemon slush",p:10000},
+  {n:"Blue Lemonade",d:"Blueberry and lemon slush",p:10000},
+  {n:"Boo Berry",d:"Strawberry, blueberry and grape slush",p:10000},
+  {n:"North Pole",d:"Blueberry and lemon slush",p:10000},
+  {n:"Gryffindor",d:"Vampire and raspberry",p:10000},
+  {n:"Hufflepuff",d:"Mango and orange",p:10000},
+  {n:"Slytherin",d:"Kiwi and apple",p:10000},
+  {n:"Ravenclaw",d:"Winter and blue raspberry",p:10000},
+  {n:"Love Struck",d:"Strawberry lemonade and pink lemonade topped with a lemon slice",p:10000}]},
+ {id:"fizzy",name:"Fizzy",custom:true,items:[
+  {n:"Frozen Strawberry Fizz",d:"",p:8000},
+  {n:"Passionfruit & Mango Fizz",d:"",p:8000},
+  {n:"Mojito Fizz",d:"",p:8000},
+  {n:"Red Raspberry Fizz",d:"",p:8000},
+  {n:"Electric Fizz",d:"A much-requested drink and a favourite for the kids. A blue fizzy drink that is super delicious",p:8000},
+  {n:"Grape Soda",d:"",p:8000},
+  {n:"Energizer",d:"",p:8000}]}
+];
 
-.btn{display:inline-block;padding:12px 24px;border:0;border-radius:999px;font-weight:700;text-align:center;text-decoration:none;transition:transform .15s,background .15s}
-.btn:hover:not(:disabled){transform:translateY(-1px)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-primary{background:var(--white);color:var(--green-dark)}
-.btn-accent{background:var(--accent);color:var(--white)}
-.btn-accent:hover:not(:disabled){background:var(--accent-dark)}
-.btn-sm{padding:9px 16px;font-size:.9rem}
+/* ---------- Helpers & state ---------- */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>"TSh "+Number(n).toLocaleString("en-US");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let cart=[],orderType=null,current=null,closeTimer=null;
+try{
+  const saved=JSON.parse(localStorage.getItem(CONFIG.storageKey));
+  /* keep only well-formed items so an old/bad save can never break the page */
+  cart=Array.isArray(saved)?saved.filter(c=>c&&typeof c.name==="string"&&Number.isFinite(c.price)&&Number.isFinite(c.qty)&&c.qty>0)
+    .map(c=>({key:String(c.key||c.name),name:c.name,opts:Array.isArray(c.opts)?c.opts.map(String):[],price:c.price,qty:c.qty})):[];
+}catch(e){cart=[]}
+const save=()=>{try{localStorage.setItem(CONFIG.storageKey,JSON.stringify(cart))}catch(e){}};
 
-/* ========== 3. MENU ========== */
-.cat-nav-holder{position:sticky;top:calc(var(--header-height) + env(safe-area-inset-top,0));z-index:10;padding:8px 0;background:var(--cream)}
-.cat-nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
-.cat-nav a{flex:none;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--white);color:var(--green-dark);text-decoration:none;font-size:.9rem;font-weight:600}
-.cat-nav a.active{background:var(--green);border-color:var(--green);color:var(--white)}
+/* ---------- Page text ---------- */
+$$("[data-bind=name]").forEach(e=>e.textContent=CONFIG.name);
+$("#year").textContent=new Date().getFullYear();
 
-.cat{padding-top:20px}
-.cat h3{padding-left:12px;border-left:5px solid var(--accent);color:var(--green-dark);font-size:1.6rem}
-.note{margin:0 0 12px;padding:8px 12px;background:var(--yellow);border:1px dashed var(--yellow-b);border-radius:12px;font-size:.85rem}
-.menu-list{margin:0;padding:0;list-style:none;background:var(--white);border-top:4px solid var(--green);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.menu-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
-.menu-row:last-child{border-bottom:0}
-.menu-row b{display:block}
-.menu-row small{display:block;color:var(--muted);font-size:.85rem}
-.row-end{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
-.price{color:var(--green);font-weight:800;white-space:nowrap}
-.tag{color:var(--taro);font-size:.75rem;font-weight:700}
-
-/* ========== 4. FOOTER & CART BUTTON ========== */
-.site-footer{margin-top:40px;padding:28px 16px calc(90px + env(safe-area-inset-bottom,0));background:#0a3a3a;color:#d7ebe8}
-.copy{margin:0;text-align:center;font-size:.85rem}
-
-.cart-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0));z-index:200;display:flex;align-items:center;gap:8px;padding:14px 20px;border:0;border-radius:999px;background:var(--accent);color:var(--white);font-weight:800;box-shadow:var(--shadow-strong)}
-.cart-fab:hover{background:var(--accent-dark)}
-.cart-fab-count{min-width:24px;height:24px;display:grid;place-items:center;padding:0 6px;border-radius:999px;background:var(--white);color:var(--accent-dark);font-size:.8rem}
-
-/* ========== 5. CART DRAWER ========== */
-.cart-overlay{position:fixed;inset:0;z-index:300;background:rgba(10,40,40,.55);opacity:0;transition:opacity .25s}
-.cart-overlay.open{opacity:1}
-.cart-drawer{position:fixed;top:0;right:0;z-index:400;width:min(440px,100%);height:100dvh;display:flex;flex-direction:column;background:var(--cream);transform:translateX(100%);transition:transform .25s ease}
-.cart-drawer.open{transform:none}
-.cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top,0));background:var(--green-dark);color:var(--white)}
-.cart-drawer-header h2{margin:0;color:var(--white);font-size:1.3rem}
-.cart-close-btn,.icon-btn{width:40px;height:40px;flex:none;display:grid;place-items:center;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:var(--white)}
-.cart-body{flex:1;overflow-y:auto;padding:14px 16px calc(32px + env(safe-area-inset-bottom,0))}
-.cart-empty{padding:40px 0;text-align:center;color:var(--muted)}
-.cart-item{margin-bottom:10px;padding:12px;background:var(--white);border-radius:14px;box-shadow:var(--shadow)}
-.ci-top{display:flex;justify-content:space-between;gap:10px;font-weight:800}
-.ci-opts{margin:4px 0 8px;color:var(--muted);font-size:.85rem}
-.ci-opts div{padding-left:12px;position:relative}
-.ci-opts div::before{content:"•";position:absolute;left:0;color:var(--accent)}
-.ci-act{display:flex;align-items:center;gap:8px}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px}
-.qty button{width:34px;height:34px;border:0;background:transparent;font-size:1.1rem}
-.qty span{min-width:24px;text-align:center;font-weight:800}
-.link-btn{border:0;background:transparent;color:var(--accent-dark);font-weight:700}
-
-/* ========== 6. ORDER DETAILS & WHATSAPP ========== */
-.order-details-box{margin:14px 0;padding:16px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow)}
-.order-type-label{margin:0 0 8px;font-weight:800;color:var(--green-dark)}
-.order-type-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.order-type-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;background:var(--white);border:2px solid var(--line);border-radius:14px;color:var(--ink);font-weight:700}
-.order-type-btn span:first-child{font-size:1.5rem}
-.order-type-btn[aria-checked="true"]{background:var(--coral-light);border-color:var(--accent)}
-.order-type-hint{margin:10px 0 0;color:var(--muted);font-size:.85rem}
-#cart-customer-fields{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
-.cart-input{display:block;width:100%;margin-bottom:10px;padding:12px;background:var(--white);border:2px solid var(--line);border-radius:12px;color:var(--ink)}
-.cart-input:focus{outline:3px solid rgba(242,107,58,.25);border-color:var(--accent)}
-textarea.cart-input{min-height:72px;resize:vertical}
-.trow{display:flex;justify-content:space-between;padding:4px 0}
-.trow.grand{margin-top:6px;padding-top:10px;border-top:2px solid var(--line);color:var(--green-dark);font-size:1.25rem;font-weight:800}
-.whatsapp-btn{width:100%;margin-top:12px;padding:15px;border:0;border-radius:999px;background:var(--ok);color:var(--white);font-weight:800}
-.whatsapp-btn:hover:not(:disabled){background:#178a45}
-.whatsapp-btn:disabled{opacity:.45;cursor:not-allowed}
-.whatsapp-hint{margin:8px 0;text-align:center;color:var(--muted);font-size:.82rem;min-height:1.2em}
-.clear-cart-btn{display:block;margin:10px auto 0;border:0;background:transparent;color:var(--accent-dark);font-weight:700;text-decoration:underline}
-
-/* ========== 7. CUSTOMISE MODAL ==========
-   Structure: .modal > .modal-inner (flex column)
-     .modal-head  (fixed)   | .modal-body (scrolls) | .modal-foot (fixed)
-*/
-.modal{width:min(560px,calc(100% - 16px));max-height:min(740px,calc(100dvh - 16px));margin:auto;padding:0;border:0;border-radius:22px;background:var(--cream);color:var(--ink);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.3)}
-.modal::backdrop{background:rgba(15,35,35,.55)}
-.modal-inner{display:flex;flex-direction:column;max-height:min(740px,calc(100dvh - 16px))}
-
-.modal-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--white);border-top:5px solid var(--green);border-bottom:1px solid var(--line)}
-.modal-head h2{margin:0;font-size:1.3rem;color:var(--green-dark)}
-.modal-head .icon-btn{background:var(--teal-light);color:var(--green-dark);font-size:1.05rem}
-
-.modal-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px 18px 8px;-webkit-overflow-scrolling:touch}
-
-.cm-product{margin-bottom:16px;padding:12px 14px;background:var(--white);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px}
-.cm-product h3{margin:0;font-size:1.25rem;color:var(--green-dark)}
-.cm-product p{margin:2px 0 0;color:var(--muted);font-size:.92rem;font-weight:600}
-
-.opt{margin:0 0 20px;padding:0;border:0;min-width:0}
-.opt legend{float:left;width:100%;margin:0 0 2px;padding:0;color:var(--green-dark);font-size:1.05rem;font-weight:800}
-.opt .help{clear:both;margin:0 0 10px;color:var(--muted);font-size:.88rem}
-.opt-grid{clear:both;display:grid;gap:8px}
-.opt-grid.cols-2{grid-template-columns:repeat(2,1fr)}
-.opt-grid.cols-3{grid-template-columns:repeat(3,1fr)}
-.opt-grid.cols-types{grid-template-columns:repeat(3,1fr)}
-
-.option{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 12px;background:var(--white);border:2px solid var(--line);border-radius:14px;text-align:center;font-size:.95rem;line-height:1.25;cursor:pointer;transition:border-color .15s,background .15s}
-.option input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
-.option:hover{border-color:var(--green)}
-.option:focus-within{outline:3px solid var(--accent);outline-offset:2px}
-.option.selected{background:var(--coral-light);border-color:var(--accent);font-weight:700;padding-right:30px}
-.option.selected::after{content:"✓";position:absolute;top:50%;right:8px;transform:translateY(-50%);width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--white);font-size:.7rem;font-weight:800}
-.option.disabled{opacity:.45;cursor:not-allowed}
-.option.disabled input{cursor:not-allowed}
-.option em{font-style:normal;color:var(--green);font-size:.8rem;font-weight:700;white-space:nowrap}
-
-/* boba type cards are taller */
-.boba-card{flex-direction:column;gap:0;min-height:68px;font-size:1rem;font-weight:700}
-.boba-card small{font-weight:600;color:var(--muted);font-size:.82rem}
-.boba-card.selected{padding-right:30px}
-.boba-card.selected::after{top:10px;transform:none}
-
-/* topping rows: name left, price right */
-.topping{justify-content:space-between;text-align:left}
-.topping.selected{padding-right:30px}
-
-.clear-choice{display:inline-block;margin-top:8px;padding:6px 2px;border:0;background:transparent;color:var(--accent-dark);font-size:.88rem;font-weight:700;text-decoration:underline}
-
-.modal-foot{flex:none;padding:12px 18px calc(14px + env(safe-area-inset-bottom,0));background:var(--white);border-top:1px solid var(--line);box-shadow:0 -6px 16px rgba(11,79,74,.08)}
-.sum-title{margin:0 0 4px;color:var(--green-dark);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
-.breakdown{max-height:96px;overflow-y:auto;margin-bottom:10px;color:var(--ink);font-size:.88rem}
-.breakdown div{display:flex;justify-content:space-between;gap:12px;padding:1px 0}
-.breakdown div span:first-child{min-width:0;overflow-wrap:anywhere}
-.breakdown div span:last-child{flex:none;color:var(--muted);font-weight:600}
-.breakdown .sum-main{font-weight:800}
-.foot-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;border-top:1px solid var(--line)}
-.total span{display:block;color:var(--muted);font-size:.8rem;line-height:1.1}
-.total strong{color:var(--green-dark);font-size:1.45rem;white-space:nowrap}
-.btn-add{flex:1;max-width:240px;min-height:50px;font-size:1.02rem}
-.hint{min-height:1em;margin:8px 0 0;color:var(--accent-dark);font-size:.85rem;font-weight:700}
-.hint:empty{margin:0;min-height:0}
-
-/* ========== 8. RESPONSIVE ========== */
-@media(max-width:560px){
-  .wrap{width:calc(100% - 24px)}
-  .menu-row{padding:12px}
-  .modal{width:calc(100% - 16px);max-height:calc(100dvh - 16px);border-radius:18px}
-  .modal-inner{max-height:calc(100dvh - 16px)}
-  .modal-head,.modal-foot{padding-left:14px;padding-right:14px}
-  .modal-body{padding:14px 14px 6px}
-  .opt-grid.cols-3,.opt-grid.cols-types{gap:6px}
-  .option{padding:8px;font-size:.9rem}
-  .boba-card{font-size:.9rem}
-  .opt-grid.cols-3 .option.selected{padding-right:24px}
-  .opt-grid.cols-3 .option.selected::after{right:5px;width:16px;height:16px}
-  .opt-grid.cols-types .boba-card.selected{padding-right:8px}
-  .opt-grid.cols-types .boba-card.selected::after{right:5px;width:16px;height:16px}
-  .btn-add{max-width:none}
+/* ---------- Menu ---------- */
+function renderMenu(){
+  $("#catNav").innerHTML=MENU_DATA.map(c=>`<a href="#${c.id}">${esc(c.name)}</a>`).join("");
+  $("#menuRoot").innerHTML=MENU_DATA.map(c=>`<section class="cat" id="${c.id}"><h3>${esc(c.name)}</h3>`+
+    (c.note?`<p class="note">${esc(c.note)}</p>`:"")+
+    `<ul class="menu-list">`+c.items.map((it,i)=>`<li class="menu-row"><div><b>${esc(it.n)}</b>`+
+    (it.d?`<small>${esc(it.d)}</small>`:"")+(c.custom?`<span class="tag">Customisable</span>`:"")+
+    `</div><div class="row-end"><span class="price">${fmt(it.p)}</span>`+
+    `<button class="btn btn-accent btn-sm" type="button" data-add="${c.id}:${i}">Add to Cart</button></div></li>`).join("")+
+    `</ul></section>`).join("");
 }
-@media(max-width:340px){
-  .opt-grid.cols-3,.opt-grid.cols-2,.opt-grid.cols-types{grid-template-columns:repeat(2,1fr)}
+$("#menuRoot").addEventListener("click",e=>{
+  const b=e.target.closest("[data-add]");if(!b)return;
+  const [cid,i]=b.dataset.add.split(":"),cat=MENU_DATA.find(c=>c.id===cid),it=cat&&cat.items[Number(i)];
+  if(!it)return;
+  cat.custom?openModal(it):addToCart(it.n,[],it.p);
+});
+/* highlight active category while scrolling */
+function watchCats(){
+  if(!("IntersectionObserver" in window))return;
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(en.isIntersecting)$$("#catNav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id));
+  }),{rootMargin:"-30% 0px -60% 0px"});
+  $$(".cat").forEach(s=>io.observe(s));
 }
-@media(min-width:561px){
-  .opt-grid.cols-3{grid-template-columns:repeat(4,1fr)}
+
+/* ---------- Customise popup ---------- */
+const modal=$("#customModal");
+
+function openModal(it){
+  current=it;
+  $("#cmHint").textContent="";
+  $("#cmBody").innerHTML=
+   /* 1. product */
+   `<div class="cm-product"><h3>${esc(it.n)}</h3><p>Base price: ${fmt(it.p)}</p></div>`+
+   /* 2. boba type */
+   `<fieldset class="opt"><legend>Boba type</legend>`+
+   `<p class="help">Optional — choose one (no extra charge)</p>`+
+   `<div class="opt-grid cols-types">`+
+   BOBA_TYPES.map(b=>`<label class="option boba-card"><input type="radio" name="boba" value="${b.id}">`+
+     `<span>${esc(b.name)}</span>${b.note?`<small>${esc(b.note)}</small>`:""}</label>`).join("")+
+   `</div><button type="button" class="clear-choice" id="cmClearBoba">Clear boba choice</button></fieldset>`+
+   /* 3. flavour lists (each only shown for its own boba type) */
+   BOBA_TYPES.filter(b=>b.options.length).map(b=>
+     `<fieldset class="opt" id="cmOpt-${b.id}" hidden><legend>${esc(b.label)}</legend>`+
+     `<p class="help">Choose one (no extra charge)</p>`+
+     `<div class="opt-grid ${b.cols||"cols-3"}">`+
+     b.options.map(f=>`<label class="option"><input type="radio" name="sub-${b.id}" value="${esc(f)}">${esc(f)}</label>`).join("")+
+     `</div></fieldset>`).join("")+
+   /* 4. toppings */
+   `<fieldset class="opt"><legend>Toppings</legend>`+
+   `<p class="help">Choose up to ${CONFIG.maxToppings} toppings · ${fmt(CONFIG.toppingPrice)} each <span id="cmTopCount"></span></p>`+
+   `<div class="opt-grid cols-2">`+
+   TOPPINGS.map(t=>`<label class="option topping"><input type="checkbox" name="top" value="${esc(t)}"><span>${esc(t)}</span><em>+${fmt(CONFIG.toppingPrice)}</em></label>`).join("")+
+   `</div></fieldset>`+
+   /* 5. extras */
+   (EXTRAS.length?`<fieldset class="opt"><legend>Extras</legend><p class="help">Optional</p><div class="opt-grid cols-2">`+
+   EXTRAS.map((x,i)=>`<label class="option topping"><input type="checkbox" name="extra" value="${i}"><span>${esc(x.name)}</span><em>+${fmt(x.price)}</em></label>`).join("")+
+   `</div></fieldset>`:"");
+  $("#cmBody").scrollTop=0;
+  calc();
+  document.body.classList.add("no-scroll");
+  modal.showModal?modal.showModal():modal.setAttribute("open","");
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+function closeModal(){
+  modal.close?modal.close():modal.removeAttribute("open");
+  document.body.classList.remove("no-scroll");
+}
+
+/* Reads the form, updates the UI and summary, returns what to add to the cart. */
+function calc(){
+  const f=$("#cmBody");
+  const bobaEl=f.querySelector("[name=boba]:checked");
+  const boba=bobaEl?BOBA_TYPES.find(b=>b.id===bobaEl.value):null;
+
+  /* each flavour list only exists for its own boba type */
+  BOBA_TYPES.filter(b=>b.options.length).forEach(b=>{
+    const fs=f.querySelector("#cmOpt-"+b.id),show=!!(boba&&boba.id===b.id);
+    fs.hidden=!show;
+    if(!show)fs.querySelectorAll("input").forEach(x=>x.checked=false);
+  });
+  const hasSub=!!(boba&&boba.options.length);
+  const subEl=hasSub?f.querySelector(`[name="sub-${boba.id}"]:checked`):null,sub=subEl?subEl.value:"";
+
+  /* toppings: lock the rest once the maximum is reached */
+  const tops=[...f.querySelectorAll("[name=top]:checked")].map(x=>x.value);
+  f.querySelectorAll("[name=top]").forEach(x=>x.disabled=!x.checked&&tops.length>=CONFIG.maxToppings);
+  $("#cmTopCount").textContent=`(${tops.length}/${CONFIG.maxToppings} selected)`;
+
+  const extras=[...f.querySelectorAll("[name=extra]:checked")].map(x=>EXTRAS[Number(x.value)]).filter(Boolean);
+
+  /* selected / disabled looks */
+  f.querySelectorAll(".option").forEach(l=>{
+    const i=l.querySelector("input");
+    l.classList.toggle("selected",i.checked);
+    l.classList.toggle("disabled",i.disabled);
+  });
+
+  /* price: boba and flavour are free */
+  const topTotal=tops.length*CONFIG.toppingPrice,extraTotal=extras.reduce((s,x)=>s+x.price,0);
+  const price=current.p+topTotal+extraTotal;
+
+  /* cart / WhatsApp option lines */
+  const bobaName=boba?boba.name+(boba.note?" "+boba.note:""):"";
+  const opts=[];
+  if(boba)opts.push(bobaName+(sub?" – "+sub:""));
+  if(tops.length)opts.push("Toppings: "+tops.join(", "));
+  extras.forEach(x=>opts.push(x.name));
+
+  /* bottom summary */
+  let h=`<div class="sum-main"><span>${esc(current.n)}</span><span>${fmt(current.p)}</span></div>`;
+  if(boba)h+=`<div><span>${esc(bobaName)}</span><span>No charge</span></div>`;
+  if(sub)h+=`<div><span>${esc(sub)}</span><span>No charge</span></div>`;
+  if(tops.length)h+=`<div><span>Toppings: ${tops.map(esc).join(", ")}</span><span>${fmt(topTotal)}</span></div>`;
+  extras.forEach(x=>{h+=`<div><span>${esc(x.name)}</span><span>${fmt(x.price)}</span></div>`});
+  $("#cmBreakdown").innerHTML=h;
+  $("#cmTotal").textContent=fmt(price);
+
+  return{opts,price,boba,needSub:hasSub&&!sub};
+}
+
+$("#cmBody").addEventListener("change",()=>{$("#cmHint").textContent="";calc()});
+$("#cmBody").addEventListener("click",e=>{
+  if(e.target.closest("#cmClearBoba")){
+    $$("#cmBody [name=boba]").forEach(x=>x.checked=false);
+    calc();
+  }
+});
+$("#cmClose").onclick=closeModal;
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
+modal.addEventListener("close",()=>document.body.classList.remove("no-scroll"));
+$("#cmAdd").onclick=()=>{
+  const r=calc();
+  if(r.needSub){
+    $("#cmHint").textContent="Please choose a "+r.boba.label.toLowerCase()+".";
+    const box=$("#cmOpt-"+r.boba.id);if(box)box.scrollIntoView({block:"nearest",behavior:"smooth"});
+    return;
+  }
+  addToCart(current.n,r.opts,r.price);
+  closeModal();
+};
+
+/* ---------- Cart ---------- */
+function addToCart(name,opts,price){
+  const key=name+"|"+opts.join("|");
+  const f=cart.find(c=>c.key===key);
+  f?f.qty++:cart.push({key,name,opts,price,qty:1});
+  save();renderCart();
+  const fab=$("#cart-toggle-btn");fab.animate&&fab.animate([{transform:"scale(1)"},{transform:"scale(1.12)"},{transform:"scale(1)"}],{duration:250});
+}
+const subtotal=()=>cart.reduce((s,c)=>s+c.price*c.qty,0);
+const count=()=>cart.reduce((s,c)=>s+c.qty,0);
+function renderCart(){
+  const n=count(),empty=!n;
+  $("#cart-count").textContent=n;
+  $("#cart-toggle-btn").setAttribute("aria-label",`Open cart, ${n} item${n===1?"":"s"}`);
+  $("#cart-empty").hidden=!empty;$("#cart-footer").hidden=empty;
+  $("#cart-items").innerHTML=cart.map((c,i)=>`<div class="cart-item"><div class="ci-top"><span>${esc(c.name)}</span><span>${fmt(c.price*c.qty)}</span></div>`+
+    (c.opts.length?`<div class="ci-opts">${c.opts.map(o=>`<div>${esc(o)}</div>`).join("")}</div>`:"")+
+    `<div class="ci-act"><div class="qty"><button type="button" data-q="${i}:-1" aria-label="Fewer">−</button><span>${c.qty}</span><button type="button" data-q="${i}:1" aria-label="More">+</button></div>`+
+    `<button type="button" class="link-btn" data-rm="${i}">Remove</button></div></div>`).join("");
+  const sub=subtotal(),fee=orderType==="delivery"?CONFIG.deliveryFee:0;
+  $("#cart-total-rows").innerHTML=`<div class="trow"><span>Subtotal</span><span>${fmt(sub)}</span></div>`+
+    (orderType==="delivery"?`<div class="trow"><span>Delivery fee</span><span>${fmt(fee)}</span></div>`:"")+
+    `<div class="trow grand"><span>Total</span><span>${fmt(sub+fee)}</span></div>`;
+  validate();
+}
+$("#cart-items").addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]"),r=e.target.closest("[data-rm]");
+  if(q){
+    const[i,d]=q.dataset.q.split(":").map(Number);
+    if(!cart[i])return;
+    cart[i].qty+=d;if(cart[i].qty<1)cart.splice(i,1);
+  }else if(r){cart.splice(Number(r.dataset.rm),1)}
+  else return;
+  save();renderCart();
+});
+$("#clear-cart-btn").onclick=()=>{if(confirm("Clear your cart?")){cart=[];save();renderCart()}};
+
+/* drawer open/close */
+const drawer=$("#cart-drawer"),overlay=$("#cart-overlay");
+function openCart(){
+  clearTimeout(closeTimer);
+  drawer.hidden=overlay.hidden=false;document.body.classList.add("no-scroll");
+  requestAnimationFrame(()=>{drawer.classList.add("open");overlay.classList.add("open")});
+  $("#cart-close-btn").focus();
+}
+function closeCart(){
+  drawer.classList.remove("open");overlay.classList.remove("open");document.body.classList.remove("no-scroll");
+  clearTimeout(closeTimer);
+  closeTimer=setTimeout(()=>{drawer.hidden=overlay.hidden=true},250);
+  $("#cart-toggle-btn").focus();
+}
+$("#cart-toggle-btn").onclick=openCart;
+$("#cart-close-btn").onclick=closeCart;
+overlay.onclick=closeCart;
+$("#cart-browse-btn").onclick=closeCart;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!drawer.hidden)closeCart()});
+
+/* ---------- Order details + WhatsApp ---------- */
+$$(".order-type-btn").forEach(b=>b.onclick=()=>{
+  orderType=b.dataset.type;
+  $$(".order-type-btn").forEach(x=>x.setAttribute("aria-checked",String(x===b)));
+  $("#cart-customer-fields").hidden=false;
+  $("[data-delivery-only]").hidden=orderType!=="delivery";
+  $("#order-type-hint").textContent=orderType==="delivery"?`Delivery fee: ${fmt(CONFIG.deliveryFee)}`:"Pick up at the shop. No delivery fee.";
+  renderCart();
+});
+const val=id=>$("#"+id).value.trim();
+function missing(){
+  const m=[];
+  if(!cart.length)m.push("add a drink");
+  if(!orderType)return m.concat("choose Delivery or Pickup");
+  if(!val("customer-name"))m.push("your name");
+  if(val("customer-contact").replace(/\D/g,"").length<9)m.push("a valid phone number");
+  if(orderType==="delivery"){if(!val("customer-area"))m.push("delivery area");if(!val("customer-address"))m.push("delivery address")}
+  return m;
+}
+function validate(){
+  const m=missing(),btn=$("#whatsapp-order-btn");
+  btn.disabled=m.length>0;
+  $("#whatsapp-hint").textContent=m.length?"Still needed: "+m.join(", "):"Ready. This opens WhatsApp with your order.";
+}
+["customer-name","customer-contact","customer-area","customer-address","customer-note"].forEach(id=>$("#"+id).addEventListener("input",validate));
+$("#whatsapp-order-btn").onclick=()=>{
+  if(missing().length)return validate();
+  const sub=subtotal(),fee=orderType==="delivery"?CONFIG.deliveryFee:0;
+  const L=[`*New order: ${CONFIG.name}*`,`Type: ${orderType==="delivery"?"Delivery":"Pickup"}`,`Name: ${val("customer-name")}`,`Phone: ${val("customer-contact")}`];
+  if(orderType==="delivery")L.push(`Area: ${val("customer-area")}`,`Address: ${val("customer-address")}`);
+  L.push("","*Items*");
+  cart.forEach(c=>{
+    L.push(`${c.qty} x ${c.name} - ${fmt(c.price*c.qty)}`);
+    c.opts.forEach(o=>L.push(`   • ${o}`));
+  });
+  L.push("",`Subtotal: ${fmt(sub)}`);
+  if(fee)L.push(`Delivery fee: ${fmt(fee)}`);
+  L.push(`*Total: ${fmt(sub+fee)}*`);
+  if(val("customer-note"))L.push("",`Note: ${val("customer-note")}`);
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(L.join("\n"))}`,"_blank");
+};
+
+/* ---------- Start ---------- */
+renderMenu();watchCats();renderCart();
